@@ -4,18 +4,43 @@ import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.rcParams.update({'font.size': 12,'font.family':'serif'})
 import ipywidgets as widgets
+from ipywidgets import Layout, Output
 from IPython.display import display
-
+import copy
 
 
 class measure_stepped_sine():
-    def __init__(self,rec):
+    def __init__(self,settings):
         
-        words = ['Measure', 'Undo last', 'Save']
-        self.buttons = [widgets.Button(description=w) for w in words]
+        self.settings = settings
+        
+        # the 'out' construction is to refresh the text output at each update 
+        # to stop text building up in the widget display
+        self.out = Output()
+        
+        words = ['Measure', 'Delete Last Measurement', 'Save Data', 'Save Fig']
+        self.buttons = [widgets.Button(description=w,layout=Layout(width='25%')) for w in words]
+        self.buttons[0].button_style = 'success'
+        self.buttons[0].style.font_weight = 'bold'
+        self.buttons[1].button_style = 'warning'
+        self.buttons[1].style.font_weight = 'bold'
+        self.buttons[2].button_style = 'primary'
+        self.buttons[2].style.font_weight = 'bold'
+        self.buttons[3].button_style = 'primary'
+        self.buttons[3].style.font_weight = 'bold'
         display(widgets.HBox(self.buttons))
         
-        self.rec = rec
+        with self.out:
+            if settings.device_driver is 'soundcard':
+                self.rec = dvma.Recorder(settings)
+                self.rec.init_stream(settings)
+            elif settings.device_driver is 'nidaq':
+                self.rec = dvma.Recorder_NI(settings)
+                self.rec.init_stream(settings)
+            else:
+                print('unrecognised driver')
+            
+            
         self.f = np.array([])
         self.G = np.array([])
         self.fig,self.ax = plt.subplots(1,1,figsize=(9,5),dpi=100)
@@ -30,6 +55,9 @@ class measure_stepped_sine():
         self.buttons[0].on_click(self.measure)
         self.buttons[1].on_click(self.undo)
         self.buttons[2].on_click(self.save)
+        self.buttons[3].on_click(self.savefig)
+        
+        display(self.out)
         
     def measure(self,b):
         time_data = dvma.stream_snapshot(self.rec)
@@ -44,17 +72,33 @@ class measure_stepped_sine():
         
         
     def undo(self,b):
+        # the 'out' construction is to refresh the text output at each update 
+        # to stop text building up in the widget display
+        self.out.clear_output(wait=False)
         if len(self.f) > 0:
             self.f = np.delete(self.f,-1)
             self.G = np.delete(self.G,-1)
             self.update_line()
         else:
-            print('nothing to undo!')
+            with self.out:
+                print('nothing to undo!')
             
     def save(self,b):
-        tf_data = dvma.TfData(self.f,self.G,None,self.rec.settings,test_name='stepped_sine')
-        d = dvma.DataSet(tf_data)
-        d.save_data()
+        self.out.clear_output(wait=False)
+        with self.out:
+            i_sort = np.argsort(self.f)
+            ff = self.f[i_sort]
+            GG = self.G[i_sort]
+            tf_data = dvma.TfData(ff,GG,None,self.rec.settings,test_name='stepped_sine')
+            d = dvma.DataSet(tf_data)
+            d.save_data()
+            
+    def savefig(self,b):
+        # the 'out' construction is to refresh the text output at each update 
+        # to stop text building up in the widget display
+        self.out.clear_output(wait=False)
+        with self.out:
+            dvma.save_fig(self.fig)
         
     def update_line(self):
         i_sort = np.argsort(self.f)
@@ -63,6 +107,18 @@ class measure_stepped_sine():
         self.line.set_ydata(self.GdB[i_sort])
         if len(self.GdB)>0:
             self.line.axes.set_ylim(bottom=min(self.GdB)-3,top=max(self.GdB)+3)
+
+
+
+def coupled_TF(Y1,Y2):
+    d = dvma.DataSet()
+    Ycoupled = copy.copy(Y1)
+    Ycoupled.tf_data_list[0].tf_data = 1/(1/Y1.tf_data_list[0].tf_data+1/Y2.tf_data_list[0].tf_data)    
+    d.add_to_dataset(Y1.tf_data_list)
+    d.add_to_dataset(Y2.tf_data_list)
+    d.add_to_dataset(Ycoupled.tf_data_list)
+    
+    return d
 
 
 
