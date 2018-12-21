@@ -30,15 +30,9 @@ class measure_stepped_sine():
         self.buttons[3].style.font_weight = 'bold'
         display(widgets.HBox(self.buttons))
         
-        with self.out:
-            if settings.device_driver is 'soundcard':
-                self.rec = dvma.Recorder(settings)
-                self.rec.init_stream(settings)
-            elif settings.device_driver is 'nidaq':
-                self.rec = dvma.Recorder_NI(settings)
-                self.rec.init_stream(settings)
-            else:
-                print('unrecognised driver')
+        dvma.start_stream(settings)
+        self.rec = dvma.streams.REC
+        
             
             
         self.f = np.array([])
