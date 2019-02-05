@@ -30,8 +30,15 @@ class measure_stepped_sine():
         self.buttons[3].style.font_weight = 'bold'
         display(widgets.HBox(self.buttons))
         
-        dvma.start_stream(settings)
-        self.rec = dvma.streams.REC
+        try:
+            dvma.start_stream(settings)
+            self.rec = dvma.streams.REC
+        except:
+            print('Data stream not initialised.')
+            print('Possible reasons: pyaudio or PyDAQmx not installed, or acquisition hardware not connected.')
+            print('Please note that it won''t be possible to log data.')
+        
+        
         
             
             
@@ -55,7 +62,7 @@ class measure_stepped_sine():
         
     def measure(self,b):
         time_data = dvma.stream_snapshot(self.rec)
-        freq_data = dvma.calculate_fft(time_data)
+        freq_data = dvma.calculate_fft(time_data,window='hanning')
         
         index = np.argmax(np.abs(freq_data.freq_data[:,0]))
         
