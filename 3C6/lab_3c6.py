@@ -113,11 +113,22 @@ class measure_stepped_sine():
 
 def coupled_TF(Y1,Y2):
     d = dvma.DataSet()
-    Ycoupled = copy.copy(Y1)
-    Ycoupled.tf_data_list[0].tf_data = 1/(1/Y1.tf_data_list[0].tf_data+1/Y2.tf_data_list[0].tf_data)    
-    d.add_to_dataset(Y1.tf_data_list)
-    d.add_to_dataset(Y2.tf_data_list)
-    d.add_to_dataset(Ycoupled.tf_data_list)
+    
+    Y1.tf_data_list[0].tf_coherence=None
+    Y2.tf_data_list[0].tf_coherence=None
+    
+    Y1d = Y1.tf_data_list[0].tf_data
+    Y2d = Y2.tf_data_list[0].tf_data
+    Yc = 1/(1/Y1d + 1/Y2d)
+    f = Y1.tf_data_list[0].freq_axis
+    settings = Y1.tf_data_list[0].settings
+    
+    tf_data_coupled = dvma.TfData(f,Yc,None,settings,id_link=[Y1.tf_data_list[0].id_link,Y2.tf_data_list[0].id_link],test_name = 'predicted')
+    
+    
+    d.add_to_dataset(Y1.tf_data_list[0])
+    d.add_to_dataset(Y2.tf_data_list[0])
+    d.add_to_dataset(tf_data_coupled)
     
     return d
 
