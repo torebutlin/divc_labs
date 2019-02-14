@@ -6,7 +6,6 @@ matplotlib.rcParams.update({'font.size': 12,'font.family':'serif'})
 import ipywidgets as widgets
 from ipywidgets import Layout, Output
 from IPython.display import display
-import copy
 
 
 class measure_stepped_sine():
@@ -99,7 +98,7 @@ class measure_stepped_sine():
         # to stop text building up in the widget display
         self.out.clear_output(wait=False)
         with self.out:
-            dvma.save_fig(self.fig)
+            dvma.save_fig(self.fig,figsize=(9,5))
         
     def update_line(self):
         i_sort = np.argsort(self.f)
