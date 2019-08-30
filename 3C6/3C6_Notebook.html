@@ -12192,7 +12192,16 @@ Each type of data is arranged in 'sets', e.g. each measurement will add another 
 <p>Before looking at the transfer function, it is always prudent to examine the time signals of both input and output, and you should do this. If you zoom in on the time signals, you will see the individual samples. Examine the hammer pulse in detail: find out how long it is, and comment in your write-up on what governs this length, and what influence it might have on the transfer function. Examine the signals, both input and output, before the hammer strike. They are probably slightly non-zero: are there different reasons for the input and the output?</p>
 <p>Next, calculate frequency spectra with the FFT option (set window to None), and look at the spectra of input and output signals. What governs the form of the input spectrum? What force spectrum would you expect from an ideal impulse? Why does the spectrum tail off at high frequencies? Why does it tail off at low frequencies? Why should no window function be used for this test?</p>
 <p>Obtain a transfer function to compare with those obtained by the earlier methods. You should find that the result is satisfactory, with sharp clear peaks and troughs, without any need for averaging. If it is not, try again. You may have to develop your hammering technique a little to obtain best results. If you find it hard to get a clean transfer function then try moving the magnet, and checking that the brass coupling rod between the beams is well seated. It takes very little time to repeat the impulse response procedure. <strong>You will find the write-up much easier with good data.</strong></p>
-<p>Try measuring an averaged transfer function using the hammer: this time you will do this by averaging across each measurement, rather than dividing a single long measurement into frames. You should find that just two or three hammer taps are sufficient to produce excellent coherence in the frequency range up to 500 Hz.</p>
+<p>Try measuring an averaged transfer function using the hammer: this time you will do this by averaging across each measurement, rather than dividing a single long measurement into frames.</p>
+<ol>
+<li>Press 'Log Data'</li>
+</ol>
+<ul>
+<li>Tap the structure with the hammer (a message will appear above the logger to confirm when it was detected)</li>
+<li>Repeat (press 'Log Data' and tap the structure) to obtain several measurements</li>
+<li>Press 'Calc TF average' to obtain the transfer function averaged across these measurements</li>
+</ul>
+<p>You should find that just two or three hammer taps are sufficient to produce excellent coherence in the frequency range up to 500 Hz.</p>
 <p><strong>Remember to save your data (after calculating the FFT and transfer function) and figures to the teaching system</strong></p>
 
 </div>
