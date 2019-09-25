@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>4C7_Notebook</title>
+<title>M1_Notebook</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13116,25 +13116,9 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><hr style="height:2px;border:none" /></p>
-<p><h1><center> Engineering Tripos Part IIA Module Experiment: 4C7 </center></h1></p>
-<p><h1><center> Nonlinear Vibration, South Wing Mechanics Laboratory </center></h1></p>
-<hr style="height:2px;border:none" />
-
-<h2 id="Objectives">Objectives<a class="anchor-link" href="#Objectives">&#182;</a></h2><ul>
-<li><p>To explore nonlinear effects due to high forcing amplitudes about resonance in mechanical structures.</p>
-</li>
-<li><p>To construct a model to explain the nonlinear behaviour of the mechanism provided and use this model to simulate the behaviour of the system under specified conditions.</p>
-</li>
-<li><p>Demonstrate use of the sonogram (time-varying spectrum) as an analytical tool to distinguish both frequency and temporal characteristics of a transient record.</p>
-</li>
-</ul>
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>In many instances a linear model is sufficient to approximate the behaviour of physical systems. However, in particular instances the linear model breaks down and a model with further complexity must be used. We will use the principles of nonlinear vibration theory described in the lectures to model the observed behaviour of a clamped-clamped beam subjected to high driving forces about the primary resonance.</p>
-<p>This experiment is in two parts:</p>
-<p><strong>Part A:</strong> Measurement of the vibratory response of a clamped-clamped beam to variable drive forces.</p>
-<p><strong>Part B:</strong> Modelling and simulation of the nonlinear system in MATLAB.</p>
-<h2 id="Report">Report<a class="anchor-link" href="#Report">&#182;</a></h2><p>Your report should describe the key results of the experiment, with plots when appropriate. A number of specific questions need to be addressed. The completed report should be securely tied together if it has loose pages, and attached to a completed coursework feedback coversheet. It should then be handed in via the white post-box outside room BE3-39 on the third floor of the Baker building or delivered to Hilde Fernandez in the Div C office before the final lecture of Michaelmas term.</p>
-<h2 id="Apparatus">Apparatus<a class="anchor-link" href="#Apparatus">&#182;</a></h2><p>The apparatus comprises of a thin aluminium beam clamped at two ends to prevent axial displacement. Such a system exhibits a spring hardening effect (comment as to why this is the case in your report) with growing displacement amplitude for sufficiently large force inputs. A shaker is used to apply driving forces to the structure. The shaker derives its input from a PC-generated sine-wave (filtered by a low-pass filter) that can be varied in both frequency and amplitude. A National Instruments Data Acquisition Card (NI-DAQ) converts the specified signal to an analogue output, which is low-pass filtered, passed through channel 1 of an oscilloscope, and power-amplified by a current amplifier which provides the input to the shaker. An accelerometer is placed at the centre of the beam to measure the response of the structure to the applied drive input. The accelerometer output is coupled to an amplifier whose output is captured by the NI-DAQ using a Python package that this notebook uses and is described below. The PC will be used to drive the shaker and capture data from the accelerometer. Measurement data will be saved to your teaching system drive where it will be analysed and used for comparison with simulation. If you choose, you can analyse the data at any PC connected to the teaching system.</p>
+<hr>
+<h1><center> Engineering Tripos Part IB, Experiment M1 </center></h1> 
+<h1><center> Experimental Engineering, Materials Teaching Laboratory </center></h1><hr>
 
 </div>
 </div>
@@ -13142,20 +13126,21 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<hr style="height:2px;border:none" />
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>In this experiment you will measure natural frequencies of vibrating beams after impulsive loading, and use these to calculate material properties. The frequency of free vibration of beams depends on the density (the inertia) and the stiffness: low density and high stiffness mean higher frequencies. The stiffness of beams in turn depends on the geometry (the length and cross-sectional shape) and the material (the Young’s modulus). The decay rate of the vibrations also provides information on damping i.e. energy loss during vibration. Two materials will be considered: aluminium alloy and the polymer PMMA.</p>
 
-<h2 id="Part-A:-Experimental-procedure">Part A: Experimental procedure<a class="anchor-link" href="#Part-A:-Experimental-procedure">&#182;</a></h2><h3 id="A1:-Linear-response">A1: Linear response<a class="anchor-link" href="#A1:-Linear-response">&#182;</a></h3><hr style="height:2px;border:none" />
-
-<p>Start by importing the necessary modules (pydvma is a python package written for data acquisition at CUED).</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Method">Method<a class="anchor-link" href="#Method">&#182;</a></h2><p>Start by importing the necessary modules (pydvma is a python package written for data acquisition at CUED).</p>
 <p>Remember:</p>
 <ul>
 <li>to actually run a cell of code, click inside the cell then press 'shift+enter'</li>
 <li>the cell is running while [ * ] is displayed</li>
 <li>the cell has finished running when it changes to a number</li>
-<li>under the 'view' menu above you can toggle off the header and toolbar, which is useful to give a bit more screen space</li>
-<li>you can control the cell output view by clicking on the left beside the cell: single click to expand/compress, double-click to hide.</li>
 </ul>
-<hr>
 
 </div>
 </div>
@@ -13189,6 +13174,7 @@ div#notebook {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pydvma</span> <span class="k">as</span> <span class="nn">dvma</span>
+<span class="kn">import</span> <span class="nn">m1</span>
 </pre></div>
 
     </div>
@@ -13212,13 +13198,51 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The first stage of the experiment is to measure the linear response due to a sweep input in force. This involves varying the force supplied by the shaker in frequency while fixing the amplitude at a sufficiently low forcing level to measure the linear response while sweeping upwards and downwards in frequency. Now open the logger window by running the next cell (shift+enter), with the following suggested settings:</p>
+<p>Choose your acquisition settings. The setting we want for the m1 lab are:</p>
 <ul>
-<li>channels=2 (number of channels to record)</li>
-<li>fs=1500 (sampling rate in Hz)</li>
-<li>pretrig_samples=100 (starts logging 100 seconds before the signal starts being generated)</li>
-<li>stored_time=10 (time in seconds to store data)</li>
-<li>device_driver = 'nidaq'</li>
+<li>channels=1 (number of channels to record)</li>
+<li>fs=8000 (sampling rate in Hz)</li>
+<li>stored_time=2 (time in seconds to record data for)</li>
+<li>viewed_time=2 (time in seconds to display on oscilloscope)</li>
+<li>device_index = 1 (Windows default input)</li>
+</ul>
+<p>We want to use the default soundcard for the microphone, we only need one channel, and a lower sampling rate works well for this lab:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">settings</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">MySettings</span><span class="p">(</span><span class="n">channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                           <span class="n">fs</span><span class="o">=</span><span class="mi">8000</span><span class="p">,</span>
+                           <span class="n">stored_time</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                           <span class="n">viewed_time</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                           <span class="n">device_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now open an oscilloscope using your settings. This shows three plots:</p>
+<ul>
+<li>the top one is like a normal oscilloscope showing the signal (toggle on/off with 'T');</li>
+<li>the middle one shows the frequency spectrum of the signal (toggle on/off with 'F');</li>
+<li>the bottom one shows the signal amplitudes (toggle on/off with 'L') - you probably want to turn this one off;</li>
+</ul>
+<p>The oscilloscope window will always be on top: to turn that off make sure the oscilloscope window is selected then press 'A'.</p>
+<p>Try the following:</p>
+<ul>
+<li><strong>Tap a tuning fork</strong> on your knee or the table, hold it over the microphone, then watch the oscilloscope window. You should see a signal in the time-domain plot (top), and a sharp peak in the frequency-domain plot (middle) at the tuning fork's natural frequency.</li>
+<li><strong>Whistle at the microphone</strong> and change pitch: you should see a peak which moves with the changing frequency.</li>
+<li><strong>Place the beam on the rubber band supports</strong> (so it's suspended over the microphone) and tap the beam while watching oscilloscope window. You will see the signal pass through the time-domain view, and clear peaks in the frequency domain view.</li>
 </ul>
 
 </div>
@@ -13229,13 +13253,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># acquisition setup</span>
-<span class="n">settings</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">MySettings</span><span class="p">(</span><span class="n">channels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                           <span class="n">fs</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span>
-                           <span class="n">stored_time</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                           <span class="n">pretrig_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                           <span class="n">device_driver</span> <span class="o">=</span> <span class="s1">&#39;nidaq&#39;</span><span class="p">)</span>
-<span class="n">logger1</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">osc</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">Oscilloscope</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13246,97 +13264,148 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Familiarise yourself with the logger window:</p>
+<p>Press the <strong>space bar</strong> to record data from the past 'stored_time' seconds.</p>
 <ul>
-<li>the centre panel contains the figure - note the zooming / panning tools under the figure.</li>
-<li>the left panel controls what is plotted (you can select which plot to show using the top dropdown)</li>
-<li>the right panel provides data analysis tools (you can select which tools are displayed using the top dropdown)</li>
-<li>the centre top panel is for basic data management (logging / loading / deleting)</li>
-<li>the centre bottom panel is to save data or figures.</li>
+<li>The first time you press it you will be prompted for where to save your data.</li>
+<li>The default location should be the folder 'lab_M1' in your filespace on the teaching system.</li>
+<li>Subsequent times you press it will auto-save to the same folder with a number added to the filename.</li>
+<li>Press 's' if you want to save data to a new filename or location. Pressing space after that will auto-save with the new name.</li>
 </ul>
-<p>Although the logger is set up to record data, we need to choose an output signal to generate. Use the ''Tool Selection'' dropdown at the top right to choose ''Generate Output''. Set the following options:</p>
+<p>If needed then you can restart this notebook using the 'kernel' menu and select 'restart kernel and clear output'. You can then run the import section above and start again from the top, or jump to the dvma.read_data() section below.</p>
+<p><strong>Note that pressing 'space' captures the past N seconds of data: so you need to tap the beam, wait a second or so, then press space!</strong></p>
+<p>Once you have a good example dataset you can read your data files and plot them.</p>
 
-<pre><code>Test name:    'up_0.2' (for example, noting that this will appear in the legend)
-Type:         'sweep'
-Amplitude:    0.2
-f1 (Hz):      40
-f2 (Hz):      60
-Duration (s): 9 (so that it finishes one second before logging finishes)
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<span class="n">dataset</span>
+</pre></div>
 
-</code></pre>
-<p>Press ''Preview Output'' to check it's what you expect to see.</p>
-<p>Press either ''Log with Output'' or simply ''Log Data'': the generated signal will be sent to the NI-DAQ card to output to the amplifier and the data from the input channels will be logged simultaneously.</p>
-<p>You will then see the input and output signals displayed, including data for 1 s after the sweep excitation finished. A precaution: check that the data logging program has recorded the input signal from the accelerometer for the entire duration of the sweep.</p>
-<hr>
-<p><strong>Please note three important things:</strong></p>
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">time_plot</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">plot_time_data</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Use the box-zoom tool</strong> to zoom in on the section of time where you can see an impact and its decay down to (nearly) zero. We will use this section of data to calculate its spectrum and find the resonant peaks of the beam.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dataset</span><span class="o">.</span><span class="n">calculate_fft_set</span><span class="p">(</span><span class="n">time_range</span><span class="o">=</span><span class="n">time_plot</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">freq_plot</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">plot_freq_data</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Zoom in on the required resonant peaks</strong> in the frequency domain plot, then use 'find_peaks' from the m1 labs module to record their exact values.</p>
+<p>Note that the peak finder is using the zoomed range of your 'freqplot'. It will only find peaks in this frequency range, and only those that are in view on the y-axis. So if you zoom in and chop off the noisy low-amplitude data then that can help isolate the most prominant peaks.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span><span class="p">,</span><span class="n">a</span> <span class="o">=</span> <span class="n">m1</span><span class="o">.</span><span class="n">find_peaks</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">freq_data_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">freq_range</span><span class="o">=</span><span class="n">freq_plot</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Next, we will be calculating the Young's Modulus of the beam.</p>
+<p>First of all, measure the length <strong>(L)</strong>, width <strong>(b)</strong>, thickness <strong>(d)</strong> and mass <strong>(M)</strong> of your beam in millimeters and grams, and enter their values below.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### enter measured values</span>
+<span class="n">L</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># mm</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># mm</span>
+<span class="n">d</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># mm</span>
+<span class="n">M</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># g</span>
+
+<span class="c1">### convert to m and kg (already completed) ###</span>
+<span class="n">L</span> <span class="o">/=</span> <span class="mf">1e3</span> <span class="c1"># convert to kg</span>
+<span class="n">b</span> <span class="o">/=</span> <span class="mf">1e3</span> <span class="c1"># convert to kg</span>
+<span class="n">d</span> <span class="o">/=</span> <span class="mf">1e3</span> <span class="c1"># convert to kg</span>
+<span class="n">M</span> <span class="o">/=</span> <span class="mf">1e3</span> <span class="c1"># convert to kg</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, use the code cell below to find the Young's Modulus of aluminium.</p>
+<p>You need to enter:</p>
 <ul>
-<li><p>The amplitude of the signal generated is a normalised value in the range 0 to 1. Similarly the input logged amplitude is normalised to the range -1 to +1. To get the actual voltages you multiply by 5: but you don't need to do that for the lab because the factor for the input and output are the same, and in any case you will calculate an overall scale factor for comparison with simulations later. Don't worry that the amplitude of the measured force signal is not what you entered: this is because the DAQ output first goes through a low pass filter.</p>
-</li>
-<li><p>If the logger becomes unresponsive, or output signal generation has stopped working, then you can restart this notebook by selecting 'Restart &amp; Clear Output' from the 'Kernel' menu of the notebook.</p>
-</li>
-<li><p>Within the logger, press ''Save Dataset'' and ''Save Figure'' to save your measurements and displayed figures to your directory for this experiment under your teaching system account. Choose a file name that describes this particular sweep: you will have saved several such files by the end of the experiment.</p>
-</li>
+<li>the natural frequency in Hz of one of the modes of the beam</li>
+<li>the mode number corresponding to that frequency (counting 1 as the first mode)</li>
 </ul>
-<hr>
-<p>To extract natural frequency and damping parameters for the system, run a fast Fourier transform (FFT) on the captured data by choosing ''Standard Tools'' from the tool selection dropdown (top right), then pressing ''Calculate FFT''. Then calculate the  transfer function by pressing ''Calculate TF'. The window and averaging options here should be set to ''None''.</p>
-<p>Zoom in on the frequency range of interest (40 - 60 Hz) by entering the axis limits in the left panel or by using the zoom controls under the plot. The ''Auto Y'' button (left panel) can be used to set the amplitude range on the y-axis appropriately.</p>
-<p><strong>To reset the figure axes at any stage, press 'Auto X' then 'Auto Y'.</strong></p>
-<p>Is the transfer function shaped as you would expect? Zoom in on a frequency range corresponding to amplitudes running from 5-10 dB on either side of the resonant frequency. In the left panel, use the plot type dropdown to choose a ''Nyquist'' plot. Then choose ''Mode Fitting'' from the tool selection dropdown (top right) which will fit a circle to the Nyquist plot. Extracted parameters such as the damping factor and resonant frequency will appear in the message area. (This method will be familiar to those also taking 4C6: the rest should just believe it!)</p>
-<p>Now repeat the above procedure but sweep downwards in frequency by setting f1 to 60 Hz and the f2 to 40 Hz.</p>
-<p><strong>Again save your data and figures in the same folder under a different filename. Do you notice any change in the measured parameters?</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-info">
-
-<b> Understanding the logger: </b><br/>
-
-When you press 'Save Dataset', the logger saves a &lt;DataSet&gt; object which has the following structure:
-
-<pre><code>
-    &lt;DataSet> class:
-          time_data_list: [&lt;TimeData>, &lt;TimeData>, &lt;TimeData>]
-          freq_data_list: [&lt;FreqData>, &lt;FreqData>, &lt;FreqData>]
-    cross_spec_data_list: []
-            tf_data_list: [&lt;TfData>, &lt;TfData>, &lt;TfData>]
-         modal_data_list: [&lt;ModalData>]
-          sono_data_list: []
-          meta_data_list: []
-
-</code></pre>
-
-
-Each type of data is arranged in 'sets', e.g. each measurement will add another &lt;TimeData&gt; set to time_data_list. This example has three sets of time, frequency and transfer function data types, and a &lt;ModalData&gt; set (which you will use later). Similarly each time you load data it will add the loaded sets to the appropriate data list.<br/><br/>
-
-<li> When you press 'Calc FFT' then a &lt;FreqData&gt; item is calculated for each &lt;TimeData&gt; set.</li>
-<li> When you press 'Calc TF' then a &lt;TfData&gt; item is calculated for each &lt;TimeData&gt; set.</li>
-<li> When you press 'Calc TF average' then a single &lt;TfData&gt; item is calculated averaging across all &lt;TimeData&gt; items, with an assumption that the time data sets all have the same settings.</li>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr style="height:2px;border:none" />
-
-<h3 id="A2:-Nonlinear-response">A2: Nonlinear response<a class="anchor-link" href="#A2:-Nonlinear-response">&#182;</a></h3><hr style="height:2px;border:none" />
-
-<p>Repeat the procedure outlined above performing upward and downward frequency sweeps for the forcing input for the same frequency range but for <strong>different values of forcing amplitude</strong>. The force amplitude is directly proportional to the amplitude of the sine wave generated by the computer. Use the ''Tool Selection'' dropdown at the top right to choose ''Generate Output''. Set the following options:</p>
-
-<pre><code>Test name:    'up_0.2' (choose something systematic and compact: this will appear in the legend!)
-Type:         'sweep'
-Amplitude:    ... (choose between 0 and 1)
-f min (Hz):   40
-f max (Hz):   60
-Duration (s): 9 (so that it finishes one second before logging finishes)
-
-</code></pre>
-<p><strong>NOTE: if you have closed the logger window, don't worry, you can re-open it using the following at any time:</strong></p>
+<p>Now run the cell below for each mode and make sure your values agree with databook values. If any value is very far from what you expect then this is probably because the frequency and mode number are not matched correctly. Also check that the calculated density is reasonable.</p>
+<p>E is calculated using the following equation:
+$$(2\pi f)^2\times\left(\frac{L}{\alpha_L}\right)^4\times\rho\times\frac{A}{I}$$</p>
+<p>Record the measured natural frequencies and calculated Young’s modulus values on the Results Sheet</p>
 
 </div>
 </div>
@@ -13346,7 +13415,24 @@ Duration (s): 9 (so that it finishes one second before logging finishes)
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">logger1</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Enter values for natural frequency and corresponding mode</span>
+<span class="n">frequency</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># Hz</span>
+<span class="n">mode</span> <span class="o">=</span> <span class="o">...</span>      <span class="c1"># mode number, counting 1 as first mode</span>
+
+<span class="c1">### Don&#39;t change this bit ###</span>
+<span class="n">alphaL</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">4.730</span><span class="p">,</span> <span class="mf">7.853</span><span class="p">,</span> <span class="mf">10.996</span><span class="p">,</span> <span class="mf">14.137</span><span class="p">])</span> <span class="c1"># properties of a free-free beam - don&#39;t change</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="n">alphaL</span><span class="p">[</span><span class="n">mode</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">L</span> <span class="c1"># select alpha for chosen mode</span>
+<span class="c1">#############################</span>
+
+<span class="c1">### calculate properties</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="n">M</span><span class="o">/</span><span class="p">(</span><span class="n">L</span><span class="o">*</span><span class="n">b</span><span class="o">*</span><span class="n">d</span><span class="p">)</span> <span class="c1"># density</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">b</span><span class="o">*</span><span class="n">d</span> <span class="c1"># cross-section area</span>
+<span class="n">I</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">d</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">12</span> <span class="c1"># second moment of area</span>
+<span class="n">E</span> <span class="o">=</span> <span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">frequency</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="mi">1</span><span class="o">/</span><span class="n">alpha</span><span class="p">)</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="n">rho</span><span class="o">*</span><span class="n">A</span><span class="o">/</span><span class="n">I</span><span class="c1"># Young&#39;s Modulus</span>
+
+<span class="c1">### print results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The Young&#39;&#39;s Modulus calculated from Mode </span><span class="si">{}</span><span class="s1"> is </span><span class="si">{:.2f}</span><span class="s1"> GPa&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mode</span><span class="p">,</span><span class="n">E</span><span class="o">*</span><span class="mf">1e-9</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Density = </span><span class="si">{:.2f}</span><span class="s1"> kgm^-3&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rho</span><span class="p">))</span>
 </pre></div>
 
     </div>
@@ -13357,60 +13443,23 @@ Duration (s): 9 (so that it finishes one second before logging finishes)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For each amplitude and sweep direction:</p>
-<ol>
-<li>Press ''Delete All'' to clear the previous data.</li>
-</ol>
-<ul>
-<li>Change the output signal settings using the ''Generate Output'' tool - <strong>don't forget to change the test name</strong> to keep track of the cases.</li>
-<li>Press ''Log Data''</li>
-<li>Press ''Calculate FFT'' and ''Calculate TF'' (no window, no averaging)</li>
-<li>Use the ''Mode Fitting'' tool, zoom into the peak, and press ''Fit'' to obtain the modal estimates (keep a note of these results)</li>
-<li>Press ''Save Dataset'' and ''Save Figure''</li>
-<li>Press ''Delete All'' and repeat</li>
+<h2 id="AT-THE-END-OF-THE-EXPERIMENT...">AT THE END OF THE EXPERIMENT...<a class="anchor-link" href="#AT-THE-END-OF-THE-EXPERIMENT...">&#182;</a></h2><ul>
+<li>double check that your data files (*.npy) are stored in your teaching system file space (use the desktop shortcut to 'Home' $\rightarrow$ 'Documents' $\rightarrow$ 'lab_M1')</li>
+<li>share your data with lab-group partners (e.g. using <a href="https://send.firefox.com/">Firefox Send</a> or <a href="https://wetransfer.com/">wetransfer</a>)</li>
+<li><strong>sign out</strong> from the PC.</li>
 </ul>
-<p>Run the experiment for sweep amplitudes equal to 0.6 and 1 (and remember to change the test names accordingly to help you later). Especially for the runs with higher amplitude, you should hold the accelerometer wire gently away from the vibrating beam so that it does not create unwanted interference by buzzing. If something is wrong with one of the measurements, then press ''Delete Last'' or ''Delete All'' and start again.</p>
-<p>Note that each time you press ''Log Data'', the new measurement is added to the existing set of data: you need to <strong>save each measurement separately</strong>, using ''Delete All'' before logging the next test case. This lets you estimate the modal parameters for each test case independently (if you had logged all data into a single dataset the mode fitting tool would try to find a single frequency and damping factor for the whole set).</p>
-<p>Once you have obtained an estimate of the modal parameters as a function of amplitude, then you can combine the datasets:</p>
-<ol>
-<li>Press ''Delete All''</li>
-</ol>
-<ul>
-<li>Use ''Load Data'' repeatedly to combine all the sets of data (load the data in a sensible order so you know which set is which)</li>
-<li>Use the ''Figure Selection'' dropdown (top left) to choose which plot to view.</li>
-<li>Press ''Save Dataset'' to save the combined data, and ''Save Figure'' to save the plots you want to keep for your report.</li>
-</ul>
-<p><strong>Don't forget to save your data and figures to the teaching system.</strong></p>
-<p>Pay particular attention to the shape of the transfer function for each sweep. You can use the buttons in the left panel and legend lines to select particular data to show. Compare the upward and downward sweeps for the same amplitudes. Now compare the plots for varying amplitudes. Comment on your results.</p>
-<p><strong>CHECK 1: Have you remembered to save your measurement datasets separately for each test case, with correct test names?</strong></p>
-<p><strong>CHECK 2: Have you remembered to save the plots you need to keep for the report?</strong></p>
-<p><strong>CHECK 3: Have you remembered to save the combined dataset of all test cases?</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<hr style="height:2px;border:none" />
-
-<h2 id="Part-B:-Modelling-and-Simulation">Part B: Modelling and Simulation<a class="anchor-link" href="#Part-B:-Modelling-and-Simulation">&#182;</a></h2><hr style="height:2px;border:none" />
-
-<p>Python code is provided below that simulates the behaviour of a single-degree-of-freedom vibratory system with a Duffing nonlinearity. The required files can be accessed by typing ''edit solveduff'' and ''edit duffing'' in the Matlab Command Window. Save a copy of these files in your directory.</p>
-<p>First, a model for the linear case (sweep amplitude = 1 V) will be developed. Let us describe the linear single-degree-of-freedom case by the standard equation:</p>
-$$ \ddot{y} + 2\zeta p \dot{y} + p^2 y = f(t) $$<p>In the above equation, the natural frequency $p$ and damping coefficient $\zeta$ are given directly by the results of modal-fitting from your first test. Don’t forget that $p$ is in radians/s. At a given point in a sweep, the forcing signal takes the form $f(t)=\lambda a \cos(\omega t + \phi)$, where $\phi$ represents an arbitrary phase of the input signal, $a$ is the chosen amplitude in normalised units, and $\lambda$ is a scaling factor which describes the ratio of calibration factors for the two channels of measurement (acceleration and force). Using your values for natural frequency $p$ and damping coefficient $\zeta$, estimate the value of the scaling factor $\lambda$ from the peak output level from the time-series data in your first experiment (for which nonlinear terms can be neglected). Remember that your data is recording acceleration rather than displacement.</p>
+<h2 id="...-or-if-time-allows:-PMMA-polymer-beam">... or if time allows: PMMA polymer beam<a class="anchor-link" href="#...-or-if-time-allows:-PMMA-polymer-beam">&#182;</a></h2><p>Repeat the testing procedure above using the PMMA beam (the code is copied below).</p>
+<p>Record the measured natural frequencies and calculated Young’s modulus values on the Results Sheet.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># you can use this cell to do any calculations needed</span>
-<span class="c1"># don&#39;t use the variable name &#39;lambda&#39; as that has it&#39;s own special meaning in python!</span>
-<span class="n">L</span> <span class="o">=</span> <span class="o">...</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">osc</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">Oscilloscope</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13421,10 +13470,11 @@ $$ \ddot{y} + 2\zeta p \dot{y} + p^2 y = f(t) $$<p>In the above equation, the na
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Next, to construct the non-linear model, we will examine the experimental data more carefully by conducting a 'sonogram' analysis (also called a 'spectrogram'). A sonogram is a time-varying spectrum, illustrated below. A short section of the time history is copied and Fourier analysed — 'Time window for FFT 1'. Then a section of the same length starting a little later in time is copied and analysed similarly ('FFT 2'), then another and another until a sufficient length of the whole time history has been covered.</p>
-<p><img src="figure_sonogram.png"></p>
-<p>By plotting in some suitable way this sequence of frequency spectra, we can now look at the response as a function of BOTH frequency and time (in much the same way that your brain processes sounds which you hear).</p>
-<p>For simplicity, close and start a new logger:</p>
+<p>How does the time series response for the PMMA beam compare with the aluminium case?</p>
+<p>The most notable difference is the much higher damping for this material. Recall from IA linear vibrations that damping may be characterised by the damping factor $\zeta$</p>
+<p>This can be estimated from the time series data using the ‘logarithmic decrement’ approach (see the Mechanics Data Book, p.7) which compares the amplitudes of successive peaks ($y_1$ and $y_2$). Rearranging the Data Book formula gives:</p>
+$$ \zeta = \left[ 1 + \left(\frac{2\pi}{\text{ln}(y_1/y_2)}\right)^2 \right]^{-\frac{1}{2}}$$<p>Apply this equation to successive pairs of peaks to estimate the damping factor, and note this
+on the Results Sheet.</p>
 
 </div>
 </div>
@@ -13434,14 +13484,24 @@ $$ \ddot{y} + 2\zeta p \dot{y} + p^2 y = f(t) $$<p>In the above equation, the na
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">logger1</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-<span class="c1"># acquisition setup</span>
-<span class="n">settings</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">MySettings</span><span class="p">(</span><span class="n">channels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                           <span class="n">fs</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span>
-                           <span class="n">stored_time</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                           <span class="n">pretrig_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                           <span class="n">device_driver</span> <span class="o">=</span> <span class="s1">&#39;nidaq&#39;</span><span class="p">)</span>
-<span class="n">logger2</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dataset_pmma</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<span class="n">time_plot</span> <span class="o">=</span> <span class="n">dataset_pmma</span><span class="o">.</span><span class="n">plot_time_data</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y1</span> <span class="o">=</span> 
+<span class="n">y2</span> <span class="o">=</span> 
+<span class="n">zeta</span> <span class="o">=</span> <span class="p">(</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y1</span><span class="o">/</span><span class="n">y2</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">zeta</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13452,20 +13512,8 @@ $$ \ddot{y} + 2\zeta p \dot{y} + p^2 y = f(t) $$<p>In the above equation, the na
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now use the 'Load Data' to load your tests that you have already saved above. Start by loading the 'up' sweeps for the three amplitude levels tested.</p>
-<p>Using the 'Tool Selection' dropdown (top-right), choose 'Sonogram'. There are several options to choose:</p>
-<ul>
-<li>'N frames' is the number of windows used for the calculation</li>
-<li>the slider is linked to 'N frames'</li>
-<li>'Dynamic Range (dB)' determines the colour scale range: the darkest shade will be the peak log-amplitude; the lightest shade will represent the 'dynamics range' less than the peak. Higher dynamic range shows more data, but also more noise. 60-80 dB is usually a good choice, but feel free to experiment to get the clearest plots.</li>
-<li>'Set / Chan' chooses the time data that corresponds to the displayed sonogram.</li>
-</ul>
-<p>Press 'Calc Sonogram' to do the calculation and show the sonogram: time is on the x-axis and frequency is on the y-axis. Note that the sonogram of all time data is computed, but 'Set / Chan' controls which is displayed. The sonogram will live-update as you change the options. If you have lots of time data channels loaded then this may become slow, in which case use the text entry fields rather than the slider.</p>
-<p>You should experiment with the options to obtain the clearest picture. The frequency sweep should be clearly visible. You can adjust the sonogram axes using similar controls to the time display view: choose a range which brings out the important features clearly, and stick to the same ranges for any cases you wish to plot and include in your report, so that comparisons can be made easily.</p>
-<p>Construct sonograms for each of the upward and downward sweeps for the measured data, by selecting 'Set / Chan' indices corresponding to the loaded time-data.</p>
-<p>How do the sonograms compare? Notice that for a cubic spring nonlinearity as indicated by the Duffing equation, one should observe a third harmonic component on the sonogram plots with increasing amplitude of forcing input. Does the third harmonic component increase with applied input forcing? You will also notice that the sonograms for the measured data indicate the presence of a second harmonic component in the output displacement. Comment upon the possible sources for the appearance of the second harmonic in the measured data. Does the second harmonic component increase with applied forcing amplitudes?</p>
-<p>Motivated by the results of the sonogram analysis, the following equation is proposed to model the non-linear single-degree-of-freedom vibratory system:</p>
-$$ \ddot{y} + 2\zeta p \dot{y} + p^2 y + \alpha y^2 + \mu y^3 = \lambda a \cos(\omega t + \phi) $$<p>Here, the parameters $p$, $\zeta$ and $\lambda$ are the same as for the linear model. Form two non-dimensional groups using the variables $p$, $y$, $\alpha$ , and $\mu$. Use this to estimate the values of $\alpha$, and $\mu$ for which the effect of quadratic and cubic nonlinearities are expected to be comparable to the linear terms (and remember that you are measuring acceleration, not displacement!). Given that in this experiment the effect of nonlinearity is expected to be relatively weak, make a first guess of their values. Do not be surprised if the numerical values for $\alpha$ and $\mu$ seem rather extreme: try them and see.</p>
+<p>As discussed in IA linear vibrations, damping also alters the modal frequencies. The damped frequencies ($\omega_d$) are related to the undamped frequencies ($\omega_n$) via the equation in the Data Book):</p>
+$$ \omega_d = \omega_n \sqrt{1-\zeta^2}$$<p>We neglected this correction in the calculation of Young’s modulus: was this a significant omission?</p>
 
 </div>
 </div>
@@ -13475,237 +13523,7 @@ $$ \ddot{y} + 2\zeta p \dot{y} + p^2 y + \alpha y^2 + \mu y^3 = \lambda a \cos(\
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># you can use this cell to do any calculations needed</span>
-<span class="n">alpha</span> <span class="o">=</span> <span class="o">...</span>
-<span class="n">mu</span> <span class="o">=</span> <span class="o">...</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>You are now set up to commence computer simulations of the non-linear system. If you are starting this notebook at this point (e.g. if you have restarted the kernel), then re-load the logger package plus the numerical integration package.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">gui</span> qt
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pydvma</span> <span class="k">as</span> <span class="nn">dvma</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">integrate</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Read the commented code bleow. This is provided to you as a starting point for your simulations. You should go through the code carefully to make sure that you fully understand the syntax. The code simulates the force sweep that was conducted in the experiment for a system described by a Duffing non-linearity.</p>
-<p>Modify your code to include a quadratic spring term and incorporate the particular values of the extracted parameters into your model.</p>
-<p>Run the code by pressing 'shift-s' to execute the cell. You will be able to run upward and downward sweeps as in your  experiment. Run simulations for all values of input forcing that correspond to your experimental setup and save the data obtained for each of the cases for further analysis. You will also be able to run a sonogram analysis on the simulated data using the same procedure as for the experimental data.</p>
-<p>Compare the simulation results carefully with your range of measurements, and iterate the parameter values of the simulation as necessary to obtain a best match. You only need to compare the responses (not the input force), i.e. channel 1, as your scale factor $\lambda$ was an overall factor from the selected amplitude $a$ to the output response, so the force amplitudes won't match.</p>
-<p>Your report should describe and illustrate how you carried out this process of obtaining best-fitting parameters: do not simply present the final numerical results. Comment on any discrepancies between simulation and experiment.</p>
-<p>What other sources of nonlinearity might be operative in this experiment? Discuss briefly what characteristic effects you would expect these would produce, and whether any of these are strong candidates to account for the results of the experiment.</p>
-<hr>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># define the equation of motion to integrate, as a function in first-order form dydt=g(y)</span>
-<span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">f1</span><span class="p">,</span><span class="n">f2</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">alpha</span><span class="p">,</span><span class="n">mu</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    y,t is expected by the odeint solver: y is a vector where y[0] is displacement, y[1] is velocity</span>
-<span class="sd">    p = linear natural frequency</span>
-<span class="sd">    z = linear damping factor</span>
-<span class="sd">    L = lambda</span>
-<span class="sd">    a = amplitude</span>
-<span class="sd">    f1,f2 = frequency start/stop for simulation</span>
-<span class="sd">    T = time at which f2 is reached</span>
-<span class="sd">    alpha = quadratic nonlinearity parameter (won&#39;t do anything until you add it into equation of motion below)</span>
-<span class="sd">    mu = cubic nonlinearity parameter</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    
-    <span class="c1"># define external force</span>
-    <span class="n">freq</span> <span class="o">=</span> <span class="n">f1</span> <span class="o">+</span> <span class="p">(</span><span class="n">f2</span><span class="o">-</span><span class="n">f1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">T</span><span class="o">*</span><span class="n">t</span> <span class="c1"># analytic expression needed for linear sweep</span>
-    <span class="k">if</span> <span class="n">t</span><span class="o">&lt;</span><span class="n">T</span><span class="p">:</span>
-        <span class="c1"># forced response until f2 reached</span>
-        <span class="n">force</span> <span class="o">=</span> <span class="n">L</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">freq</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># unforced response after f2 reached</span>
-        <span class="n">force</span><span class="o">=</span><span class="mi">0</span>
-    
-    <span class="c1">### Equations of motion in first-order form ###</span>
-    <span class="n">dydt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">dydt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">dydt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">force</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="n">p</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">p</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">mu</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span>
-
-    <span class="k">return</span> <span class="n">dydt</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#####################################</span>
-<span class="c1">### YOU NEED TO FIND THESE VALUES ###</span>
-<span class="c1">#####################################</span>
-<span class="n">p</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*...</span>  <span class="c1"># natural freq, from linear tests, in rad/s</span>
-<span class="n">z</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># damping factor, from linear tests</span>
-<span class="n">L</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># lambda, scaling factor identified earlier</span>
-<span class="n">a</span> <span class="o">=</span> <span class="o">...</span>  <span class="c1"># normalised amplitudes for generating output signals</span>
-
-<span class="n">alpha</span> <span class="o">=</span> <span class="o">...</span>
-<span class="n">mu</span> <span class="o">=</span> <span class="o">...</span>
-<span class="c1">#####################################</span>
-
-<span class="c1"># setup integration parameters</span>
-<span class="n">fs</span> <span class="o">=</span> <span class="mi">3000</span> <span class="c1"># match experiments</span>
-<span class="n">T</span>  <span class="o">=</span> <span class="mi">9</span>    <span class="c1"># match experiments</span>
-<span class="n">f1</span> <span class="o">=</span> <span class="mi">40</span>   <span class="c1"># match experiments</span>
-<span class="n">f2</span> <span class="o">=</span> <span class="mi">60</span>   <span class="c1"># match experiments</span>
-
-<span class="n">time_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span> <span class="c1"># match experiments (logged for 10s)</span>
-<span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># zero initial conditions</span>
-        
-<span class="c1"># solve ODE</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">odeint</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="n">time_axis</span><span class="p">,</span><span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">f1</span><span class="p">,</span><span class="n">f2</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">alpha</span><span class="p">,</span><span class="n">mu</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># recalculate force and acceleration</span>
-<span class="n">freq</span> <span class="o">=</span> <span class="n">f1</span> <span class="o">+</span> <span class="p">(</span><span class="n">f2</span><span class="o">-</span><span class="n">f1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">T</span><span class="o">*</span><span class="n">time_axis</span> <span class="c1"># analytic expression needed for linear sweep</span>
-<span class="n">force</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">freq</span><span class="o">*</span><span class="n">time_axis</span><span class="p">)</span>
-<span class="n">force</span><span class="p">[</span><span class="n">time_axis</span><span class="o">&gt;</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
-<span class="n">dydt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">time_axis</span><span class="p">),</span><span class="mi">2</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">time_axis</span><span class="p">)):</span>
-    <span class="n">dydt</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,:],</span><span class="n">time_axis</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">p</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">f1</span><span class="p">,</span><span class="n">f2</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">alpha</span><span class="p">,</span><span class="n">mu</span><span class="p">)</span>
-<span class="n">acc</span> <span class="o">=</span> <span class="n">dydt</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1"># put into format compatible with pydvma</span>
-<span class="c1"># channel 0 corresponds to input force (as per experiment)</span>
-<span class="c1"># channel 1 corresponds to acceleration (as per experiment)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">time_axis</span><span class="p">),</span><span class="mi">2</span><span class="p">))</span>
-<span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">force</span>
-<span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">acc</span>
-<span class="n">settings</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">MySettings</span><span class="p">(</span><span class="n">fs</span><span class="o">=</span><span class="n">fs</span><span class="p">,</span>
-                           <span class="n">stored_time</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                           <span class="n">channels</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">time_data</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">TimeData</span><span class="p">(</span><span class="n">time_axis</span><span class="p">,</span><span class="n">data</span><span class="p">,</span><span class="n">settings</span><span class="p">)</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">DataSet</span><span class="p">(</span><span class="n">time_data</span><span class="p">)</span> <span class="c1"># create a pydvma dataset</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>When you have run a simulation, save the data using the following:</strong></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">d</span><span class="o">.</span><span class="n">save_data</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Then to open it in the logger and compare with experimental data, start a new logger and load the numerical and corresponding experimental data files:</strong></p>
-<p>Note: you don't have to start a new logger each time, if preferred you can 'Delete All' and load the next set for comparison.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># acquisition setup</span>
-<span class="n">settings</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">MySettings</span><span class="p">(</span><span class="n">channels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                           <span class="n">fs</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span>
-                           <span class="n">stored_time</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                           <span class="n">pretrig_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                           <span class="n">device_driver</span> <span class="o">=</span> <span class="s1">&#39;nidaq&#39;</span><span class="p">)</span>
-<span class="n">logger3</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Note that you can re-open any of the logger instances you have previously started, and it will re-open where you left off including with any data so far stored. For example, to restart logger2 use:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">logger2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
@@ -13717,45 +13535,10 @@ $$ \ddot{y} + 2\zeta p \dot{y} + p^2 y + \alpha y^2 + \mu y^3 = \lambda a \cos(\
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="AT-THE-END-OF-THE-EXPERIMENT">AT THE END OF THE EXPERIMENT<a class="anchor-link" href="#AT-THE-END-OF-THE-EXPERIMENT">&#182;</a></h2><ul>
-<li><strong>check you have saved your data and figures to the teaching system</strong></li>
+<li>double check that your data files (*.npy) are stored in your teaching system file space (use the desktop shortcut to 'Home' $\rightarrow$ 'Documents' $\rightarrow$ 'lab_M1')</li>
 <li>share your data with lab-group partners (e.g. using <a href="https://send.firefox.com/">Firefox Send</a> or <a href="https://wetransfer.com/">wetransfer</a>)</li>
-<li>sign-out of the pc</li>
+<li><strong>sign out</strong> from the PC.</li>
 </ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<div class="alert alert-block alert-danger">
-
-<b> NOTE: </b><br/>
-
-* __Please note that the state of the loggers is not saved along with the notebook itself, so when you close the notebook then you can no longer use logger.show().__
-
-* __Therefore, please remember to save data and figures as needed for the report before leaving the lab__
-
-* __The pydvma logger is opensource, so you can install it on your own device (windows/mac/linux), however it is still in development so may not work.__
-
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Installation-instructions">Installation instructions<a class="anchor-link" href="#Installation-instructions">&#182;</a></h3><ol>
-<li>Install anaconda by downloading from <a href="https://www.anaconda.com/distribution/">https://www.anaconda.com/distribution/</a></li>
-</ol>
-<ul>
-<li>Open Anaconda prompt and type:<blockquote><p>conda install pyaudio<br>pip install pydvma</p>
-</blockquote>
-</li>
-<li>If you get an error about not having the correct permissions, then try opening Anaconda prompt by right-clicking and choosing 'run as administrator'</li>
-<li>then open Jupyter notebooks from the windows start menu, and this notebook should work.</li>
-</ul>
-<hr>
 
 </div>
 </div>

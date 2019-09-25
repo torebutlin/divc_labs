@@ -13159,7 +13159,7 @@ data logging and analysis via a Python package, which this notebook uses. The pe
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">gui</span> qt
@@ -13180,12 +13180,25 @@ data logging and analysis via a Python package, which this notebook uses. The pe
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pydvma</span> <span class="k">as</span> <span class="nn">dvma</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;nbagg&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13262,9 +13275,12 @@ data logging and analysis via a Python package, which this notebook uses. The pe
 <p>Familiarise yourself with the logger window:</p>
 <ul>
 <li>the centre panel contains the figure - note the zooming / panning tools under the figure.</li>
-<li>the left panel controls what is plotted (you can select which plot to show using the top dropdown)</li>
-<li>the right panel provides data analysis tools (you can select which tools are displayed using the top dropdown)</li>
-<li>the centre top panel is for basic data management (logging / loading / deleting)</li>
+<li>when data is shown, you can use the legend to select which lines are shown.</li>
+<li>when using the box-zoom tool (from under the figure), then left-click will zoom to the rectangle, and right-click will zoom out.</li>
+<li>the left panel controls what is plotted (you can select which plot to show using the top dropdown).</li>
+<li>use the 'auto x' and 'auto y' buttons to automatically adjust the x and y axes to fit the selected data.</li>
+<li>the right panel provides data analysis tools (you can select which tools are displayed using the top dropdown).</li>
+<li>the centre top panel is for basic data management (logging / loading / deleting).</li>
 <li>the centre bottom panel is to save data or figures.</li>
 </ul>
 
@@ -13315,7 +13331,7 @@ data logging and analysis via a Python package, which this notebook uses. The pe
 <li><p>Press 'Save Dataset' to save all the data to disk (it will save the data that has been calculated so far, so press it after you have calculated the FFT and Transfer Functions)</p>
 </li>
 </ul>
-<p>Save your figures at each stage of the lab so that you can insert them directly into your report.</p>
+<p><strong>Save your figures at each stage of the lab so that you can insert them directly into your report.</strong></p>
 <p>The transfer function you have measured will show evidence of noise, making the plot less clear than you might ideally like. One source of this noise can be investigated easily. In the right panel, press ''Clean Impulse''. The signal in Channel 0, the hammer force, will be processed by detecting the time range when there is significant force, and tapering the signal down to zero outside that range. Then press ''Calculate TF'' again. This should result in a cleaner transfer function. Discuss why this works in your report. Use this ''Clean Impulse'' button before calculating transfer functions throughout this experiment.</p>
 <p>From your transfer function, how many modes does the structure seem to have with frequencies below 1 kHz? The next portion of the experiment will study these modes, to obtain accurate estimates of the frequencies, damping factors and mode shapes. To introduce the method you should work through one case by hand.</p>
 
@@ -13413,6 +13429,7 @@ Each type of data is arranged in 'sets', e.g. each measurement will add another 
 <li>Zoom into the peak using the box zoom at the bottom of the figure</li>
 </ol>
 <ul>
+<li>You can zoom in by left-click-dragging rectangles, or zoom out by right-click-dragging rectangles</li>
 <li>Press ''Auto Y'' in the left panel</li>
 <li>Use the text box to set ymin to 3dB less than ymax</li>
 <li>Iterate xmin / xmax until it fills the figure</li>
@@ -13420,7 +13437,7 @@ Each type of data is arranged in 'sets', e.g. each measurement will add another 
 </ul>
 <p>From the bandwidth estimate the modal damping factor. To what accuracy do you think you can obtain the damping factor by this method?</p>
 <p>Now select a frequency range in the vicinity of this resonant peak, i.e. widen the displayed frequency to include around 20–40 dB from the peak value (making sure just one peak is in view). Using the ''Plot type'' dropdown select ''Nyquist'', and you should see a portion of a circle, as was explained in the lectures.</p>
-<p>Now use the tool selection dropdown (top-right) to choose ''Mode Fitting''. Check that ''TF Type'' is set to ''Acceleration'' and tweak the frequency range if needed using the fmin / fmax settings. Then press ''Fit''. This will attempt to fit a single term of a modal summation to the displayed peak: if successful you should now see a computed circle that matches the data reasonably well, and a message that gives a summary of the fitted modal parameters (natural frequency $f_n$, damping factor $z_n$, modal coefficient $a_n$, and phase $p_n$ - the phase is the angle from the origin to the centre of the circle). If the fit looks like a poor match, then try again using a different frequency range.</p>
+<p>Now use the tool selection dropdown (top-right) to choose ''Mode Fitting''. Check that ''TF Type'' is set to ''Acceleration'' and tweak the frequency range if needed using the fmin / fmax settings. Then press ''Fit''. This will attempt to fit a single term of a modal summation to the displayed peak: if successful you should now see a computed circle that matches the data reasonably well, and a message that gives a summary of the fitted modal parameters (natural frequency $f_n$, damping factor $z_n$, the Q-factor $Q_n = 1/(2 z_n)$, modal coefficient $a_n$, and phase $p_n$ - the phase is the angle from the origin to the centre of the circle). If the fit looks like a poor match, then try again using a different frequency range.</p>
 <p>Compare your estimate above with the modal fit.</p>
 
 </div>
@@ -13432,6 +13449,7 @@ Each type of data is arranged in 'sets', e.g. each measurement will add another 
 <p><strong>CHECK 1: Did you remember to clean the impulse data before calculating the transfer function?</strong></p>
 <p><strong>CHECK 2: Did you remember to save your data <em>after</em> calculating the transfer function?</strong></p>
 <p><strong>CHECK 3: Did you remember to save the figures that you want to keep for the report?</strong></p>
+<p><strong>CHECK 4: Did you remember to check that you are happy with the saved figures? (find the files using wndows explorer and open the pdf's)</strong></p>
 <p><strong>Remember to save your data as well as all figures to the teaching system</strong></p>
 
 </div>
@@ -13488,9 +13506,11 @@ Each type of data is arranged in 'sets', e.g. each measurement will add another 
 <li>Repeat until you have a single good measurement for each point. Note that the legend labels each measurement as a 'Set', which should correspond to the grid point labels you have measured.</li>
 </ul>
 <p><strong>Press ''Save Dataset'' to store the Time Data you have just logged.</strong></p>
+<p><strong>To reset the figure axes at any stage, press 'Auto X' then 'Auto Y'.</strong></p>
 <p>You will have a large collection of data: before continuing, maximise the logger window if you haven't already, then zoom in on the initial impulse. Press ''Show Chan Only'' which will only select the lines from Channel 0 of each set. Make sure that they are all a reasonable amplitude (~0.3 or above), and with no double-hits. If any show a double hit, identify which 'Set' it belongs to, then choose ''Edit Dataset'' from the tool selection dropdown (top-right), enter the set to replace into the text box, then press ''Log &amp; Replace Selected Set''. This will log data as usual, but the data will directly replace the chosen set.</p>
 <p>Once you have a good set of time data, go back to ''Standard Tools'' (top-right dropdown) and press ''Clean Impulse''. This will clean all the impulse data channels. Then press ''Calculate FFT'' and ''Calculate TF''.</p>
 <p>The result will be 12 channels of transfer-function data, corresponding to the 12 grid points labelled 0-11. Look at the transfer function set carefully - do all the channels look good, or do some of them look wrong in one way or another? If so, identify the doubtful sets, and use the ''Edit Dataset'' tool to re-log data for the corresponding positions. Don't forget to ''Clean Impulse'', ''Calculate FFT'' and ''Calculate TF'' afterwards.</p>
+<p>To see individual channels, press 'None' under 'line selection' in the left panel, then use the legend to select a line. You can then use the previous (&lt;) and next (&gt;) arrows to cycle through the selection.</p>
 <p><strong>Press ''Save Dataset'' to store all the data you have logged and calculated.</strong></p>
 <p>If for any reason you have to restart, you can read these transfer functions back in quickly using the ''Load Data'' option.</p>
 
@@ -13519,8 +13539,11 @@ Each type of data is arranged in 'sets', e.g. each measurement will add another 
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">modal_data</span> <span class="o">=</span> <span class="n">logger2</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">modal_data_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">n_mode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">modal_data</span><span class="o">.</span><span class="n">fn</span><span class="p">)):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mode </span><span class="si">{}</span><span class="s1">: fn=</span><span class="si">{:3g}</span><span class="s1">, zn=</span><span class="si">{:5g}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_mode</span><span class="p">,</span><span class="n">modal_data</span><span class="o">.</span><span class="n">fn</span><span class="p">[</span><span class="n">n_mode</span><span class="p">],</span><span class="n">modal_data</span><span class="o">.</span><span class="n">zn</span><span class="p">[</span><span class="n">n_mode</span><span class="p">]))</span>
-    <span class="n">scaled_amplitudes</span> <span class="o">=</span> <span class="n">modal_data</span><span class="o">.</span><span class="n">an</span><span class="p">[</span><span class="n">n_mode</span><span class="p">,:]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">modal_data</span><span class="o">.</span><span class="n">an</span><span class="p">[</span><span class="n">n_mode</span><span class="p">,:]))</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">fn</span><span class="o">=</span><span class="n">modal_data</span><span class="o">.</span><span class="n">fn</span><span class="p">[</span><span class="n">n_mode</span><span class="p">]</span>
+    <span class="n">zn</span><span class="o">=</span><span class="n">modal_data</span><span class="o">.</span><span class="n">zn</span><span class="p">[</span><span class="n">n_mode</span><span class="p">]</span>
+    <span class="n">an</span><span class="o">=</span><span class="n">modal_data</span><span class="o">.</span><span class="n">an</span><span class="p">[</span><span class="n">n_mode</span><span class="p">,:]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Mode </span><span class="si">{}</span><span class="s1">: fn=</span><span class="si">{:.3f}</span><span class="s1">, zn=</span><span class="si">{:.5g}</span><span class="s1">, Qn=</span><span class="si">{:.1f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_mode</span><span class="p">,</span><span class="n">fn</span><span class="p">,</span><span class="n">zn</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">zn</span><span class="p">))</span>
+    <span class="n">scaled_amplitudes</span> <span class="o">=</span> <span class="n">an</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">an</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;scaled amplitudes=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array2string</span><span class="p">(</span><span class="n">scaled_amplitudes</span><span class="p">,</span><span class="n">precision</span><span class="o">=</span><span class="mi">0</span><span class="p">)))</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;_____&#39;</span><span class="p">)</span>
 </pre></div>
@@ -13547,7 +13570,7 @@ Each type of data is arranged in 'sets', e.g. each measurement will add another 
 
 <p>One standard way to check the accuracy of the modal parameters determined by the procedure you have just followed is to reconstruct some of the transfer functions using the theoretical expression together with the parameter values you have found. If the transfer functions match, the analysis is confirmed, while any mismatch will give clues as to what is missing in the analysis.</p>
 <p>Press the ''Reconstruction'' button in the ''Mode Fitting'' tool. This will use the data from your previous mode fits in the modal summation formula to reconstruct all 12 transfer functions. Recall that the reconstructions are placed in a single new set with 12 channels. Use the ''Hide All'' button and select specific lines to compare a reconstruction with its corresponding measurement. Once you have selected a pair for comparison, you can then use the arrow selection buttons to increment the comparison.</p>
-<p>Once the reconstruction is complete, you should compare it directly with the original in channel 5. How well does it fit? Comment in your writeup. This particular transfer function is (almost) the driving-point response. What pattern of signs do you expect? Does the reconstruction agree?</p>
+<p>Once the reconstruction is complete, you should compare it directly with the original in channel 5. How well does it fit? Comment in your write-up. This particular transfer function is (almost) the driving-point response. What pattern of signs do you expect? Does the reconstruction agree?</p>
 <p>Repeat the reconstruction exercise for channel 10. Is the quality of fit better or worse than in the case of channel 5?</p>
 <p><strong>Remember to save your data (after doing the reconstruction) and figures to the teaching system</strong></p>
 <p><strong>CHECK 1: Have you remembered to save the figures you need for your report?</strong></p>
@@ -13617,11 +13640,23 @@ Each type of data is arranged in 'sets', e.g. each measurement will add another 
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="AT-THE-END-OF-THE-EXPERIMENT">AT THE END OF THE EXPERIMENT<a class="anchor-link" href="#AT-THE-END-OF-THE-EXPERIMENT">&#182;</a></h2><ul>
+<li><strong>check you have saved your data and figures to the teaching system</strong></li>
+<li>share your data with lab-group partners (e.g. using <a href="https://send.firefox.com/">Firefox Send</a> or <a href="https://wetransfer.com/">wetransfer</a>)</li>
+<li>sign-out of the pc</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <div class="alert alert-block alert-danger">
 
 <b> NOTE: </b><br/>
 
-* __Please note that the state of the loggers is not saved along with the notebook itself, so when you close the notebook then this will no longer work.__
+* __Please note that the state of the loggers is not saved along with the notebook itself, so when you close the notebook then you can no longer use logger.show().__
 
 * __Therefore, please remember to save data and figures as needed for the report before leaving the lab__
 
