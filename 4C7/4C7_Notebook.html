@@ -13017,45 +13017,6 @@ ul.typeahead-list  > li > a.pull-right {
 .highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
-<style type="text/css">
-    
-/* Temporary definitions which will become obsolete with Notebook release 5.0 */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-bold { font-weight: bold; }
-
-    </style>
 
 
 <style type="text/css">
@@ -13132,9 +13093,9 @@ div#notebook {
 <h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>In many instances a linear model is sufficient to approximate the behaviour of physical systems. However, in particular instances the linear model breaks down and a model with further complexity must be used. We will use the principles of nonlinear vibration theory described in the lectures to model the observed behaviour of a clamped-clamped beam subjected to high driving forces about the primary resonance.</p>
 <p>This experiment is in two parts:</p>
 <p><strong>Part A:</strong> Measurement of the vibratory response of a clamped-clamped beam to variable drive forces.</p>
-<p><strong>Part B:</strong> Modelling and simulation of the nonlinear system in MATLAB.</p>
+<p><strong>Part B:</strong> Modelling and simulation of the nonlinear system.</p>
 <h2 id="Report">Report<a class="anchor-link" href="#Report">&#182;</a></h2><p>Your report should describe the key results of the experiment, with plots when appropriate. A number of specific questions need to be addressed. The completed report should be securely tied together if it has loose pages, and attached to a completed coursework feedback coversheet. It should then be handed in via the white post-box outside room BE3-39 on the third floor of the Baker building or delivered to Hilde Fernandez in the Div C office before the final lecture of Michaelmas term.</p>
-<h2 id="Apparatus">Apparatus<a class="anchor-link" href="#Apparatus">&#182;</a></h2><p>The apparatus comprises of a thin aluminium beam clamped at two ends to prevent axial displacement. Such a system exhibits a spring hardening effect (comment as to why this is the case in your report) with growing displacement amplitude for sufficiently large force inputs. A shaker is used to apply driving forces to the structure. The shaker derives its input from a PC-generated sine-wave (filtered by a low-pass filter) that can be varied in both frequency and amplitude. A National Instruments Data Acquisition Card (NI-DAQ) converts the specified signal to an analogue output, which is low-pass filtered, passed through channel 1 of an oscilloscope, and power-amplified by a current amplifier which provides the input to the shaker. An accelerometer is placed at the centre of the beam to measure the response of the structure to the applied drive input. The accelerometer output is coupled to an amplifier whose output is captured by the NI-DAQ using a Python package that this notebook uses and is described below. The PC will be used to drive the shaker and capture data from the accelerometer. Measurement data will be saved to your teaching system drive where it will be analysed and used for comparison with simulation. If you choose, you can analyse the data at any PC connected to the teaching system.</p>
+<h2 id="Apparatus">Apparatus<a class="anchor-link" href="#Apparatus">&#182;</a></h2><p>The apparatus comprises of a thin aluminium beam clamped at two ends to prevent axial displacement. Such a system exhibits a spring hardening effect (comment as to why this is the case in your report) with growing displacement amplitude for sufficiently large force inputs. A shaker is used to apply driving forces to the structure. The shaker derives its input from a PC-generated sine-wave (filtered by a low-pass filter) that can be varied in both frequency and amplitude. A National Instruments Data Acquisition Card (NI-DAQ) converts the specified signal to an analogue output, which is low-pass filtered, passed through channel 1 of an oscilloscope, and power-amplified by a current amplifier which provides the input to the shaker. An accelerometer is placed at the centre of the beam to measure the response of the structure to the applied drive input. The accelerometer output is coupled to an amplifier whose output is captured by the NI-DAQ using a Python package that this notebook uses and is described below. The PC will be used to drive the shaker and capture data from the accelerometer. Measurement data will be saved to your teaching system drive where it will be analysed and used for comparison with simulation. If you choose, you can analyse the data at any of the South Wing lab PCs or your own device (installation instructions at the end of this notebook).</p>
 
 </div>
 </div>
@@ -13146,7 +13107,16 @@ div#notebook {
 
 <h2 id="Part-A:-Experimental-procedure">Part A: Experimental procedure<a class="anchor-link" href="#Part-A:-Experimental-procedure">&#182;</a></h2><h3 id="A1:-Linear-response">A1: Linear response<a class="anchor-link" href="#A1:-Linear-response">&#182;</a></h3><hr style="height:2px;border:none" />
 
-<p>Start by importing the necessary modules (pydvma is a python package written for data acquisition at CUED).</p>
+<p>Start by double-clicking on the 'Start 4C7.bat' file on the desktop. This copies across a fresh copy of this notebook and a python script file to the folder 'lab_4C7' in your teaching system filespace, then it opens Jupyter Notebooks starting in this folder. You will likely see some error messages in the command prompt: these are normal and are just part of the system looking in different directoies for your teaching system username. If you need to (e.g. if you accidentally deleted part of this notebook), then you can get a fresh copy by running 'Start_4C7.bat' again.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Click '4C7_Notebook.ipynb' to open.</p>
+<p>The next cells import the necessary modules: pydvma is a python package written for data acquisition at CUED.</p>
 <p>Remember:</p>
 <ul>
 <li>to actually run a cell of code, click inside the cell then press 'shift+enter'</li>
@@ -13155,7 +13125,6 @@ div#notebook {
 <li>under the 'view' menu above you can toggle off the header and toolbar, which is useful to give a bit more screen space</li>
 <li>you can control the cell output view by clicking on the left beside the cell: single click to expand/compress, double-click to hide.</li>
 </ul>
-<hr>
 
 </div>
 </div>
@@ -13254,35 +13223,47 @@ div#notebook {
 <li>the centre top panel is for basic data management (logging / loading / deleting)</li>
 <li>the centre bottom panel is to save data or figures.</li>
 </ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Although the logger is set up to record data, we need to choose an output signal to generate. Use the ''Tool Selection'' dropdown at the top right to choose ''Generate Output''. Set the following options:</p>
 
 <pre><code>Test name:    'up_0.2' (for example, noting that this will appear in the legend)
 Type:         'sweep'
 Amplitude:    0.2
 f1 (Hz):      40
-f2 (Hz):      60
+f2 (Hz):      70
 Duration (s): 9 (so that it finishes one second before logging finishes)
 
 </code></pre>
 <p>Press ''Preview Output'' to check it's what you expect to see.</p>
 <p>Press either ''Log with Output'' or simply ''Log Data'': the generated signal will be sent to the NI-DAQ card to output to the amplifier and the data from the input channels will be logged simultaneously.</p>
 <p>You will then see the input and output signals displayed, including data for 1 s after the sweep excitation finished. A precaution: check that the data logging program has recorded the input signal from the accelerometer for the entire duration of the sweep.</p>
-<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Please note three important things:</strong></p>
 <ul>
-<li><p>The amplitude of the signal generated is a normalised value in the range 0 to 1. Similarly the input logged amplitude is normalised to the range -1 to +1. To get the actual voltages you multiply by 5: but you don't need to do that for the lab because the factor for the input and output are the same, and in any case you will calculate an overall scale factor for comparison with simulations later. Don't worry that the amplitude of the measured force signal is not what you entered: this is because the DAQ output first goes through a low pass filter.</p>
+<li><p>The amplitude of the signal generated is a normalised value in the range 0 to 1. Similarly the input logged amplitude is normalised to the range -1 to +1. To get the actual voltages you multiply by 5: but you don't need to do that for the lab because the factor for the input and output are the same, and in any case you will calculate an overall scale factor for comparison with simulations later.</p>
 </li>
 <li><p>If the logger becomes unresponsive, or output signal generation has stopped working, then you can restart this notebook by selecting 'Restart &amp; Clear Output' from the 'Kernel' menu of the notebook.</p>
 </li>
 <li><p>Within the logger, press ''Save Dataset'' and ''Save Figure'' to save your measurements and displayed figures to your directory for this experiment under your teaching system account. Choose a file name that describes this particular sweep: you will have saved several such files by the end of the experiment.</p>
 </li>
 </ul>
-<hr>
 <p>To extract natural frequency and damping parameters for the system, run a fast Fourier transform (FFT) on the captured data by choosing ''Standard Tools'' from the tool selection dropdown (top right), then pressing ''Calculate FFT''. Then calculate the  transfer function by pressing ''Calculate TF'. The window and averaging options here should be set to ''None''.</p>
-<p>Zoom in on the frequency range of interest (40 - 60 Hz) by entering the axis limits in the left panel or by using the zoom controls under the plot. The ''Auto Y'' button (left panel) can be used to set the amplitude range on the y-axis appropriately.</p>
+<p>Zoom in on the frequency range of interest (40 - 70 Hz) by entering the axis limits in the left panel or by using the zoom controls under the plot. The ''Auto Y'' button (left panel) can be used to set the amplitude range on the y-axis appropriately.</p>
 <p><strong>To reset the figure axes at any stage, press 'Auto X' then 'Auto Y'.</strong></p>
 <p>Is the transfer function shaped as you would expect? Zoom in on a frequency range corresponding to amplitudes running from 5-10 dB on either side of the resonant frequency. In the left panel, use the plot type dropdown to choose a ''Nyquist'' plot. Then choose ''Mode Fitting'' from the tool selection dropdown (top right) which will fit a circle to the Nyquist plot. Extracted parameters such as the damping factor and resonant frequency will appear in the message area. (This method will be familiar to those also taking 4C6: the rest should just believe it!)</p>
-<p>Now repeat the above procedure but sweep downwards in frequency by setting f1 to 60 Hz and the f2 to 40 Hz.</p>
+<p>Now repeat the above procedure but sweep downwards in frequency by setting f1 to 70 Hz and the f2 to 40 Hz.</p>
 <p><strong>Again save your data and figures in the same folder under a different filename. Do you notice any change in the measured parameters?</strong></p>
 
 </div>
@@ -13293,7 +13274,7 @@ Duration (s): 9 (so that it finishes one second before logging finishes)
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="alert alert-block alert-info">
 
-<b> Understanding the logger: </b><br/>
+<b> Understanding the logger: </b>
 
 When you press 'Save Dataset', the logger saves a &lt;DataSet&gt; object which has the following structure:
 
@@ -13332,7 +13313,7 @@ Each type of data is arranged in 'sets', e.g. each measurement will add another 
 Type:         'sweep'
 Amplitude:    ... (choose between 0 and 1)
 f min (Hz):   40
-f max (Hz):   60
+f max (Hz):   70
 Duration (s): 9 (so that it finishes one second before logging finishes)
 
 </code></pre>
@@ -13369,8 +13350,22 @@ Duration (s): 9 (so that it finishes one second before logging finishes)
 <li>Press ''Save Dataset'' and ''Save Figure''</li>
 <li>Press ''Delete All'' and repeat</li>
 </ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Run the experiment for sweep amplitudes equal to 0.6 and 1 (and remember to change the test names accordingly to help you later). Especially for the runs with higher amplitude, you should hold the accelerometer wire gently away from the vibrating beam so that it does not create unwanted interference by buzzing. If something is wrong with one of the measurements, then press ''Delete Last'' or ''Delete All'' and start again.</p>
 <p>Note that each time you press ''Log Data'', the new measurement is added to the existing set of data: you need to <strong>save each measurement separately</strong>, using ''Delete All'' before logging the next test case. This lets you estimate the modal parameters for each test case independently (if you had logged all data into a single dataset the mode fitting tool would try to find a single frequency and damping factor for the whole set).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Once you have obtained an estimate of the modal parameters as a function of amplitude, then you can combine the datasets:</p>
 <ol>
 <li>Press ''Delete All''</li>
@@ -13396,8 +13391,8 @@ Duration (s): 9 (so that it finishes one second before logging finishes)
 
 <h2 id="Part-B:-Modelling-and-Simulation">Part B: Modelling and Simulation<a class="anchor-link" href="#Part-B:-Modelling-and-Simulation">&#182;</a></h2><hr style="height:2px;border:none" />
 
-<p>Python code is provided below that simulates the behaviour of a single-degree-of-freedom vibratory system with a Duffing nonlinearity. The required files can be accessed by typing ''edit solveduff'' and ''edit duffing'' in the Matlab Command Window. Save a copy of these files in your directory.</p>
-<p>First, a model for the linear case (sweep amplitude = 1 V) will be developed. Let us describe the linear single-degree-of-freedom case by the standard equation:</p>
+<p>Python code is provided below that simulates the behaviour of a single-degree-of-freedom vibratory system with a Duffing nonlinearity.</p>
+<p>First, a model for the linear case (sweep amplitude = 0.2 in normalised units) will be developed. Let us describe the linear single-degree-of-freedom case by the standard equation:</p>
 $$ \ddot{y} + 2\zeta p \dot{y} + p^2 y = f(t) $$<p>In the above equation, the natural frequency $p$ and damping coefficient $\zeta$ are given directly by the results of modal-fitting from your first test. Don’t forget that $p$ is in radians/s. At a given point in a sweep, the forcing signal takes the form $f(t)=\lambda a \cos(\omega t + \phi)$, where $\phi$ represents an arbitrary phase of the input signal, $a$ is the chosen amplitude in normalised units, and $\lambda$ is a scaling factor which describes the ratio of calibration factors for the two channels of measurement (acceleration and force). Using your values for natural frequency $p$ and damping coefficient $\zeta$, estimate the value of the scaling factor $\lambda$ from the peak output level from the time-series data in your first experiment (for which nonlinear terms can be neglected). Remember that your data is recording acceleration rather than displacement.</p>
 
 </div>
@@ -13405,7 +13400,7 @@ $$ \ddot{y} + 2\zeta p \dot{y} + p^2 y = f(t) $$<p>In the above equation, the na
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># you can use this cell to do any calculations needed</span>
@@ -13460,8 +13455,22 @@ $$ \ddot{y} + 2\zeta p \dot{y} + p^2 y = f(t) $$<p>In the above equation, the na
 <li>'Dynamic Range (dB)' determines the colour scale range: the darkest shade will be the peak log-amplitude; the lightest shade will represent the 'dynamics range' less than the peak. Higher dynamic range shows more data, but also more noise. 60-80 dB is usually a good choice, but feel free to experiment to get the clearest plots.</li>
 <li>'Set / Chan' chooses the time data that corresponds to the displayed sonogram.</li>
 </ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Press 'Calc Sonogram' to do the calculation and show the sonogram: time is on the x-axis and frequency is on the y-axis. Note that the sonogram of all time data is computed, but 'Set / Chan' controls which is displayed. The sonogram will live-update as you change the options. If you have lots of time data channels loaded then this may become slow, in which case use the text entry fields rather than the slider.</p>
 <p>You should experiment with the options to obtain the clearest picture. The frequency sweep should be clearly visible. You can adjust the sonogram axes using similar controls to the time display view: choose a range which brings out the important features clearly, and stick to the same ranges for any cases you wish to plot and include in your report, so that comparisons can be made easily.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Construct sonograms for each of the upward and downward sweeps for the measured data, by selecting 'Set / Chan' indices corresponding to the loaded time-data.</p>
 <p>How do the sonograms compare? Notice that for a cubic spring nonlinearity as indicated by the Duffing equation, one should observe a third harmonic component on the sonogram plots with increasing amplitude of forcing input. Does the third harmonic component increase with applied input forcing? You will also notice that the sonograms for the measured data indicate the presence of a second harmonic component in the output displacement. Comment upon the possible sources for the appearance of the second harmonic in the measured data. Does the second harmonic component increase with applied forcing amplitudes?</p>
 <p>Motivated by the results of the sonogram analysis, the following equation is proposed to model the non-linear single-degree-of-freedom vibratory system:</p>
@@ -13597,7 +13606,7 @@ $$ \ddot{y} + 2\zeta p \dot{y} + p^2 y + \alpha y^2 + \mu y^3 = \lambda a \cos(\
 <span class="n">fs</span> <span class="o">=</span> <span class="mi">3000</span> <span class="c1"># match experiments</span>
 <span class="n">T</span>  <span class="o">=</span> <span class="mi">9</span>    <span class="c1"># match experiments</span>
 <span class="n">f1</span> <span class="o">=</span> <span class="mi">40</span>   <span class="c1"># match experiments</span>
-<span class="n">f2</span> <span class="o">=</span> <span class="mi">60</span>   <span class="c1"># match experiments</span>
+<span class="n">f2</span> <span class="o">=</span> <span class="mi">70</span>   <span class="c1"># match experiments</span>
 
 <span class="n">time_axis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">fs</span><span class="p">)</span> <span class="c1"># match experiments (logged for 10s)</span>
 <span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># zero initial conditions</span>
@@ -13730,13 +13739,13 @@ $$ \ddot{y} + 2\zeta p \dot{y} + p^2 y + \alpha y^2 + \mu y^3 = \lambda a \cos(\
 <div class="text_cell_render border-box-sizing rendered_html">
 <div class="alert alert-block alert-danger">
 
-<b> NOTE: </b><br/>
+<b> NOTE: </b>
 
-* __Please note that the state of the loggers is not saved along with the notebook itself, so when you close the notebook then you can no longer use logger.show().__
+<li><b>Please note that the state of the loggers is not saved along with the notebook itself, so when you close the notebook then you can no longer use logger.show().</b></li> 
 
-* __Therefore, please remember to save data and figures as needed for the report before leaving the lab__
+<li><b>Therefore, please remember to save data and figures as needed for the report before leaving the lab</b></li> 
 
-* __The pydvma logger is opensource, so you can install it on your own device (windows/mac/linux), however it is still in development so may not work.__
+<li><b>The pydvma logger is opensource, so you can install it on your own device (windows/mac/linux), however it is still in development so may not work.</b></li> 
 
 </div>
 </div>
