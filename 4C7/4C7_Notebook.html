@@ -12947,8 +12947,13 @@ ul.typeahead-list  > li > a.pull-right {
 /*# sourceMappingURL=style.min.css.map */
     </style>
 <style type="text/css">
-    .highlight .hll { background-color: #ffffcc }
-.highlight  { background: #f8f8f8; }
+    pre { line-height: 125%; margin: 0; }
+td.linenos pre { color: #000000; background-color: #f0f0f0; padding: 0 5px 0 5px; }
+span.linenos { color: #000000; background-color: #f0f0f0; padding: 0 5px 0 5px; }
+td.linenos pre.special { color: #000000; background-color: #ffffc0; padding: 0 5px 0 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding: 0 5px 0 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
 .highlight .c { color: #408080; font-style: italic } /* Comment */
 .highlight .err { border: 1px solid #FF0000 } /* Error */
 .highlight .k { color: #008000; font-weight: bold } /* Keyword */
@@ -13094,8 +13099,8 @@ div#notebook {
 <p>This experiment is in two parts:</p>
 <p><strong>Part A:</strong> Measurement of the vibratory response of a clamped-clamped beam to variable drive forces.</p>
 <p><strong>Part B:</strong> Modelling and simulation of the nonlinear system.</p>
-<h2 id="Report">Report<a class="anchor-link" href="#Report">&#182;</a></h2><p>Your report should describe the key results of the experiment, with plots when appropriate. A number of specific questions need to be addressed. The completed report should be securely tied together if it has loose pages, and attached to a completed coursework feedback coversheet. It should then be handed in via the white post-box outside room BE3-39 on the third floor of the Baker building or delivered to Hilde Fernandez in the Div C office before the final lecture of Michaelmas term.</p>
-<h2 id="Apparatus">Apparatus<a class="anchor-link" href="#Apparatus">&#182;</a></h2><p>The apparatus comprises of a thin aluminium beam clamped at two ends to prevent axial displacement. Such a system exhibits a spring hardening effect (comment as to why this is the case in your report) with growing displacement amplitude for sufficiently large force inputs. A shaker is used to apply driving forces to the structure. The shaker derives its input from a PC-generated sine-wave (filtered by a low-pass filter) that can be varied in both frequency and amplitude. A National Instruments Data Acquisition Card (NI-DAQ) converts the specified signal to an analogue output, which is low-pass filtered, passed through channel 1 of an oscilloscope, and power-amplified by a current amplifier which provides the input to the shaker. An accelerometer is placed at the centre of the beam to measure the response of the structure to the applied drive input. The accelerometer output is coupled to an amplifier whose output is captured by the NI-DAQ using a Python package that this notebook uses and is described below. The PC will be used to drive the shaker and capture data from the accelerometer. Measurement data will be saved to your teaching system drive where it will be analysed and used for comparison with simulation. If you choose, you can analyse the data at any of the South Wing lab PCs or your own device (installation instructions at the end of this notebook).</p>
+<h2 id="Report">Report<a class="anchor-link" href="#Report">&#182;</a></h2><p>Your report should describe the key results of the experiment, with plots when appropriate. A number of specific questions need to be addressed as outlined in this handout. The completed report should be handed in as a PDF document through the coursework submission portal on the 4C7 moodle site in advance of the final lecture on Wednesday, December 2.</p>
+<h2 id="Apparatus">Apparatus<a class="anchor-link" href="#Apparatus">&#182;</a></h2><p>The apparatus comprises of a thin aluminium beam clamped at two ends to prevent axial displacement. Such a system exhibits a spring hardening effect (comment as to why this is the case in your report) with growing displacement amplitude for sufficiently large force inputs. A shaker is used to apply driving forces to the structure. The shaker derives its input from a PC-generated sine-wave (filtered by a low-pass filter) that can be varied in both frequency and amplitude. A National Instruments Data Acquisition Card (NI-DAQ) converts the specified signal to an analogue output, which is low-pass filtered, passed through channel 1 of an oscilloscope, and power-amplified by a current amplifier which provides the input to the shaker. An accelerometer is placed at the centre of the beam to measure the response of the structure to the applied drive input. The accelerometer output is coupled to an amplifier whose output is captured by the NI-DAQ using a Python package that this notebook uses and is described below. The PC will be used to drive the shaker and capture data from the accelerometer. Measurement data will be saved to your teaching system drive where it will be analysed and used for comparison with simulation. If you choose, you can analyse the data at any of the South Wing lab PCs or your own device (installation instructions at the end of this notebook). Please ensure that you have read through and signed up to the risk assessment for this lab prior to commencing this experiment.</p>
 
 </div>
 </div>
@@ -13107,7 +13112,7 @@ div#notebook {
 
 <h2 id="Part-A:-Experimental-procedure">Part A: Experimental procedure<a class="anchor-link" href="#Part-A:-Experimental-procedure">&#182;</a></h2><h3 id="A1:-Linear-response">A1: Linear response<a class="anchor-link" href="#A1:-Linear-response">&#182;</a></h3><hr style="height:2px;border:none" />
 
-<p>Start by double-clicking on the 'Start 4C7.bat' file on the desktop. This copies across a fresh copy of this notebook and a python script file to the folder 'lab_4C7' in your teaching system filespace, then it opens Jupyter Notebooks starting in this folder. You will likely see some error messages in the command prompt: these are normal and are just part of the system looking in different directoies for your teaching system username. If you need to (e.g. if you accidentally deleted part of this notebook), then you can get a fresh copy by running 'Start_4C7.bat' again.</p>
+<p>Start by double-clicking on the 'Start 4C7.bat' file on the desktop. This copies across a fresh copy of this notebook and a python script file to the folder 'lab_4C7' in your teaching system filespace, then it opens Jupyter Notebooks starting in this folder. You will likely see some error messages in the command prompt: these are normal and are just part of the system looking in different directories for your teaching system username. If you need to (e.g. if you accidentally deleted part of this notebook), then you can get a fresh copy by running 'Start_4C7.bat' again.</p>
 
 </div>
 </div>
@@ -13522,7 +13527,7 @@ $$ \ddot{y} + 2\zeta p \dot{y} + p^2 y + \alpha y^2 + \mu y^3 = \lambda a \cos(\
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pydvma</span> <span class="k">as</span> <span class="nn">dvma</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">integrate</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>
 </pre></div>
 
     </div>
