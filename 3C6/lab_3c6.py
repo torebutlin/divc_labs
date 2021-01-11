@@ -62,7 +62,8 @@ class measure_stepped_sine():
     def measure(self,b):
         time_data = dvma.stream_snapshot(self.rec)
         freq_data = dvma.calculate_fft(time_data,window='hanning')
-        
+        # ignore DC part of data - first 5 samples
+        freq_data.freq_data[0:5,0] = 0*freq_data.freq_data[0:5,0]
         index = np.argmax(np.abs(freq_data.freq_data[:,0]))
         
         self.f = np.append(self.f,freq_data.freq_axis[index])
