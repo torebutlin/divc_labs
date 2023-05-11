@@ -1,0 +1,137 @@
+***
+# Engineering Tripos Part IIA Project: GC4
+## Vibration Isolation for a Rocket Payload
+***
+
+This Jupyter Notebook provides basic template code for GC4 to get you started. It uses the package `pydvma`: a Python package for Dynamics and Vibration Measurement and Analysis.
+
+
+# Imports
+import pydvma as dvma
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+
+# Allows matplotlib to be interactive
+%matplotlib notebook
+
+
+
+# Choose settings
+settings = dvma.MySettings(fs=1000,
+                           channels=5,
+                           stored_time=80,
+                           pretrig_samples=None,
+                           device_driver='nidaq',
+                           VmaxNI=10)
+
+
+
+# Run the logger
+logger = dvma.Logger(settings)
+
+
+
+Note that the logger is a separate thread so you can't do anything in the notebook until you close it. If you get any errors appearing here, save your data, close the window, then restart the kernel and try again.
+
+Feedback is welcome: email tb267@cam.ac.uk
+
+
+
+
+***
+To analyse your data, you can either:
+
+1. use the logger by installing pydvma on your own laptop:
+    - download and install anaconda [https://www.anaconda.com/download/](https://www.anaconda.com/download/)
+    - open `Anaconda Prompt` and type `pip install pydvma`
+    - then you can use this notebook and the code above to open a logger window and load / analyse the data
+
+    ... OR ...
+
+2. save the data as a numpy array (now! - while you're in the lab), then use numpy / scipy to manipulate the data as you choose:
+    - this method lets you use your own installation of anaconda as above, but without needing to install pydvma
+    - or you can save your data to your Google Drive and use [https://colab.research.google.com](https://colab.research.google.com)
+    - to extract the data from the logger format you can use the template code below:
+
+
+
+# First load the data file you want to extract from
+d = dvma.load_data()
+
+
+
+
+# To extract the time-series data:
+# (you can change which dataset you want to extract from by changing the index in the square brackets)
+t = d.time_data_list[0].time_axis
+y = d.time_data_list[0].time_data
+np.savez('filename.npz',t=t,y=y) # don't forget to rename your file!
+
+
+
+# To extract the FFT data:
+# (you can change which dataset you want to extract from by changing the index in the square brackets)
+f = d.freq_data_list[0].freq_axis
+y = d.freq_data_list[0].freq_data
+np.savez('filename.npz',f=f,y=y) # don't forget to rename your file!
+
+
+
+# To extract the Transfer Function data:
+# (you can change which dataset you want to extract from by changing the index in the square brackets)
+f = d.time_data_list[0].freq_axis
+y = d.time_data_list[0].tf_data
+np.savez('filename.npz',f=f,y=y) # don't forget to rename your file!
+
+
+
+Then to share the data with your group, it's probably easiest to use [wetransfer.com](wetransfer.com) or equivalent.
+
+
+
+
+***
+Here are a few general instructions for running the logger:
+
+* Press __`Log Data` (top-middle panel)__ to log data using the specified settings
+* Press __`Save Figure` (bottom-middle panel)__ to save the time data plot as a \*.png and \*.pdf file
+* Press __`Calc FFT` (right panel)__ to calculate the FFT using the window function specified beneath it: the default 'hann' is appropriate here
+* Press __`Save Figure` (bottom-middle panel)__ to save the plot
+* Press __`Calc TF` (right panel)__ to calculate the Transfer Function: the defaults window='hann' and average='None' are appropriate here. We will use the averaging option later.
+* Press __`Save Figure`__ to save the plot. It will save a \*.png and \*.pdf of the figure as seen on the screen:
+    * You can adjust the x-y scales using the box zoom (under the plot) and the axis tools (left panel)
+    * You can choose the legend location (left panel)
+    * You can toggle which lines are displayed by clicking on the lines inside the legend (when 'off' they will be still visible as transparent lines, and you can choose which line is on 'top' by deselecting and reselecting it)
+* Press __`Save Dataset`__ to save all the data (it will save the data that has been calculated so far, so press it after you have calculated the FFT and Transfer Functions)
+
+
+
+
+
+***
+    
+### Understanding the logger:
+
+When you press __`Save Dataset`__, the logger saves a `<DataSet>` object which has the following structure:
+
+```
+<DataSet> class:
+          time_data_list: [<TimeData>,<TimeData>,<TimeData>]
+          freq_data_list: [<FreqData>, <FreqData>, <FreqData>]
+    cross_spec_data_list: []
+            tf_data_list: [<TfData>, <TfData>, <TfData>]
+         modal_data_list: []
+          sono_data_list: []
+          meta_data_list: []
+```          
+
+
+    
+Each type of data is arranged in 'sets', e.g. each measurement will add another <TimeData> set to time_data_list. This example has three sets of each data type. Similarly each time you load data it will add the loaded sets to the appropriate data list.
+
+* When you press __`Calc FFT`__ then a `<FreqData>` item is calculated for each `<TimeData>` set.
+* When you press __`Calc TF`__ then a `<TfData>` item is calculated for each `<TimeData>` set
+* When you press __`Calc TF`__ with `average='across sets'` then a single `<TfData>` item is calculated averaging across all `<TimeData>` items, with an assumption that the time data sets all have the same settings.
