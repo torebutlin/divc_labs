@@ -70,6 +70,8 @@ class measure_stepped_sine():
         self.G = np.append(self.G,freq_data.freq_data[index,1] / freq_data.freq_data[index,0])
             
         self.update_line()
+        self.fig.canvas.draw()
+        self.fig.canvas.flush_events()
         
         
     def undo(self,b):
