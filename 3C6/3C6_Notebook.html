@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>3C6_Notebook</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>3C6 Digital Vibration Analysis</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7312,6 +7312,7 @@ a.anchor-link {
                     processEnvironments: true
                 },
                 displayAlign: 'center',
+                messageStyle: 'none',
                 CommonHTML: {
                     linebreaks: {
                     automatic: true
@@ -7507,15 +7508,37 @@ a.anchor-link {
     white-space: normal;
   }
 </style>
-<!-- End of mermaid configuration --></head>
+<!-- End of mermaid configuration --><style>
+/* 3C6 handout styling (make_exports.py) */
+body { max-width: 940px; margin: 0 auto; }
+.alert { padding: 10px 14px; margin: 1em 0; border: 1px solid; border-radius: 5px; }
+.alert-info { background: #eaf4fb; border-color: #9cc9e4; color: #0b3d5c; }
+.alert-danger { background: #fbeeee; border-color: #e3a3a3; color: #6b1515; }
+/* the lab-assistant box (the one bordered darkblue): QR code beside the
+   text rather than under it, so the box stays short */
+.jp-RenderedHTMLCommon div[style*="darkblue"] {
+  max-width: 80% !important; display: grid; grid-template-columns: 1fr 130px;
+  column-gap: 16px; align-items: center; }
+.jp-RenderedHTMLCommon div[style*="darkblue"] > p:has(img) {
+  grid-column: 2; grid-row: 1 / span 2; margin: 0; }
+.jp-RenderedHTMLCommon div[style*="darkblue"] img { width: 130px; display: block; }
+@media print {
+  body { max-width: none; }
+  .jp-CodeCell, .alert, .jp-RenderedHTMLCommon div[style*="border"],
+  .jp-RenderedHTMLCommon img, table, li { break-inside: avoid; }
+  /* keep headings (and the rules drawn under section titles) with what follows */
+  h1, h2, h3, h4, hr { break-after: avoid; }
+  pre { white-space: pre-wrap; }
+}
+</style>
+</head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h1><center> Engineering Tripos Part IIA Module Experiment: 3C6 </center></h1>
 <h1><center> Digital Vibration Analysis, South Wing Mechanics Laboratory </center></h1>
@@ -7526,11 +7549,12 @@ a.anchor-link {
 <li>To compare the advantages and disadvantages of the different experimental methods.</li>
 </ul>
 <h2 id="2.-Preparation">2. Preparation<a class="anchor-link" href="#2.-Preparation">¶</a></h2><p><strong>DO THIS FIRST: Turn on the PC and log in using your usual Teaching System ID and password. It can take a while for the windows profile to load.</strong></p>
-<p><strong>If the power is not on at the benches, turn on the switches on the pillar at the north end of the bench, labelled “computers” and “bench sockets”.</strong> You may need to plug in the two BNC cables carrying your input and output signals to the diecast box at the rear of the computer trolley. Your cables are labelled “3C6 CH1” and “3C6 CH2”, to be plugged into the corresponding channels.</p>
+<p><strong>If the power is not on at the benches, turn on the switches on the pillar at the north end of the bench, labelled “computers” and “bench sockets”.</strong> You may need to plug in the two BNC cables carrying your input and output signals to the diecast box at the rear of the computer trolley. Your cables are labelled “3C6 CH1” and “3C6 CH2”, to be plugged into the corresponding channels. In the software, channels are numbered from 0: CH1 (the force signal) is channel 0, and CH2 (the accelerometer) is channel 1.</p>
 <p><strong>When using the magnets make sure they are well seated. If they are not, you will hear buzzing or rattling. Remove the magnet and wipe both surfaces with your finger to remove any grit. Moving the magnet slightly is often all that is needed to get rid of the buzz. If the buzz persists, try using a lower vibration level.</strong></p>
 <div style="border: 2px solid darkblue; padding: 10px; background-color: #e0f7ff; border-radius: 5px;max-width:50%; margin: 0 auto">
-<strong>ChatGPT Trial</strong>
-<p>As a way to help guide you through the lab experiment, there is a <a href="https://chatgpt.com/g/g-A2DPLseiX-cued-3c6-lab-assistant" target="_blamk">ChatGPT Assistant</a> for this lab. Its intended purpose is to help get good data during the experiment - it has been given the lab handout and some extra hints, so think of it as a smart way to search this handout. It has not been given answers to the lab report questions and it should not be used to help in this way.</p>
+<strong>3C6 Lab Assistant</strong>
+<p>As a way to help guide you through the lab experiment, there is a <a href="https://claude.ai/artifact/RHdf53JoEoNqtkpcLGgSz1" target="_blank">Claude Lab Assistant</a> for this lab (or scan the QR code to open it on your phone). You will need to sign in with a Claude account (a free account is enough). Its intended purpose is to help get good data during the experiment - it has been given the lab handout and some extra hints, so think of it as a smart way to search this handout. It has not been given answers to the lab report questions and it should not be used to help in this way.</p>
+<p><img alt="QR code for the 3C6 Lab Assistant" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACqBAMAAAC9l6sHAAAAMFBMVEX///////79/v78/Pz7/P77/Pz6/P77+/z29/nO0deIj5tDT2EYJj0RIDgKGTEEDBs5swhAAAASpElEQVR42u1bS28bV5a+KFrDVy/mJxQoG5SsXhASGrLjjWAooVaDIOmgnckmGDTQW4Fmh4y9IRQbLFpyQMhomNSDJGQEkSgNSagxsMSXggYGkMUqZtsKqdK2xZfWktvyfOdWFSVbRTkZaxYD5AZKPfXp3nPP/c53zi2z15fXGP3vZO9926GB1VyJv2+bK2tYrWX2/u1RlbBONq9Igfdt0tj8IbD+GX0w/v5twv4jsBq28ctooQywnn91KVh/ug+s1INLwZpwvGYn0UvCsh+yV1H/pWB57fu/Yv0vsbzSmYbroHHuf+OZ3yuF8fTsy/5zWGNnVyquu+dX3nh2ZezNp9oLb2J5B9Nnmss1/Mg4nx3uv376ZHYwvdzvcp19edb/FtaE46TTbS8ZExP6+eGszz3UfXY4O3hy4BbZ1unLh9rCeQOrpRgkKdcIi87qslyNMuZs12XtkRq1tw8wrpJsvFyvmmFVCnqTm8Cap7NiXa6CdOcrJUV/Fp+rbMZDrCwbLxfNsNobsAM1Xwb9YgLO3EMtmdqBK1Gd9dGz4VLTPaSmPKWGW3t5eFo1w3rO+kfQRBFYwmceXI3e4lj1A5aoPvExYWTk03JTcHIsQaCXh9l9U6wNQZvjj3m/eHMCq9ORD8QEmY1audnvfJ0DVp92LZr3a0NcpSle8mRqgiOfoqtV2Cudpn4p+bzFkU+nlabFno6KpYaFO0pe6IWVpSn+G7As9Lcx722aR3sL9pI7L61OuEa9aaHuAOu35CjHPbEyMI6yTliOds5TxkWnsw8vOGJJda9pdcJtTrGG4DBy40Ks6lmsGiZ9JV7YjMND8hYn3EbGGOMhGiOf41+AdSCQtQVnJ0degoNYblqcHZrHX45lYZ5y7catvb/eHRmGM/z1mxKw1F+OBdsfWdnY1kuGmeD9wmHrpUXziV+EJUJyxAQmzs0V8vFV2Euw47ASxyH6M+3VnUfuii6RMfsJ5hHkgQlMHuou++55zKpwmTewqNnJV1WZnCGhnMHCu+3e/rVKC//sGOMYTnyu3sDguDNklDNjpJd7+r2+Hru2J77KTZb3ZEXNwTWsnMZg+w63/cXrcfR3n6F9evfUJ+QqsPiE+AiLrG34hPGyOVbXQgaW0mkTln4gLJXWo4bVpRL1Ql6FP3KsWny+AxAcVA2rsxnXfbVcu5BXW1UjGtT1ftVA9ITFDyVgcbNp/VKMl1tmWGfjkGb7Jjn8pOb3OFjJ7wnrkK+J3nHIe71w2vLcJ1YRKAopz2peP1gc8HoafyGleY/elvwXxm3NV4m4yFd5FOMtqer8dWHcHv8w8IlrVFfYd4G17nIP1g8QbW58zQ8uF7OEE/AJ97WAyLpv4v7Vi/WExXmSYwL6RZ0AR1u6/Wq/PJcmnMOCvb7vWoEoYb4wOxCPuSjk1g+E+UJUFMhesF3hjL3yFhMszOP23aw+Nc0RD0vsPwnpskI+GEmqT+6O3iIas5909k/n8dhqjvUDy8jkMLIKDQAsogQdC4MjWQH/st5sVYFVwrrqgHQaVvMxbsa5Sigq4D5oCBqQPsYGJ0G4/2Z8yt6qYYxYpJVCqQcWbP8Yiw1dmUFEhAfmSBfptq9qV21Z7SBa7lL4lpVtDKMH1u3hGcSwcCCwUP3+a9Dr8zDFDjiDe7DFeYKrFGV2sLUL/YWrFwHCwrkJlvi43W7hTy7up+x1zljAIv+wt5R9Thdo0F+veKBTO7ssq9YbzLRf7GtYCdbZJBJtwF4KxdqUCKwGmLTc5DwLW8bw+7pBlXphQzDDQrOpHXQoq6JDCZomGEp03wTfM7HU1HQO+Wr/CBHXYYqhs7uj4yZYwsjoTRj9v+9udeTGyCL5B0hQpDg0KoqgCwaIUnPUQwPvH/lCTZEZtk3WI/VLsNGyh1OjX4ukKosqQshcYRNhcpUGFyGeYGIEioINwUMUWdmJn9PR2hj1ZsOoFrno7XD+0kIbD5PEE55sJwosYmwywzn+ojG6GPvs0xGXa/Tz+oFrsfqXh3e+4Bz9Bx+gbnwNxyKesAi+hMyxuJfIVTMs9lZ01ftVbuo3QWMci4dcDYtE+b4JljhdiNoKm2yaVHmNuwYcALE23rWXyLEchZKOVeduMnXOXh/eXTx8dlM9HllsI1tQaNWoe0fMMkL0ekMUqXsPORZCrgJVTXoiZM6rY1iIKRsm8NsOdwasGqVzZIyYwSewXLjtnSctBSCkV2cnzXOrlbXqypxMlEBNpbhdyFOlB3piLooxCvYVLisc+ZKysiJczxfyU4Mr8Tmz3KpFUr56+AP1hcdHxDQe6Lj761quzG1PqppesyISmuZW2hQrz5FO3PiAY924Zcx7TuzXNCawLN8QQVgseM+K3zKN2zxFU6rrtAC0flmcevJGS8nwEPhqgkSc1q+Wch7LO8DnVyZKWOWLh+xVxDrhDbHDDjcJiQZWnUKIB1gvTHyCxzSb3GB94SzvCbBobWuOmlCffv7qgPX9udQMfvYQY1T21P3vHt651zJd25TjDcpEbllOEIg1ZChNtEKoauTMV2eCMhKIEszRyUG/OX8JdrmBhImSKhDEKmVWSKdWBDvPq1s/8WwKP+hXLb2m0ml+WeiFpUA4kVbW9AQ8G2pYEzjoJX+G+Iiwh/6Tsuscw4t7YhGLPLt759+BBT2BicWqsTqRd+ix48lNLT1tuL/g+j7o6cWFdu5Mz3xc5wCL/z4JwtM4pGHJDS3nbViFHvZiVu4AawWu5dYKOF+srsQEStDic3DLzXhhBzczClL4Iq4QjO8Xz3POhwFPV/s2g/faiI9EXESvgfstFcGsRbPKb4ILHa/4PLI/z5jw6piRswg+PZui6ffxrAVivKpj8ZtZCt8g5x462juYfsYthmT6tLyy4pqjw2pLVpB2cw9Jp5f5zdaO9sqaqfbdBt+7r7/+G9wfxEXeeUJ6Qku7iUPgIXST4vZWB3oiqzGd2dp+ri3qdUygfABZ8RTi0uIOaxOIRhUZ5SlCiOBylWTlhSvDZ9a8biJ5BOlRa50FI1pMs8u7lNfKZ1vUXn8hDEiEJWV6xCHKO4opW2EnEvKsFWWONSpJzMCqxmLSdGcjNmmTwp6FQuxRSy4uR0qNiCQ9GDepM0HgYG1YwxlFbgSARU5ijLGKyANdKI5OMgEvREn8pIQS0dgVE40Jh7F3jt3EE1q/PJTVkv7gJQ/mGnptsEZn9joRKqMU67wmh09gdgfgBVSQA138J++X+ChdqlEpRgFdOLib8MMUkXM+rTTTy6YaEzENIWo4cRi1gRJahCUMUxTTSkQ836Zcify4j8ID9ITS+YcJ53wYWFBTk4FJtlBdGtQKcmSvRXmvGbyPWIBgpuUdyNOWfH1UxuNusm3GX+KMgn7ZpIXqcgSkwrFwBcGsJbQ1+MeihrUhXaN+KeReplhsQAqh7/RKRZqmFeixOOQNSZIEZ4cO6GVQolwUMFEEDfgXXGPbdIweZg0E77XqMizk0LC0Qk7g/l43fy5jxHVl7+m91gto8hAgA783sT3pL8bD90v39RaWnseiFV/AGuvDBlaDB/MQliXW0Oz1k3+Y1mqfiXPaws+nwYU7IAw9aKClRDgDwwtKzbi1LGbk6GCPWu021eWOKe/QclHezyRxwRHXObB9kryARP8WgoYvQ/LwN6Z6gtdzsHjU1Mcw1PMAL2UkaAFhiYulGg/YcI5dwR0oNYKTjLB61h7XKFYtyMsSJjDHMHPcJ+T6gXQa/JG8YL6LOxYb5jE6IE3L5jUYKSI3+gaktQpAQBcVK/eJCKbWECVKTKLf9uDvDMlKPeoAsglPUD0HeqKP6ia8rMOrGznKh6gUo42RhCrGH8aiH2rX60/vtbfNeAJY/dATfTx2CC7RU65RYHRpOd8ktz3VrFxDKg8apH3hX9uuq6ZYpCf6aObP9MuDoPETBRT4BLBwcLa5yCBNjqhi4venWOQKvMRdrrmHELC3iM24f5DtiSdISLzkde9OR7kQi50uF1KCPI0Misx9l7CILvhKJ21CakO9EOuGsSeyViGGl3hpNCiR+vYsFA2sJi1/opONC7DYgh5xlFhEO1J6uyBzNrshlXUsIrhlqdSQpsxqCq2zWMpevTo72N7TYJFUVZ8iFQ+ITOccLZghdrivnecJWo/AwnrkmyZtHqLrOg8fGcVQwbWl254C9tIoL8+Z8gRy0fQK45s5q22SCwgZeYody+yRQRdzuk+AT9SUu1Qz4wnOXxTD+ORzjalrXz3no6rLYQ5GM3wVAsdNxYGemklvwfud3L+WFSqG8gSNuQNlBAqIa8Rap/p9mMiWY+3t/XgeayJ2ukMWA09sxteK9XpxM1ZuRmIgH8ocgMVsMbCMB7eGCAspQ7F3PkStxixhTecEFg3+IqLHiuIrPeUpNiyEBRoLBPwmPlHvYjUhDknnUNrN+euOB1yIFfVf4X57q17V6vfqd0Ha2jFb29pM85qoJlRnByGdkpTra7ko6zJQygPXoCmAf5lqE0M0ptPlGjRDifpFU07bHuQM8IK9fHpKw4JrDOEKqd89s9jxRg0ZeTBhUbGqrJVimP1Er1nJ1SUfXOMWBiI33DOHphz9B47U95Dq0a3qPvl99flD2tpRCasF8UR1pnY1Zexp7R2z3/SouUd4xZ7X3KESORavk9eKKTEy16IadNSuJQlIKYGFzGG++O79jnWX0MU6cItU1TvodxFPDnW9pw5J14OjxQzcuLt3wtyfd7FGOdYuBOXvPmFOLpc41pMPWi/O16zO78Pw8icFjY7mE3r10Nj8I+HJY4d5HHprT2eV6CAKZ6jXVrlPLPNSDDItykLSa3C8/Gq9srrkf6e9fN1iFVxj3cezJdfwlhY0QuheXdYKGj9jr0kPuWzgJlyBfO/Tj42A0unwGhTlIZ32/ruxNuPlGnkI0i2+2RenzRxee6TyLS8zlLTSwjvHSFuNCu3piFpNYa9Oezq0J63Vavf2dnmt1jxXeHMPzIgPtMHHLHcTPFVu8XybXINqtSO96r5v77HSdqpyWutI8nLASYuSF44FYc8uwnLFjTXETUObOe0K3/0w7JVRCoU6YZWa8bmetW2+V867IPj0Ccw0tRqEVp/QzEZesOtG/kgSmGruo6Ip1hnO6eoJqGra9IUm74fZvkmSu+/yfT7mbNM+HzPv1wvjo6lyd4wYh1LIYwKpxKR/JFDfxTOMkX8wkI8/NdUA3Y+5qCb4ao98gjbv4WGQNGpULznYeUmsrqi7PI6+MtU5Z+OQ4RNUsp318RXIsQRezdfaCzAQcgpTrDf2wLRCIYQEMkCPgKtDvV8Wu/EelQOsjpO/Cya56NnPzK7pVzFXJD71yVW6mrrNv3G4NmC8E7uKq0G88o69pu7VePfblSv6tzPd9wRdhbzjm5qwcRUeDxrf1Bhf8XTf09jh9P6v3zP9ivX/EstLyjMQwJnxQ5+UaU8D3d8J/CwsH7OOe0XBPx4gemPaTW0dfqQXiqm8cvX0LxC/mK8hazzk/zISs3rF+NT4uLbQfPNcQd6WjA8aB9L+7l/gi/uKGZZvobNjs//4z6hvuhEenyyG/F5fMJRdCvvHvQOl1IOJ22HcGGhNPZiYmn8S8E34/xRw+x595zfDKsSV2cTO2pF7K+UfnyyF/GMCm0ymvrwyPmFvbbvB918KzBWHnBOTUYiTqzgR/y1niiWxbLQctS87jmE4YAUGi/lQcnXngX/CsXNkvSdv4oaUH1jbeSTv4HRqPl2RipWpP57H+sg2VwkXbCE2k89H/0hY93e2Upk8eumb2WiwbPqn3+4UpZrjOBNX8k48S+5sLZcKU+e/CQRL77+wVa56pxKFrQ03YQ2wRC6bcm67Q8loMZSJit/mBFvFuS2I2Whw7HEumXqcS6TMxui1xYtPKtYQy6YcR7bJ0kPJXijnst/fOviXUCZdji60Nj842QlW7J3KbPYvg4XyevLZTC7x/QMTrMkwUEoh+3JSwwqxxCbv19+tA5QQwwRsbmupwiKZXDa6uLmo98sEyztQiWxFk5vzR483pg8wxvRKMpXdSG4srgftx9bpH9JTxeloMlVxLM/ksviDiY1kaiaX3DTr152M2rA5Dk+W7Go75Z/cOnw53S4cJYvtaNB5ZHMcZdqN6VdNqeI4ac0uHN9/hWepb3PTrZCJ7W/b09HfT8bj1kn4/vhtREBbfCAWiaxYxwefeifitjlo6pgtPjYXs+JJPByLzEZmB+I+szU0SeuRMT/98K83J9lt2jXz00IZw5X1IwgqRo8n2ZdIzMUr4pX/0KXJ2zxBSzAY1n5AGAGv5P0qEMCFF8so/BEeBwPgCTz24tlXAa8f/wX+j/jrMr9pvsxvrS/1G/DL/Db9Mr+Zv8xv+S/z3xhc6r99uNR/k3FZ7X8A0OOlGYw+0k4AAAAASUVORK5CYII="/></p>
 </div>
 </div>
 </div>
@@ -7540,8 +7564,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h2 id="3.-Experimental-procedure">3. Experimental procedure<a class="anchor-link" href="#3.-Experimental-procedure">¶</a></h2><h3 id="3.1-Sine-wave-measurements-(30-minutes)">3.1 Sine wave measurements (30 minutes)<a class="anchor-link" href="#3.1-Sine-wave-measurements-(30-minutes)">¶</a></h3><hr style="height:2px;border:none"/>
 <p><strong>If the computer is not already on, switch it on, then log in using your usual Teaching System ID and password.</strong></p>
@@ -7566,8 +7589,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Remember:</p>
 <ul>
 <li>to actually run a cell of code, click inside the cell then press 'shift+enter'</li>
@@ -7585,13 +7607,12 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">lab_3c6</span>
-<span class="kn">import</span> <span class="nn">pydvma</span> <span class="k">as</span> <span class="nn">dvma</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">lab_3c6</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pydvma</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dvma</span>
 </pre></div>
 </div>
 </div>
@@ -7602,10 +7623,9 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> notebook
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> widget
 </pre></div>
 </div>
 </div>
@@ -7616,7 +7636,6 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># acquisition setup</span>
@@ -7634,54 +7653,19 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Now open a PC oscilloscope using your settings. This shows three plots:</p>
-<ul>
-<li>the top one is like a normal oscilloscope showing the signal (toggle on/off with 'T');</li>
-<li>the middle one shows the frequency spectrum of the signal (toggle on/off with 'F');</li>
-<li>the bottom one shows the signal amplitudes (toggle on/off with 'L');</li>
-<li>you can pause the data shown by pressing 'P' (press again to continue streaming data);</li>
-<li>you can toggle whether the window is always on top by pressing 'A'</li>
-</ul>
-<p>Tap the top beam gently with a finger. Check that you can see a response in the oscilloscope.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># open oscilloscope</span>
-<span class="n">osc</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">Oscilloscope</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Close the oscilloscope</strong></p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>In this part of the lab we want to measure the gain and phase shift from input to output at the specific frequencies of the generator. To do this we will use a simple interface embedded in the notebook.</p>
 <ol>
-<li>Start the stepped-sine logging widget by running the code in the next cell;</li>
+<li>Start the stepped-sine logging widget by running the code in the next cell. Its top plot is a live preview of both signals, like an oscilloscope: <strong>Pause preview</strong> freezes it, and a red <strong>CLIP</strong> warning appears if a signal reaches the input limit;</li>
+<li>Tap the top beam gently with a finger and check that you can see a response;</li>
 <li>Use the sine-wave generator to explore the system response in the frequency range 10–500 Hz;</li>
-<li>For each frequency tested, allow a short time for the vibration to settle to a steady state, then click the “Measure” button on the computer;</li>
+<li>For each frequency tested, allow a short time for the vibration to settle to a steady state (watch the preview), then click the “Measure” button on the computer;</li>
 <li>A dot will be plotted on the screen showing the admittance at the measured frequency;</li>
 <li>Explore up and down in frequency until you have dotted out a reasonable picture of the admittance (you should find at least four resonance peaks). Unwanted data points can be deleted using the “Delete Last Measurement” button. Be particularly careful to catch the peak values, where the system has resonances.</li>
 </ol>
 <p>You don't have to wait long between measurements: you can get quite fast at changing frequency, pausing half a second, clicking "measure", and repeat.</p>
 <p>Aim to get about 100 data points.</p>
-<p>When you have gathered sufficient data points, click on the "Save Data" and "Save Fig" buttons: you will be prompted for a file name. You need to save your data as well as the figure so you can read it back again later.</p>
+<p>When you have gathered sufficient data points, type a file name in the box under the buttons (it starts as 'stepped_sine'), then click "Save Data" and "Save Fig". "Save Data" writes <em>name</em>.dvma and "Save Fig" writes <em>name</em>.png and <em>name</em>.pdf. An existing file is never overwritten: if the name is taken, type a new one. You need to save your data as well as the figure so you can read it back again later.</p>
 <p><strong>Any files you save during this experiment should be saved to where this notebook has already been copied to and is the default location for all saved data. Do not put files on the local disk of the PC you are using.</strong></p>
 </div>
 </div>
@@ -7691,7 +7675,6 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># log data</span>
@@ -7706,12 +7689,11 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><strong>Make sure you remembered to save both the data and the figure!</strong></p>
-<p><strong>CHECK: Have you saved the data (you should have a *.npy file)</strong></p>
+<p><strong>CHECK: Have you saved the data (you should have a *.dvma file)</strong></p>
 <p><strong>CHECK: Have you saved the figure (you should have both a *.pdf and *.png file - the 'Save Fig' button saves both at once)</strong></p>
-<p>You will need the data later: to check that you have saved it, you can reload and replot it. Note that the individual points are now plotted as a continuous line. There's no need to save the figure below as well, having saved it above.</p>
+<p>You will need the data later: to check that you have saved it, you can reload and replot it. Run the next cell and pick your stepped-sine file in the list, then run the cell after it. Note that the individual points are now plotted as a continuous line. There's no need to save the figure below as well, having saved it above.</p>
 </div>
 </div>
 </div>
@@ -7720,10 +7702,23 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_stepped_sine</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># choose your stepped-sine data file in the list</span>
+<span class="n">picker</span> <span class="o">=</span> <span class="n">lab_3c6</span><span class="o">.</span><span class="n">choose_file</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_stepped_sine</span> <span class="o">=</span> <span class="n">picker</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
 <span class="n">data_stepped_sine</span><span class="o">.</span><span class="n">plot_tf_data</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -7735,8 +7730,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr/>
 <h3 id="For-the-report:">For the report:<a class="anchor-link" href="#For-the-report:">¶</a></h3><ol>
 <li>Comment on your general observations of the data.</li>
@@ -7752,8 +7746,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h3 id="3.2-Random-noise-excitation-(30-minutes)">3.2 Random noise excitation (30 minutes)<a class="anchor-link" href="#3.2-Random-noise-excitation-(30-minutes)">¶</a></h3><hr style="height:2px;border:none"/>
 <p>Switch to “Noise” on the selector, and you will hear the sound of the cantilever system responding to such a signal, generated by an analogue noise generator.</p>
@@ -7765,21 +7758,21 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The data acquisition used for the rest of the lab will use the 'pydvma' logger interface that is more general than the embedded widget above. Open the logger window by running the next cell (shift+enter).</p>
-<p>Familiarise yourself with the logger window:</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The data acquisition used for the rest of the lab will use the 'pydvma' logger interface that is more general than the embedded widget above. Open the logger by running the next cell <strong>once</strong> (shift+enter): it opens in a new browser tab, and you will use it for the rest of the lab. (The widget's preview above stops when the logger starts using the hardware.)</p>
 <ul>
-<li>the centre panel contains the figure - note the zooming / panning tools under the figure.</li>
-<li>when data is shown, you can click on the legend lines to select which channels are shown.</li>
-<li>when using the box-zoom tool (from under the figure), then left-click-drag will zoom to the rectangle, and right-click-drag will zoom out.</li>
-<li>the left panel controls what is plotted (you can select which plot to show using the top dropdown).</li>
-<li>use the 'auto x' and 'auto y' buttons to automatically adjust the x and y axes to fit the selected data ('auto y' changes the y-limits to fit the selected data, 'auto x' changes the x-limits to the whole data range).</li>
-<li>the right panel provides data analysis tools (you can select which tools are displayed using the top dropdown).</li>
-<li>the centre top panel is for basic data management (logging / loading / deleting).</li>
-<li>the centre bottom panel is to save data or figures.</li>
-<li>the max signal levels are shown for convenience in the title bar of the window for quick reference.</li>
-<li>in the top-left panel you can open the oscilloscope by clicking on the small icon button.</li>
+<li><strong>Arrange your screen:</strong> put this notebook on the left half of the screen and the logger's browser window on the right half (drag each window to the edge of the screen, or press the Windows key + ← / →). The logger adapts to a narrow window.</li>
+<li><strong>Choose where files are saved:</strong> click the folder button at the top of the logger (it reads 'Downloads' until you choose) and select the folder this notebook is in. Everything you save from the logger then goes there. (This works in Edge, which the logger opens in; other browsers just download to Downloads.)</li>
+<li><strong>Setup is already filled in</strong> from the settings in the next cell (NI device, 2 channels, 3000 Hz, 2 s). You will only change the duration and the trigger later, when the instructions tell you to.</li>
+</ul>
+<p>Familiarise yourself with the logger:</p>
+<ul>
+<li>the row of <strong>stages</strong> (Setup, Acquire, Live, Time, Frequency, TF, ...) takes you through a measurement; each analysis stage has a card of settings above the plot.</li>
+<li>the <strong>tray</strong> at the side lists your datasets: click a set's name to show, fade or hide it, double-click it to rename it (useful for legends), and <strong>×</strong> deletes it.</li>
+<li>click a line in the plot's <strong>legend</strong> to show, fade or hide it.</li>
+<li>the <strong>toolbar</strong> above the plot has <strong>Box zoom</strong> and <strong>Pan</strong>, <strong>↶</strong> to undo a zoom, and <strong>Auto X</strong> / <strong>Auto Y</strong> to fit the axes to the visible lines. The chevron at its right end opens exact axis limits, the legend position and the coherence axis range.</li>
+<li>the header has <strong>Load Data</strong>, <strong>Save Figure</strong> and <strong>Save Dataset</strong>.</li>
+<li><strong>Live</strong> is the oscilloscope (time signal, spectrum, and signal levels with a <strong>CLIP</strong> warning), and a small monitor stays at the side on every stage: press <strong>Start</strong> on it and keep an eye on the levels.</li>
 </ul>
 </div>
 </div>
@@ -7789,7 +7782,6 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># acquisition setup</span>
@@ -7797,9 +7789,8 @@ a.anchor-link {
                            <span class="n">fs</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span>
                            <span class="n">stored_time</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                            <span class="n">device_driver</span> <span class="o">=</span> <span class="s1">'nidaq'</span><span class="p">)</span>
-<span class="n">logger2</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span>
-                      <span class="n">test_name</span> <span class="o">=</span> <span class="s1">'noise_input_'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">stored_time</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'s'</span><span class="p">,</span>
-                      <span class="n">default_window</span><span class="o">=</span><span class="s1">'hann'</span><span class="p">)</span>
+<span class="c1"># open the logger in a new browser tab: run this cell only once</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="s1">'hann'</span><span class="p">,</span> <span class="n">tf_averaging</span><span class="o">=</span><span class="s1">'none'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7810,27 +7801,44 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>We will explore the effect of some different logging options, starting with 'stored_time=2' seconds. Open the logger interface:</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>We will explore the effect of some different logging options, starting with a 2 second measurement (the <strong>duration</strong> in Setup). In the logger:</p>
 <ol>
-<li>Press <strong>'Log Data' (top-middle panel)</strong> to log data using the specified settings</li>
-<li>You should have a single measurement, shown as two lines in the figure.</li>
-<li>If you have made more measurements then use 'Delete All' (top-middle panel) and carry out a single measurement.</li>
-<li>Press <strong>'Save Figure' (bottom-middle panel)</strong> to save the time data plot as a *.png and *.pdf file</li>
-<li>Press <strong>'Calc FFT' (right panel)</strong> to calculate the FFT using the window function specified beneath it: the default 'hann' is appropriate here</li>
-<li>Press <strong>'Save Figure' (bottom-middle panel)</strong> to save the plot</li>
-<li>Press <strong>'Calc TF' (right panel)</strong> to calculate the Transfer Function: the defaults window='hann' and average='None' are appropriate here. We will use the averaging option later.</li>
-<li><strong>Zoom in on the frequency range of interest (0-500 Hz) and adjust the y-scale appropriately using 'Auto Y' (left panel)</strong></li>
+<li>Press <strong>'Log Data'</strong> (Acquire stage) to log data using these settings. When it finishes, the logger shows the Time stage.</li>
+<li>You should have a single measurement: one set in the tray, shown as two lines in the figure.</li>
+<li>If you have made more measurements then delete the extra sets (<strong>×</strong> on their tray cards), so that you have a single measurement. Double-click the set's name in the tray to rename it, e.g. 'noise 2s'.</li>
+<li>Press <strong>'Save Figure'</strong> (header) to save the time data plot: tick both <strong>PNG</strong> and <strong>PDF</strong>, type a file name, and press <strong>Export</strong></li>
+<li>On the <strong>Frequency</strong> stage press <strong>'Calc FFT'</strong> to calculate the FFT using the window on its card: the default 'hann' is appropriate here</li>
+<li>Press <strong>'Save Figure'</strong> to save the plot</li>
+<li>On the <strong>TF</strong> stage press <strong>'Calc TF'</strong> to calculate the Transfer Function: the settings cell has set window 'hann' and avg 'none', and in=0 (channel 0, the force signal) is appropriate here. We will use the averaging option later.</li>
+<li><strong>Zoom in on the frequency range of interest (0-500 Hz) and adjust the y-scale appropriately using 'Auto Y' (toolbar above the plot)</strong></li>
 <li>Press <strong>'Save Figure'</strong> to save the plot. It will save a *.png and *.pdf of the figure as seen on the screen:<ul>
-<li>You can adjust the x-y scales using the box zoom (under the plot) and the axis tools (left panel)</li>
-<li>You can choose the legend location (left panel)</li>
-<li>You can toggle which lines are displayed by clicking on the lines inside the legend (when 'off' they will be still visible as transparent lines, and you can choose which line is on 'top' by deselecting and reselecting it)</li>
+<li>You can adjust the x-y scales using Box zoom, or type exact limits in the toolbar's chevron panel</li>
+<li>You can choose the legend location (toolbar's chevron panel)</li>
+<li>You can show, fade or hide lines by clicking on them in the legend</li>
 </ul>
 </li>
-<li>Press <strong>'Save Dataset'</strong> to save all the data (it will save the data that has been calculated so far, so press it after you have calculated the FFT and Transfer Functions)</li>
+<li>Press <strong>'Save Dataset'</strong> (header) to save all the data (it will save the data that has been calculated so far, so press it after you have calculated the FFT and Transfer Functions)</li>
 </ol>
-<p><strong>Next repeat the steps above, but logging for 30 seconds instead. You will need to change the settings line to 'stored_time=30' and re-run the logger.</strong></p>
+<p><strong>Next repeat the steps above, but logging for 30 seconds instead: delete the 2 second set from the tray (you have saved it), run the next cell to set a 30 s duration, and log again.</strong></p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># 30 second noise measurement</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">MySettings</span><span class="p">(</span><span class="n">channels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                           <span class="n">fs</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span>
+                           <span class="n">stored_time</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                           <span class="n">device_driver</span> <span class="o">=</span> <span class="s1">'nidaq'</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -7839,10 +7847,9 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
-<li><p><strong>CHECK 1: Did you remember to re-run the test using stored_time=30 seconds?</strong></p>
+<li><p><strong>CHECK 1: Did you remember to re-run the test with a 30 second duration?</strong></p>
 </li>
 <li><p><strong>CHECK 2: Did you remember to save your data <em>after</em> calculating the transfer function?</strong></p>
 </li>
@@ -7858,8 +7865,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div class="alert alert-block alert-info">
 <p><b> Understanding the logger: </b><br/></p>
 <p>When you press 'Save Dataset', the logger saves a &lt;DataSet&gt; object which has the following structure:</p>
@@ -7872,7 +7878,7 @@ a.anchor-link {
          modal_data_list: []
           sono_data_list: []
           meta_data_list: []
-
+          
 </code></pre>
 <p>Each type of data is arranged in 'sets', e.g. each measurement will add another &lt;TimeData&gt; set to time_data_list. This example has three sets of each data type. Similarly each time you load data it will add the loaded sets to the appropriate data list.<br/><br/></p>
 <li> When you press 'Calc FFT' then a &lt;FreqData&gt; item is calculated for each &lt;TimeData&gt; set.</li>
@@ -7887,15 +7893,14 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>We can compare the transfer functions from the two measurements as follows:</p>
 <ol>
 <li>Keep your 30 second noise test data (don't delete it)</li>
-<li>Press 'Load Data' (top-middle panel) and open your data from the 2 second noise test</li>
-<li>Select 'TF Data' from the 'Figure selection' dropdown (left panel) to compare the datasets from the two measurements</li>
+<li>Press <strong>'Load Data'</strong> (header) and open your data from the 2 second noise test: loading adds the file's sets alongside the ones already in the tray</li>
+<li>On the <strong>TF</strong> stage, compare the transfer functions from the two measurements</li>
 </ol>
-<p>Note that pressing 'Calc TF' (right panel) will also work here as the settings used to calculate both transfer functions are the same. <em>BUT later you will want to compare transfer functions computed using different settings, in which case you will need to load the data separately and use the 'Figure selection' dropdown.</em></p>
+<p>Note that pressing 'Calc TF' will also work here as the settings used to calculate both transfer functions are the same. <em>BUT later you will want to compare transfer functions computed using different settings: then don't press 'Calc TF' or change the TF card's settings, as either recalculates every set the same way.</em></p>
 <p><strong>Remember to save your comparison data and figures to the teaching system</strong></p>
 </div>
 </div>
@@ -7905,9 +7910,8 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>If you accidentally close the logger window, you can re-open it using:</strong></p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>If you accidentally close the logger tab, you can re-open it with the next cell (and accept the offer to restore your session):</strong></p>
 </div>
 </div>
 </div>
@@ -7916,10 +7920,10 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">logger2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">webbrowser</span>
+<span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7930,18 +7934,18 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>To smooth out the transfer functions we can average the data: recall that the transfer function is given by:</p>
-$$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the input and output respectively, and $E[\cdot]$ denotes the expectation (or average). If we take the whole time series then no averages are taken. But we can split the time data into sections (or 'frames'), apply a window to remove discontinuities at the edges of each frame, calculate the FFT of each frame, then take the averages of those.</p>
+<p>$$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$</p>
+<p>where $X$ and $Y$ are the FFTs of the input and output respectively, and $E[\cdot]$ denotes the expectation (or average). If we take the whole time series then no averages are taken. But we can split the time data into sections (or 'frames'), apply a window to remove discontinuities at the edges of each frame, calculate the FFT of each frame, then take the averages of those.</p>
 <ol>
-<li>Press 'Load Data' and find the 30 second noise data file</li>
-<li>Under 'Calc TF' select window='hann' and average='within each set'</li>
-<li>Use the 'N_frames' slider to investigate the effect of averaging with different numbers of frames (you can also use the text box)</li>
+<li>Delete the 2 second set from the tray (<strong>×</strong>), keeping the 30 second one, so that the averaging settings apply only to it (or press 'Load Data' and open your 30 second noise data file)</li>
+<li>On the <strong>TF</strong> stage set window='hann' and avg='within set'</li>
+<li>Use the <strong>N frames</strong> slider to investigate the effect of averaging with different numbers of frames (you can also type in its box; the frame length, nFFT and Δf follow)</li>
 <li>Save plots for the cases N=1, N=30 and your choice of N that gives the 'best' transfer function estimate</li>
 <li>Be careful to watch the coherence near the peaks as N increases.</li>
 </ol>
-<p>Note that you can use the matplotlib viewing tools underneath the plot (e.g. box zoom), or for more careful control you can use the axes controls in the left panel. Note that the coherence axis is labelled on the right-y-axis and is controlled by 'co. min' and 'co. max' in the left panel, separately to the transfer function y-axis scale.</p>
+<p>Note that you can use the toolbar above the plot (e.g. Box zoom), or for more careful control the exact axis limits in its chevron panel. Note that the coherence is labelled on the right-hand y-axis, and its range (0–1 or auto) is set in the same panel, separately to the transfer function y-axis scale.</p>
 </div>
 </div>
 </div>
@@ -7950,9 +7954,8 @@ $$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the 
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>If you accidentally close the logger window, you can re-open it using:</strong></p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>If you accidentally close the logger tab, you can re-open it with the next cell (and accept the offer to restore your session):</strong></p>
 </div>
 </div>
 </div>
@@ -7961,10 +7964,10 @@ $$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the 
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">logger2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">webbrowser</span>
+<span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7975,10 +7978,9 @@ $$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the 
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ul>
-<li><p><strong>CHECK 1: Did you remember to save your data <em>after</em> calculating the transfer function <em>using your best choice of N_frames</em>? You will need this later for the comparisons.</strong></p>
+<li><p><strong>CHECK 1: Did you remember to save your data <em>after</em> calculating the transfer function <em>using your best choice of N frames</em>? You will need this later for the comparisons.</strong></p>
 </li>
 <li><p><strong>CHECK 2: Did you remember to save the figures that you want to keep for the report?</strong></p>
 </li>
@@ -7992,8 +7994,7 @@ $$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the 
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr/>
 <h3 id="For-the-report:">For the report:<a class="anchor-link" href="#For-the-report:">¶</a></h3><ol>
 <li>Comment on the 2s vs 30s data.</li>
@@ -8010,8 +8011,7 @@ $$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the 
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h3 id="3.3-Impulsive-excitation-(20-minutes)">3.3 Impulsive excitation (20 minutes)<a class="anchor-link" href="#3.3-Impulsive-excitation-(20-minutes)">¶</a></h3><hr style="height:2px;border:none"/>
 <ol>
@@ -8021,16 +8021,16 @@ $$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the 
 </li>
 <li><p>Switch the selector to “Hammer”.</p>
 </li>
-<li><p>Using a new logger window with new settings (next cell below), click on 'Log Data';</p>
+<li><p>In the logger, delete the noise set from the tray (<strong>×</strong>): you have already saved it. Then run the code cell just below these steps, which sets a 6 s duration and arms the trigger (on ch 0, the hammer), and press <strong>'Log Data'</strong> (Acquire stage);</p>
 </li>
-<li><p>Tap gently on the top of the beams vertically above the accelerometer. Tap within 20 seconds of pressing 'Log Data' to avoid a timeout. The logger will automatically save the signal starting 100 samples just before the tap (specified by the 'pretrig_samples' variable).</p>
+<li><p>Tap gently on the top of the beams vertically above the accelerometer. Tap within 20 seconds of pressing 'Log Data' to avoid a timeout (the Acquire card shows 'armed — waiting for trigger…' until you tap). The logger will automatically save the signal starting 100 samples just before the tap (specified by the 'pretrig_samples' variable).</p>
 </li>
 <li><p><strong>Data will be collected by the computer for 6 s: hold the hammer still and don’t put it down on the bench until it is finished.</strong></p>
 </li>
-<li><p><strong>Check your hammer impulse in the time-domain display window.</strong></p>
+<li><p><strong>Check your hammer impulse on the Time stage.</strong></p>
 <ul>
-<li>Is it clipped (amplitude=1)?</li>
-<li>Is the signal too small (amplitude&lt;0.1)?</li>
+<li>Is it clipped (the <strong>CLIP</strong> warning lights, or a flat top at ±5 V)?</li>
+<li>Is the signal too small (peak below about 0.5 V, 10 % of the range)?</li>
 <li>Was there a single, clean impact or multiple impacts?</li>
 <li>Was there any vibration before the impulse? Make sure the beams were not still vibrating from a previous impulse.</li>
 <li>Did you hear any rattling or buzzing sounds? Try a lighter tap.</li>
@@ -8041,19 +8041,37 @@ $$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the 
 </div>
 </div>
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># hammer settings: 6 s capture, trigger armed on ch 0 (the hammer), no window</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">MySettings</span><span class="p">(</span><span class="n">channels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                           <span class="n">fs</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span>
+                           <span class="n">stored_time</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+                           <span class="n">pretrig_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                           <span class="n">device_driver</span> <span class="o">=</span> <span class="s1">'nidaq'</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tf_averaging</span><span class="o">=</span><span class="s1">'none'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <ol start="8">
-<li><p><strong>Zoom in on the time signals so you can see the individual samples of the impulse and before the impulse. This will be needed for some of the questions on this section. Save this figure.</strong></p>
+<li><p><strong>Zoom in on the time signals so you can see the individual samples of the impulse and before the impulse (Box zoom on the Time stage; the card's 'First 0.2 s' button is a quick start). This will be needed for some of the questions on this section. Save this figure.</strong></p>
 </li>
-<li><p>Calculate frequency spectra using 'Calc FFT' (check that window is set to 'None'). Save this figure.</p>
+<li><p>Calculate frequency spectra using 'Calc FFT' on the <strong>Frequency</strong> stage (the settings cell has set the window to 'none'). Save this figure.</p>
 </li>
-<li><p>Calculate a transfer function using 'Calc TF' to compare with those obtained by the earlier methods. You should find that the result is satisfactory, with sharp clear peaks and troughs, without any need for averaging. If it is not, try again. You may have to develop your hammering technique a little to obtain best results. If you find it hard to get a clean transfer function then try moving the magnet, and checking that the brass coupling rod between the beams is well seated. It takes very little time to repeat the impulse response procedure. <strong>You will find the write-up much easier with good data.</strong> Save this figure.</p>
+<li><p>Calculate a transfer function using 'Calc TF' on the <strong>TF</strong> stage (the settings cell has set window 'none' and avg 'none') to compare with those obtained by the earlier methods. You should find that the result is satisfactory, with sharp clear peaks and troughs, without any need for averaging. If it is not, try again. You may have to develop your hammering technique a little to obtain best results. If you find it hard to get a clean transfer function then try moving the magnet, and checking that the brass coupling rod between the beams is well seated. It takes very little time to repeat the impulse response procedure. <strong>You will find the write-up much easier with good data.</strong> Save this figure.</p>
 </li>
 </ol>
 <ul>
@@ -8068,71 +8086,30 @@ $$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the 
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># acquisition setup</span>
-<span class="n">logger2</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c1"># close the previous logger and start a new one</span>
-<span class="n">settings</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">MySettings</span><span class="p">(</span><span class="n">channels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                           <span class="n">fs</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span>
-                           <span class="n">stored_time</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
-                           <span class="n">pretrig_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-                           <span class="n">device_driver</span> <span class="o">=</span> <span class="s1">'nidaq'</span><span class="p">)</span>
-<span class="n">logger3</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> 
-                      <span class="n">test_name</span> <span class="o">=</span> <span class="s1">'hammer_input_'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">stored_time</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'s'</span><span class="p">,</span>
-                      <span class="n">default_window</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<ul>
-<li><p><strong>CHECK 1: Did you remember to zoom in on the appropriate part of your data (0-500Hz and press Auto Y).</strong></p>
-</li>
-<li><p><strong>CHECK 2: Did you remember to save your data <em>after</em> calculating the transfer function?</strong></p>
-</li>
-<li><p><strong>CHECK 3: Did you remember to save the figures that you want to keep for the report?</strong></p>
-</li>
-</ul>
-<p><strong>Remember to save your data (after calculating the FFT and transfer function) and figures to the teaching system</strong></p>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Now load the data from each of your previous measurements, and plot the transfer functions.</p>
 <ul>
-<li><p><strong>DO:</strong> use 'Delete All' to clear existing data</p>
+<li><p><strong>DO:</strong> remove every set from the tray (<strong>×</strong> on each card) to clear existing data</p>
 </li>
-<li><p><strong>DO:</strong> use 'Load Data' to load your chosen datasets</p>
+<li><p><strong>DO:</strong> use 'Load Data' (header) to load your chosen datasets</p>
 </li>
 <li><p><strong>DO:</strong> load your hammer data first: for reasons that become clear later</p>
 </li>
 <li><p><strong>DO:</strong> load your best 'averaged' smooth data from the noise-input section</p>
 </li>
-<li><p><strong>DO:</strong> use the 'Plot selection' dropdown to choose 'TF Data' for comparisons</p>
+<li><p><strong>DO:</strong> load your stepped-sine data</p>
 </li>
-<li><p><strong>DON'T:</strong> press 'Calc TF' otherwise the transfer functions will all be recalculated using the same settings. You don't want this: you want to compare your transfer functions that have each been calculated using the right choices of windows and averaging.</p>
+<li><p><strong>DO:</strong> use the <strong>TF</strong> stage for comparisons</p>
+</li>
+<li><p><strong>DON'T:</strong> press 'Calc TF' or change the TF card's settings, otherwise the transfer functions will all be recalculated using the same settings. You don't want this: you want to compare your transfer functions that have each been calculated using the right choices of windows and averaging.</p>
 </li>
 </ul>
-<p><strong>If you accidentally close the logger window, you can re-open it using:</strong></p>
+<p><strong>If you accidentally close the logger tab, you can re-open it with the next cell (and accept the offer to restore your session):</strong></p>
 </div>
 </div>
 </div>
@@ -8141,10 +8118,10 @@ $$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the 
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">logger3</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">webbrowser</span>
+<span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8155,10 +8132,9 @@ $$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the 
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>The most obvious difference should be that the hammer results are shifted vertically relative to the noise results. This is because the two input signals need different calibration factors. The computer can calculate an appropriate scale factor to allow direct comparison:</p>
-<p>Zoom in to the frequency range 0-500 Hz then press 'Best Match (to ref)'. The scale factor is printed above the plot, and the factor is applied to the data. All datasets are scaled to match the dataset that was loaded first, which is why you should load this first. If you didn't then you can use the 'Ref set / chan' options and specify which 'set' corresponds to the reference hammer data (look at the legend labels to see the set numbers).</p>
+<p>Zoom in to the frequency range 0-500 Hz, then press <strong>'Best match'</strong> (in the TF card's scaling group, with ref ch = ch_1). A message reports the scale factor applied to each dataset, with an Undo. All datasets are scaled to match the first set in the tray, which is why you should load the hammer data first. If you didn't, choose the hammer set in the TF card's <strong>dataset</strong> list before pressing 'Best match'.</p>
 <p><strong>Remember to save your data and figures (showing the three measured transfer functions together) to the teaching system</strong></p>
 </div>
 </div>
@@ -8168,8 +8144,7 @@ $$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the 
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr/>
 <h3 id="For-the-report:">For the report:<a class="anchor-link" href="#For-the-report:">¶</a></h3><ol>
 <li>Comment on the zoomed-in data of the impulse:<ul>
@@ -8196,15 +8171,14 @@ $$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the 
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h3 id="3.4-Calibration-(20-minutes)">3.4 Calibration (20 minutes)<a class="anchor-link" href="#3.4-Calibration-(20-minutes)">¶</a></h3><hr style="height:2px;border:none"/>
 <p>The final stage of the measurement is to calibrate your transfer functions to give results in physical units.</p>
 <ol>
 <li><p>Move the accelerometer to the suspended mass behind the cantilevers.</p>
 </li>
-<li><p>Start a new logger with the settings below.</p>
+<li><p>In the logger, remove every set from the tray (<strong>×</strong>): you have saved them. Then run the settings cell below (the same hammer settings as 3.3, in case anything changed).</p>
 </li>
 <li><p>Use the hammer to measure a good transfer function of this mass, swinging in a straight line.</p>
 </li>
@@ -8212,15 +8186,16 @@ $$G(\omega) = \frac{E[YX^*]}{E[XX^*]}$$<p>where $X$ and $Y$ are the FFTs of the 
 </li>
 <li><p>Convert the transfer function to show acceleration/force instead of velocity/force. To do this:</p>
 <ul>
-<li>After logging the data, press 'Calc TF' with window=None and average='across sets'</li>
-<li>Press 'x (iw)', i.e. multiplication by $i\omega$</li>
+<li>After logging the data, on the <strong>TF</strong> stage press 'Calc TF' (the settings cell has set window 'none' and avg 'across sets'; the result is drawn on the first set)</li>
+<li>Set <strong>x(iω)^</strong> to +1 (the TF card's scaling group), i.e. multiplication by $i\omega$. This changes only the plot, not your data.</li>
 <li>The transfer function should now show a near-horizontal line over a range of frequencies.</li>
 </ul>
 </li>
 <li><p>Make your best estimate of the value of this constant level: to convert the decibel value back to a linear value note that:</p>
 </li>
 </ol>
-$$Y_\text{dB} = 20 \log_{10} \left|Y_\text{linear}\right|$$<ol start="7">
+<p>$$Y_\text{dB} = 20 \log_{10} \left|Y_\text{linear}\right|$$</p>
+<ol start="7">
 <li><p>The transfer function for a free mass is very simple: just rearrange $F=ma$, and the mass (weight plus accelerometer) is given on a label on the apparatus: approximately 0.3 kg.</p>
 </li>
 <li><p>Hence deduce the factor by which the measured transfer function must be multiplied in order to give a calibrated result.</p>
@@ -8240,19 +8215,15 @@ $$Y_\text{dB} = 20 \log_{10} \left|Y_\text{linear}\right|$$<ol start="7">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># acquisition setup</span>
-<span class="n">logger3</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c1"># close the previous logger and start a new one</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># hammer settings: 6 s capture, trigger armed on ch 0 (the hammer), no window</span>
 <span class="n">settings</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">MySettings</span><span class="p">(</span><span class="n">channels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                            <span class="n">fs</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span>
                            <span class="n">stored_time</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
                            <span class="n">pretrig_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                            <span class="n">device_driver</span> <span class="o">=</span> <span class="s1">'nidaq'</span><span class="p">)</span>
-<span class="n">logger4</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span>
-                      <span class="n">test_name</span> <span class="o">=</span> <span class="s1">'calibration_'</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">stored_time</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'s'</span><span class="p">,</span>
-                      <span class="n">default_window</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tf_averaging</span><span class="o">=</span><span class="s1">'across'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8263,8 +8234,7 @@ $$Y_\text{dB} = 20 \log_{10} \left|Y_\text{linear}\right|$$<ol start="7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><strong>Remember to save your data and figures to the teaching system</strong></p>
 </div>
 </div>
@@ -8274,9 +8244,8 @@ $$Y_\text{dB} = 20 \log_{10} \left|Y_\text{linear}\right|$$<ol start="7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Verify that your procedure is correct by loading your data, applying the factor you deduced and plotting the results:</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Work out your calibration factor in the next cell (a convenient place to show your working), then check it in the logger: hover the first set's card in the tray and press <strong>cal</strong>. In its <strong>Transfer function</strong> section (not the channel rows), type your factor, pick the unit <strong>m/s</strong> over <strong>N</strong> (the transfer function as measured), and press <strong>Apply</strong>. The flat line should now sit at 1/m, i.e. $20 \log_{10}(1/m)$ dB. Save this figure.</p>
 </div>
 </div>
 </div>
@@ -8285,7 +8254,6 @@ $$Y_\text{dB} = 20 \log_{10} \left|Y_\text{linear}\right|$$<ol start="7">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">calibration_factor</span> <span class="o">=</span> <span class="c1">### enter or calculate your value here</span>
@@ -8295,58 +8263,28 @@ $$Y_\text{dB} = 20 \log_{10} \left|Y_\text{linear}\right|$$<ol start="7">
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># load data</span>
-<span class="n">data_calibration</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_calibration</span><span class="o">.</span><span class="n">tf_data_list</span><span class="o">.</span><span class="n">set_calibration_factor</span><span class="p">(</span><span class="n">factor</span><span class="o">=</span><span class="n">calibration_factor</span><span class="p">)</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">data_calibration</span><span class="o">.</span><span class="n">plot_tf_data</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">dvma</span><span class="o">.</span><span class="n">save_fig</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Now apply your calibration factor to your measured transfer function from the impulsive excitation test and resave your calibrated data using a different filename:</p>
+<ol>
+<li>Remove every set from the tray (<strong>×</strong>), then press <strong>'Load Data'</strong> and open your hammer data from 3.3.</li>
+<li>Hover its card in the tray and press <strong>cal</strong>. In the <strong>Transfer function</strong> section, type your calibration factor, pick <strong>m/s</strong> over <strong>N</strong>, and press <strong>Apply</strong>.</li>
+<li>Press <strong>'Save Dataset'</strong> and give it a new name, e.g. 'hammer_calibrated'.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><strong>Note that this needs the transfer function saved with your hammer data in 3.3. If it wasn't, press 'Calc TF' on the TF stage (window 'none', avg 'none') after loading it, then calibrate. If you closed the logger tab, re-open it with the next cell:</strong></p>
 </div>
 </div>
 </div>
@@ -8355,41 +8293,10 @@ $$Y_\text{dB} = 20 \log_{10} \left|Y_\text{linear}\right|$$<ol start="7">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># load data</span>
-<span class="n">data_hammer</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Apply factor</span>
-<span class="n">data_hammer</span><span class="o">.</span><span class="n">tf_data_list</span><span class="o">.</span><span class="n">set_calibration_factor</span><span class="p">(</span><span class="n">factor</span><span class="o">=</span><span class="n">calibration_factor</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Save data using new filename</span>
-<span class="n">data_hammer</span><span class="o">.</span><span class="n">save_data</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">webbrowser</span>
+<span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8400,46 +8307,20 @@ $$Y_\text{dB} = 20 \log_{10} \left|Y_\text{linear}\right|$$<ol start="7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p><strong>Note that this will only work if you saved your datasets above after calculating the transfer functions. If you didn't, then you can go back to any of the logger tools, recalculate what you need, and resave your data. You don't need to restart each logger, you can continue wherever you left off using:</strong></p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">loggerN</span><span class="o">.</span><span class="n">show</span><span class="p">()</span> <span class="c1"># for N=2,3,4 corresponding to the different sections of the lab</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h4 id="Calibrated-Comparison">Calibrated Comparison<a class="anchor-link" href="#Calibrated-Comparison">¶</a></h4><p><strong>Now load, calibrate and compare your data from all three measurements as the culmination of this part of the experiment. Use your best data from each section (i.e. don't forget to use your averaged noise input data).</strong></p>
 <ol>
 <li>Use 'Load Data' to load each of the datasets to be compared:<ul>
-<li><strong>LOAD THE CALIBRATED HAMMER DATA FIRST</strong></li>
+<li><strong>KEEP YOUR CALIBRATED HAMMER SET IN THE TRAY AS THE FIRST SET</strong> (or remove every set and load the calibrated hammer file first)</li>
 <li>Then load the uncalibrated data from the stepped sine and noise input tests</li>
-<li>When loading the noise input dataset choose the one with your best choice of N_frames</li>
+<li>When loading the noise input dataset choose the one with your best choice of N frames</li>
 </ul>
 </li>
-<li>Select 'TF Data' from the 'Figure selection' dropdown to see the transfer function data.</li>
-<li>When all three transfer functions are shown, then zoom into the frequency range 0-500 Hz and press 'Best Match (to ref)'. This finds and applies a calibration factor to match the amplitudes of the visible datasets to the amplitude of the first dataset: this is why you needed to load the calibrated hammer data first.</li>
+<li>Go to the <strong>TF</strong> stage to see the transfer function data.</li>
+<li>When all three transfer functions are shown, then zoom into the frequency range 0-500 Hz and press <strong>'Best match'</strong> (in the TF card's scaling group, with ref ch = ch_1). This finds and applies a calibration factor to match the amplitudes of the other datasets to the amplitude of the first set in the tray: this is why the calibrated hammer data needed to be first.</li>
 </ol>
 <ul>
-<li><p><strong>CHECK 1: Did you remember to save your data calibrating the data?</strong></p>
+<li><p><strong>CHECK 1: Did you remember to save your data after calibrating the data?</strong></p>
 </li>
 <li><p><strong>CHECK 2: Did you remember to save the figures that you want to keep for the report?</strong></p>
 </li>
@@ -8453,8 +8334,7 @@ $$Y_\text{dB} = 20 \log_{10} \left|Y_\text{linear}\right|$$<ol start="7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr/>
 <h3 id="For-the-report:">For the report:<a class="anchor-link" href="#For-the-report:">¶</a></h3><ol>
 <li>Show your working and calculated value for the calibration constant</li>
@@ -8470,16 +8350,15 @@ $$Y_\text{dB} = 20 \log_{10} \left|Y_\text{linear}\right|$$<ol start="7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h3 id="3.5-Coupling-of-subsystems-(20-minutes)">3.5 Coupling of subsystems (20 minutes)<a class="anchor-link" href="#3.5-Coupling-of-subsystems-(20-minutes)">¶</a></h3><hr style="height:2px;border:none"/>
 <p>Finally, we will measure the transfer functions of the uncoupled beams to predict the coupled response.</p>
 <p>Using the hammer method obtain admittances for the two cantilevers separately (by removing the coupling rod, removing the magnetic shaker attachment, and moving the accelerometer appropriately — you may need to practice your upside-down hammering technique!).</p>
 <ol>
-<li>Start a new logger below, and change the 'test_name' as appropriate for each beam.</li>
-<li>Get the best result you canfor each beam.</li>
-<li>Save the dataset for each beam after calculating the transfer function.</li>
+<li>In the logger, remove every set from the tray (<strong>×</strong>), then run the settings cell below (the same hammer settings again).</li>
+<li>Get the best result you can for each beam, with 'Calc TF' on the TF stage (the settings cell sets window 'none' and avg 'none'). Double-click the set's name in the tray to rename it after its beam, e.g. 'upper beam'.</li>
+<li>Save the dataset for each beam after calculating the transfer function, then delete that set (<strong>×</strong>) before measuring the other beam, so that each file holds one beam.</li>
 </ol>
 <p><strong>Remember to save your data and figures to the teaching system</strong></p>
 </div>
@@ -8490,19 +8369,15 @@ $$Y_\text{dB} = 20 \log_{10} \left|Y_\text{linear}\right|$$<ol start="7">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># acquisition setup</span>
-<span class="n">logger4</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c1"># close the previous logger and start a new one</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># hammer settings: 6 s capture, trigger armed on ch 0 (the hammer), no window</span>
 <span class="n">settings</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">MySettings</span><span class="p">(</span><span class="n">channels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                            <span class="n">fs</span><span class="o">=</span><span class="mi">3000</span><span class="p">,</span>
                            <span class="n">stored_time</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
                            <span class="n">pretrig_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                            <span class="n">device_driver</span> <span class="o">=</span> <span class="s1">'nidaq'</span><span class="p">)</span>
-<span class="n">logger5</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span>
-                      <span class="n">test_name</span> <span class="o">=</span> <span class="s1">'upper beam'</span><span class="p">,</span>
-                      <span class="n">default_window</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tf_averaging</span><span class="o">=</span><span class="s1">'none'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8513,12 +8388,12 @@ $$Y_\text{dB} = 20 \log_{10} \left|Y_\text{linear}\right|$$<ol start="7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Now you can use these measurements to predict the response of the coupled system. The admittance of the coupled system is related to the admittances $Y_1(\omega)$, $Y_2(\omega)$ of the two separate systems by the formula:</p>
-$$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p>which is derived in Section 7 of the lecture notes, and is similar to the formula for parallel resistors.</p>
-<p>To calculate the coupled admittance using these measurements, load the data then use the "lab_3c6.coupled_TF" function (code below).</p>
-<p><strong>Note that this will only work if you saved your datasets above after calculating the transfer functions. If you didn't, then you can go back to each logger tool and resave your data. You don't need to restart each logger, you can continue wherever you left off.</strong></p>
+<p>$$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$</p>
+<p>which is derived in Section 7 of the lecture notes, and is similar to the formula for parallel resistors.</p>
+<p>To calculate the coupled admittance using these measurements, run the next cell and pick your lower-beam file, then run the cell after it; pick your upper-beam file, then run the cell after that; then run the "lab_3c6.coupled_TF" cell.</p>
+<p><strong>Note that this will only work if you saved your datasets above after calculating the transfer functions. If you didn't, load the file in the logger, press 'Calc TF' (window 'none', avg 'none') and save it again.</strong></p>
 </div>
 </div>
 </div>
@@ -8527,10 +8402,10 @@ $$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_lower</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># pick a beam's data file in the list, then run the cell below it</span>
+<span class="n">picker</span> <span class="o">=</span> <span class="n">lab_3c6</span><span class="o">.</span><span class="n">choose_file</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -8541,10 +8416,9 @@ $$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_upper</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_lower</span> <span class="o">=</span> <span class="n">picker</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>   <span class="c1"># with the lower-beam file picked</span>
 </pre></div>
 </div>
 </div>
@@ -8555,7 +8429,19 @@ $$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_upper</span> <span class="o">=</span> <span class="n">picker</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>   <span class="c1"># now pick the upper-beam file, then run this cell</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">data_coupled</span> <span class="o">=</span> <span class="n">lab_3c6</span><span class="o">.</span><span class="n">coupled_TF</span><span class="p">(</span><span class="n">data_lower</span><span class="p">,</span><span class="n">data_upper</span><span class="p">)</span>
@@ -8569,10 +8455,9 @@ $$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_coupled</span><span class="o">.</span><span class="n">save_data</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_coupled</span><span class="o">.</span><span class="n">save_data</span><span class="p">(</span><span class="s1">'coupled_prediction'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8583,13 +8468,11 @@ $$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Load the saved data using the logger:</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Load the saved data into the logger:</p>
 <ol>
-<li>Star the logger using 'logger5.show()' in the next cell.</li>
-<li>Use 'Delete All' to clear the data.</li>
-<li>Use 'Load Data' to load your coupled prediction from above, and your uncalibrated hammer data from earlier.</li>
+<li>Remove every set from the tray (<strong>×</strong>).</li>
+<li>Use 'Load Data' to load your coupled prediction (coupled_prediction.dvma) and your uncalibrated hammer data from 3.3, and compare them on the <strong>TF</strong> stage.</li>
 </ol>
 <ul>
 <li><p><strong>CHECK 1: Did you remember to save your comparison data?</strong></p>
@@ -8598,6 +8481,7 @@ $$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p
 </li>
 </ul>
 <p><strong>Remember to save your comparison data and figures to the teaching system</strong></p>
+<p><strong>If you accidentally close the logger tab, you can re-open it with the next cell (and accept the offer to restore your session):</strong></p>
 </div>
 </div>
 </div>
@@ -8606,10 +8490,10 @@ $$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">logger5</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">webbrowser</span>
+<span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8620,8 +8504,7 @@ $$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr/>
 <h3 id="For-the-report:">For the report:<a class="anchor-link" href="#For-the-report:">¶</a></h3><ol>
 <li>Compare your predicted transfer function with the directly measured transfer function. Does this method give a reliable way to deduce the behaviour of coupled systems? If not, why not?</li>
@@ -8636,11 +8519,10 @@ $$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="AT-THE-END-OF-THE-EXPERIMENT">AT THE END OF THE EXPERIMENT<a class="anchor-link" href="#AT-THE-END-OF-THE-EXPERIMENT">¶</a></h2><ul>
 <li><strong>check you have saved your data and figures to the teaching system</strong></li>
-<li><strong>share your data with lab-group partners and your own devices (e.g. using <a href="https://send.firefox.com/">Firefox Send</a> or <a href="https://wetransfer.com/">wetransfer</a>)</strong></li>
+<li><strong>share your data with lab-group partners and your own devices (e.g. using <a href="https://wetransfer.com/">WeTransfer</a>, or by uploading them to your OneDrive account in a web browser)</strong></li>
 <li><strong>sign-out of the pc</strong></li>
 </ul>
 </div>
@@ -8651,13 +8533,12 @@ $$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div class="alert alert-block alert-danger">
 <p><b> NOTE: </b><br/></p>
-<li> <b>Please note that the state of the loggers is not saved along with the notebook itself, so when you close the notebook then you can no longer use logger.show() </b></li>
+<li> <b>The logger runs inside this notebook: when you close the notebook (or restart its kernel), the logger stops.</b></li>
 <li> <b>Therefore, please remember to save data and figures as needed for the report before leaving the lab</b></li>
-<li> <b>The pydvma logger is opensource, so you can install it on your own device (windows/mac/linux). Contact tb267 if you have any problems.</b></li>
+<li> <b>The pydvma logger is opensource, so you can install it on your own device (windows/mac/linux). To look at your .dvma files at home with nothing installed, open them in the browser version at <a href="https://torebutlin.github.io/pydvma/app/" target="_blank">torebutlin.github.io/pydvma/app/</a>. Contact tb267 if you have any problems.</b></li>
 </div>
 </div>
 </div>
@@ -8667,8 +8548,7 @@ $$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h2 id="4.-Write-up-for-laboratory-report-(3-hours)">4. Write-up for laboratory report (3 hours)<a class="anchor-link" href="#4.-Write-up-for-laboratory-report-(3-hours)">¶</a></h2><hr style="height:2px;border:none"/>
 <p>The write-up of this experiment as coursework for module 3C6 should be short. Download the template from the 3C6 moodle site (bit.ly/cued3c6). As a guide, the text should be no more than three A4 sides, plus appropriate plots of experimental results. Your report should include representative results from all the stages of the experiment, including the final calibrated comparison of all measurement methods. It need only give a very brief description of the experimental procedure, but it should contain answers to the various questions asked in this sheet, and a critical discussion of the results which might take the form of short bullet points in reference to the experimental results.</p>
@@ -8688,8 +8568,7 @@ $$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h2 id="5.-Write-up-for-Full-Technical-Report-(10-additional-hours)">5. Write-up for Full Technical Report (10 additional hours)<a class="anchor-link" href="#5.-Write-up-for-Full-Technical-Report-(10-additional-hours)">¶</a></h2><hr style="height:2px;border:none"/>
 <p>Guidance on the preparation of Full Technical Reports is provided both in Appendix I of the General Instructions document and in the CUED booklet A guide to report writing, with which you were issued in the first year. The experimental plots from your Laboratory Report should be included. The written material from your Laboratory Report will be superseded by this fuller account, perhaps corrected in the light of information from the feedback session. Remember that this report will be assessed both on technical content and on quality of presentation. It should be written as a technical report using a full sentences and paragraphs (not just bullet point lists).</p>
@@ -8710,8 +8589,7 @@ $$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$<p
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 </div>
 </div>
 </div>

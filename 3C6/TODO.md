@@ -21,8 +21,9 @@
   - the folder button saves into the notebook's folder, and the
     `choose_file` picker lists those files;
   - `coupled_prediction.dvma` loads in the app as three TF sets.
-- **Regenerate the exports** (`3C6_Notebook.html`, `.pdf`,
-  `_LAB_COPY.pdf`) once the notebook is final.
+- **Re-export after any notebook change:** `python make_exports.py`
+  rewrites `3C6_Notebook.html`, `.pdf` and `_LAB_COPY.pdf` (needs Google
+  Chrome and an internet connection for MathJax).
 - **Absolute scaling check (later).** pydvma now has
   `dvma.verify_input_scaling(...)` and `dvma.RigolDG1022Z`: verification
   against a KNOWN source (NI AO→AI loopback, or the lab's Rigol DG1022Z
