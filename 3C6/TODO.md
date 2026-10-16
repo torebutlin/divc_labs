@@ -1,28 +1,30 @@
 # 3C6 — TODO
 
-- **Notebook needs a pydvma 2.x update — DO NOT update yet.** The
-  notebook still calls `dvma.Logger(...)`, which was the Qt desktop
-  GUI, removed in pydvma 2.0 (last Qt version: the `qt-final` git tag
-  in the pydvma repo). On pydvma 2.x those cells raise an actionable
-  tombstone error. Hold the update until the new workflow is decided
-  (below); meanwhile the lab machines must pin pydvma 1.x, or the
-  notebook stays as-is with the old install.
-- **New workflow (Tore, undecided).** The old pattern was
-  notebook-calls-Qt-GUI per experiment stage. Likely replacement: the
-  pydvma **web logger in a right-hand browser tab** with the notebook
-  on the left (the web UI has a narrow-viewport layout for exactly
-  this split-screen use). Decide, then rework the notebook stages
-  around it.
-- **Calibrate `check_setup` targets.** `lab_3c6.check_setup(settings)`
-  is the new live noise-level meter (advisory red/amber/green bars).
-  Its `NOISE_TARGET_RMS = 0.2` V rms (±5%) is a PLACEHOLDER — measure
-  the correct per-channel levels on the real cantilever rig and set
-  them (per-channel values supported via `target_rms=[...]`). Then
-  wire the check into the notebook's setup stage once the workflow is
-  decided.
-- **Absolute scaling check (later).** pydvma is gaining
-  `verify_input_scaling(...)` — verification against a KNOWN source
-  (NI AO→AI loopback, or the lab's Rigol DG1022Z over SCPI). Once
-  released, a 3C6 wrapper could verify the whole input chain
-  absolutely, not just that levels sit in a band. SCPI notes:
-  `additional_device_info/rigol-dg1022z-notes.md`.
+- **Notebook updated for pydvma 2.x (2026-10-16).** Workflow: 3.1's
+  stepped sine stays in the notebook widget
+  (`lab_3c6.measure_stepped_sine`, now with a live signal preview in
+  place of the old Qt oscilloscope). From 3.2 on, one
+  `dvma.launch(settings, window=..., tf_averaging=...)` web logger runs
+  in a browser tab beside the notebook, and each section's settings
+  cell calls `logger.apply_settings(...)`. 3.4's calibration uses the
+  app's Calibrate dialog ("Transfer function" section). The lab PCs need
+  pydvma 2.7.0 as re-cut with `Session.apply_settings` (pydvma commit
+  `35ae762`).
+- **Test on the rig before term.** So far it has only been smoke-tested
+  on pydvma's mock driver, with no browser. On the PCI-6220 bench, check:
+  - the stepped-sine preview: is the 5 Hz redraw smooth on the lab PC,
+    does CLIP show at 95 % of ±5 V, and does the preview stop cleanly
+    once the logger opens its stream in 3.2;
+  - `apply_settings` lands in the open Edge tab in each section (toast,
+    Setup values), and the 5 %-of-full-scale trigger (0.25 V) catches a
+    gentle hammer tap;
+  - the folder button saves into the notebook's folder, and the
+    `choose_file` picker lists those files;
+  - `coupled_prediction.dvma` loads in the app as three TF sets.
+- **Regenerate the exports** (`3C6_Notebook.html`, `.pdf`,
+  `_LAB_COPY.pdf`) once the notebook is final.
+- **Absolute scaling check (later).** pydvma now has
+  `dvma.verify_input_scaling(...)` and `dvma.RigolDG1022Z`: verification
+  against a KNOWN source (NI AO→AI loopback, or the lab's Rigol DG1022Z
+  over SCPI). A 3C6 wrapper could verify the whole input chain
+  absolutely. SCPI notes: `additional_device_info/rigol-dg1022z-notes.md`.

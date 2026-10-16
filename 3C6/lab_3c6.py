@@ -6,172 +6,48 @@ matplotlib.rcParams.update({'font.size': 12,'font.family':'serif'})
 import ipywidgets as widgets
 from ipywidgets import Layout, Output
 from IPython.display import display
-import threading
-import time
+import glob
+import os
 
 
-# =====================================================================
-# Setup level check: student-facing live level meter for the noise
-# measurement. Advisory only — it never blocks the lab.
-# =====================================================================
-
-# PLACEHOLDER targets until calibrated against the lab rig: per-channel
-# RMS in volts, with a +/-5% acceptance band. Adjust these once the
-# correct noise-generator level for the cantilever rig is known.
-NOISE_TARGET_RMS = 0.2
-NOISE_RMS_TOL = 0.05
+# The stepped-sine widget whose preview is running: a new one stops the
+# old one's, so re-running the cell never leaves two previews going.
+_active_preview = None
 
 
-def level_verdict(rms, target, tol=NOISE_RMS_TOL):
-    """Classify one channel's RMS level against the target band.
-
-    Returns (colour, message): colour is 'ok' (within the +/-tol band),
-    'close' (within 3x the band) or 'off'; the message says which way
-    to adjust the level. Pure function, so it is directly testable.
-    """
-    rel = (rms - target) / target
-    if abs(rel) <= tol:
-        return 'ok', 'level OK'
-    msg = 'turn level UP' if rel < 0 else 'turn level DOWN'
-    return ('close' if abs(rel) <= 3 * tol else 'off'), msg
-
-
-class check_setup():
-    """Live RMS level check for the noise measurement.
-
-    Run this with the excitation selector on "Noise":
-
-        lab.check_setup(settings)
-
-    One bar per channel shows the live RMS against the shaded green
-    target band (target +/- 5%). Adjust the noise generator level until
-    every bar reads green, then press Stop. The check is advisory only:
-    it never blocks the rest of the lab, and can be restarted at any
-    time with the same button.
-
-    Arguments: settings is the same MySettings used for the noise
-    measurement; target_rms is a single value or one per channel
-    (volts RMS — the module-level defaults are placeholders until the
-    rig is calibrated); tol is the fractional acceptance band;
-    window_s is the RMS averaging window in seconds.
-    """
-
-    COLOURS = {'ok': '#2ca02c', 'close': '#ff7f0e', 'off': '#d62728'}
-
-    def __init__(self, settings, target_rms=NOISE_TARGET_RMS,
-                 tol=NOISE_RMS_TOL, window_s=0.5):
-
-        self.settings = settings
-        self.tol = tol
-        n = settings.channels
-        targets = np.atleast_1d(np.asarray(target_rms, dtype=float))
-        if targets.size == 1:
-            targets = np.repeat(targets, n)
-        if targets.size != n:
-            raise ValueError('target_rms needs 1 value or one per '
-                             'channel ({}), got {}'.format(n, targets.size))
-        self.targets = targets
-        self.n_window = max(1, int(window_s * settings.fs))
-
-        self.out = Output()
-        self.button = widgets.Button(description='Stop check',
-                                     layout=Layout(width='25%'))
-        self.button.button_style = 'warning'
-        self.button.style.font_weight = 'bold'
-        display(widgets.HBox([self.button]))
-
-        try:
-            dvma.start_stream(settings)
-            self.rec = dvma.streams.REC
-        except:
-            self.rec = None
-            print('Data stream not initialised.')
-            print('Possible reasons: pyaudio or PyDAQmx not installed, or acquisition hardware not connected.')
-            print('Please note that it won''t be possible to log data.')
-
-        # one horizontal bar per channel, with the green target band
-        # drawn behind it
-        self.fig, self.ax = plt.subplots(1, 1,
-                                         figsize=(9, 1.2 + 0.7 * n),
-                                         dpi=100)
-        ypos = np.arange(n)
-        self.bars = self.ax.barh(ypos, np.zeros(n), height=0.6,
-                                 color=self.COLOURS['off'])
-        for k in range(n):
-            lo = self.targets[k] * (1 - tol)
-            hi = self.targets[k] * (1 + tol)
-            self.ax.add_patch(plt.Rectangle((lo, k - 0.4), hi - lo, 0.8,
-                                            color=self.COLOURS['ok'],
-                                            alpha=0.3, zorder=0))
-        self.xmax = 2.0 * float(np.max(self.targets))
-        self.ax.set_xlim([0, self.xmax])
-        self.ax.set_yticks(ypos)
-        self.ax.set_yticklabels(['channel {}'.format(k) for k in range(n)])
-        self.ax.invert_yaxis()
-        self.ax.set_xlabel('RMS (V)')
-        self.ax.set_title('adjust noise level until all bars are green')
-        # per-channel readout to the right of the axes
-        trans = matplotlib.transforms.blended_transform_factory(
-            self.ax.transAxes, self.ax.transData)
-        self.labels = [self.ax.text(1.02, k, '', transform=trans,
-                                    va='center', fontsize=11)
-                       for k in range(n)]
-        self.fig.subplots_adjust(right=0.7)
-
-        self.button.on_click(self.toggle)
-        self.running = False
-        if self.rec is not None:
-            self._start_loop()
-
-        display(self.out)
-
-    def toggle(self, b):
-        if self.running:
-            self.running = False
-            self.button.description = 'Restart check'
-            self.button.button_style = 'success'
-        elif self.rec is not None:
-            self._start_loop()
-
-    def _start_loop(self):
-        self.running = True
-        self.button.description = 'Stop check'
-        self.button.button_style = 'warning'
-        self.thread = threading.Thread(target=self._loop, daemon=True)
-        self.thread.start()
-
-    def _loop(self):
-        while self.running:
-            try:
-                time_data = dvma.stream_snapshot(self.rec)
-                y = np.asarray(time_data.time_data)[-self.n_window:, :]
-                rms = np.sqrt(np.mean(y ** 2, axis=0))
-            except Exception as e:
-                self.out.clear_output(wait=False)
-                with self.out:
-                    print('level check stopped: {}'.format(e))
-                self.running = False
-                break
-            for k, bar in enumerate(self.bars):
-                colour, msg = level_verdict(rms[k], self.targets[k],
-                                            self.tol)
-                bar.set_width(min(rms[k], self.xmax))
-                bar.set_color(self.COLOURS[colour])
-                self.labels[k].set_text('{:.3f} V — {}'.format(rms[k],
-                                                               msg))
-            self.fig.canvas.draw_idle()
-            time.sleep(0.25)
+def full_scale(settings):
+    """The input full scale in volts: the NI range, else the soundcard's."""
+    if settings.device_driver == 'nidaq':
+        return float(settings.VmaxNI)
+    return float(getattr(settings, 'VmaxSC', 1.0) or 1.0)
 
 
 class measure_stepped_sine():
+    """Stepped-sine admittance measurement, with a live signal preview.
+
+        logger1 = lab_3c6.measure_stepped_sine(settings)
+
+    The top plot is a live preview of each channel, like a small
+    oscilloscope, so the signals can be checked before measuring;
+    'Pause preview' freezes it. 'Measure' takes the latest
+    settings.viewed_time seconds of the stream, finds the sine
+    frequency from the FFT of channel 0 and plots the channel 1 /
+    channel 0 admittance there.
+
+    The pydvma logger (dvma.launch) uses the same acquisition hardware:
+    once it has taken the stream over, the preview stops and 'Measure'
+    refuses, both saying so, and re-running this cell takes it back.
+    """
+
     def __init__(self,settings):
-        
+        global _active_preview
+
         self.settings = settings
-        
-        # the 'out' construction is to refresh the text output at each update 
+
+        # the 'out' construction is to refresh the text output at each update
         # to stop text building up in the widget display
         self.out = Output()
-        
+
         words = ['Measure', 'Delete Last Measurement', 'Save Data', 'Save Fig']
         self.buttons = [widgets.Button(description=w,layout=Layout(width='25%')) for w in words]
         self.buttons[0].button_style = 'success'
@@ -183,19 +59,50 @@ class measure_stepped_sine():
         self.buttons[3].button_style = 'primary'
         self.buttons[3].style.font_weight = 'bold'
         display(widgets.HBox(self.buttons))
-        
+        # pydvma has no save dialog: 'Save Data' and 'Save Fig' use this
+        # name, in the notebook's folder
+        self.filename = widgets.Text(value='stepped_sine',
+                                     description='file name:',
+                                     layout=Layout(width='50%'))
+        self.preview_button = widgets.Button(description='Pause preview',
+                                             layout=Layout(width='25%'))
+        display(widgets.HBox([self.filename, self.preview_button]))
+
         try:
             dvma.start_stream(settings)
             self.rec = dvma.streams.REC
         except:
+            self.rec = None
             print('Data stream not initialised.')
             print('Possible reasons: pyaudio or PyDAQmx not installed, or acquisition hardware not connected.')
             print('Please note that it won''t be possible to log data.')
-        
-        
-        
-            
-            
+
+        # live preview: one trace per channel, redrawn by a canvas timer,
+        # which runs on the notebook's own event loop (no thread) so it
+        # never races the button callbacks
+        n = settings.channels
+        self.pfig, self.pax = plt.subplots(n, 1, sharex=True,
+                                           figsize=(9, 0.5 + 1.2 * n),
+                                           dpi=100, squeeze=False)
+        self.pax = self.pax[:, 0]
+        self.plines = [ax.plot([], [], lw=1, color='C{}'.format(k))[0]
+                       for k, ax in enumerate(self.pax)]
+        for k, ax in enumerate(self.pax):
+            ax.set_title('ch {}'.format(k), loc='left', fontsize=10)
+            ax.set_ylabel('V')
+            ax.grid()
+        self.pax[-1].set_xlabel('Time (s)')
+        self.pfig.tight_layout()
+        self.preview_button.on_click(self.toggle_preview)
+        self.timer = self.pfig.canvas.new_timer(interval=200)
+        self.timer.add_callback(self.update_preview)
+        self.previewing = False
+        if _active_preview is not None:
+            _active_preview.stop_preview()
+        _active_preview = self
+        if self.rec is not None:
+            self.start_preview()
+
         self.f = np.array([])
         self.G = np.array([])
         self.fig,self.ax = plt.subplots(1,1,figsize=(9,5),dpi=100)
@@ -214,8 +121,85 @@ class measure_stepped_sine():
         
         display(self.out)
         
+    TAKEN_OVER = ('The pydvma logger is now using the acquisition hardware. '
+                  'To use this widget again, re-run its cell.')
+
+    def stream_problem(self):
+        # Why the widget can't read its stream, or None if it can.
+        # stream_snapshot always reads the newest stream (dvma.streams.REC),
+        # so once the logger has opened its own, this widget would be
+        # reading the logger's data.
+        if self.rec is None:
+            return 'No data stream: see the message above the plots.'
+        if dvma.streams.REC is not self.rec:
+            return self.TAKEN_OVER
+        return None
+
+    def start_preview(self):
+        self.previewing = True
+        self.preview_button.description = 'Pause preview'
+        self.timer.start()
+
+    def stop_preview(self, message=None):
+        self.timer.stop()
+        self.previewing = False
+        self.preview_button.description = 'Resume preview'
+        if message:
+            self.out.clear_output(wait=False)
+            with self.out:
+                print(message)
+
+    def toggle_preview(self, b):
+        if self.previewing:
+            self.stop_preview()
+            return
+        problem = self.stream_problem()
+        if problem:
+            self.stop_preview(problem)
+        else:
+            self.start_preview()
+
+    def update_preview(self):
+        problem = self.stream_problem()
+        if problem:
+            self.stop_preview('Preview stopped. ' + problem)
+            return
+        try:
+            time_data = dvma.stream_snapshot(self.rec)
+        except Exception as e:
+            self.stop_preview('Preview stopped: {}'.format(e))
+            return
+        t = np.asarray(time_data.time_axis)
+        y = np.asarray(time_data.time_data)
+        clip = 0.95 * full_scale(self.rec.settings)
+        for k, (ax, line) in enumerate(zip(self.pax, self.plines)):
+            line.set_data(t, y[:, k])
+            peak = float(np.max(np.abs(y[:, k]))) if len(y) else 0.0
+            lim = max(1.2 * peak, 1e-3)
+            ax.set_ylim(-lim, lim)
+            clipped = peak >= clip
+            ax.set_title('ch {}: peak {:.3f} V{}'.format(
+                             k, peak, '   CLIP: turn the level down' if clipped else ''),
+                         loc='left', fontsize=10,
+                         color='#d62728' if clipped else 'black')
+        if len(t):
+            self.pax[0].set_xlim(t[0], t[-1])
+        self.pfig.canvas.draw_idle()
+
     def measure(self,b):
-        time_data = dvma.stream_snapshot(self.rec)
+        problem = self.stream_problem()
+        if problem:
+            self.out.clear_output(wait=False)
+            with self.out:
+                print(problem)
+            return
+        try:
+            time_data = dvma.stream_snapshot(self.rec)
+        except Exception as e:
+            self.out.clear_output(wait=False)
+            with self.out:
+                print('Measurement failed: {}'.format(e))
+            return
         freq_data = dvma.calculate_fft(time_data,window='hann')
         # ignore DC part of data - first 5 samples
         freq_data.freq_data[0:5,0] = 0*freq_data.freq_data[0:5,0]
@@ -241,22 +225,43 @@ class measure_stepped_sine():
             with self.out:
                 print('nothing to undo!')
             
+    def new_name(self, extensions):
+        # The file name from the box, without extension, or None if it is
+        # blank or already used: the overwrite question can't be asked
+        # from a button, so an existing file is never replaced.
+        name = os.path.splitext(self.filename.value.strip())[0]
+        if not name:
+            print('Type a file name in the box first.')
+            return None
+        taken = [name + ext for ext in extensions if os.path.exists(name + ext)]
+        if taken:
+            print('{} already exists: type a new file name and try again.'.format(taken[0]))
+            return None
+        return name
+
     def save(self,b):
         self.out.clear_output(wait=False)
         with self.out:
+            name = self.new_name(['.dvma'])
+            if name is None:
+                return
             i_sort = np.argsort(self.f)
             ff = self.f[i_sort]
             GG = self.G[i_sort]
-            tf_data = dvma.TfData(ff,GG,None,self.rec.settings,test_name='stepped_sine')
+            settings = self.rec.settings if self.rec is not None else self.settings
+            tf_data = dvma.TfData(ff,GG,None,settings,test_name='stepped_sine')
             d = dvma.DataSet(tf_data)
-            d.save_data()
+            d.save_data(name)
             
     def savefig(self,b):
         # the 'out' construction is to refresh the text output at each update 
         # to stop text building up in the widget display
         self.out.clear_output(wait=False)
         with self.out:
-            dvma.save_fig(self.fig,figsize=(9,5))
+            name = self.new_name(['.png', '.pdf'])
+            if name is None:
+                return
+            dvma.save_fig(self.fig,figsize=(9,5),filename=name)
         
     def update_line(self):
         i_sort = np.argsort(self.f)
@@ -265,6 +270,57 @@ class measure_stepped_sine():
         self.line.set_ydata(self.GdB[i_sort])
         if len(self.GdB)>0:
             self.line.axes.set_ylim(bottom=min(self.GdB)-3,top=max(self.GdB)+3)
+
+
+
+class choose_file():
+    """Choose a saved data file from this notebook's folder.
+
+        picker = lab_3c6.choose_file()   # pick the file in the list
+        data = picker.load()             # then, in the next cell
+
+    pydvma no longer opens a file dialog, so this replaces the old
+    dvma.load_data() dialog. The list shows the .dvma files in this
+    folder, newest first, leaving out the logger's own autosave.dvma
+    backup; 'Refresh' re-reads the folder after saving more files.
+    """
+
+    # the web logger's session backup, rewritten after every change
+    AUTOSAVE = 'autosave.dvma'
+
+    def __init__(self, pattern='*.dvma'):
+        self.pattern = pattern
+        self.dropdown = widgets.Dropdown(description='file:',
+                                         layout=Layout(width='60%'))
+        self.button = widgets.Button(description='Refresh',
+                                     layout=Layout(width='15%'))
+        self.button.on_click(lambda b: self.refresh())
+        self.refresh()
+        display(widgets.HBox([self.dropdown, self.button]))
+
+    def refresh(self):
+        chosen = self.dropdown.value
+        files = sorted((f for f in glob.glob(self.pattern)
+                        if os.path.basename(f) != self.AUTOSAVE),
+                       key=os.path.getmtime, reverse=True)
+        self.dropdown.options = files
+        self.dropdown.value = chosen if chosen in files else None
+
+    def load(self):
+        if not self.dropdown.value:
+            raise NoFileChosen('No file chosen: pick one in the list above '
+                               '(press Refresh if it is missing), then run '
+                               'this cell again.')
+        return dvma.load_data(self.dropdown.value)
+
+
+class NoFileChosen(Exception):
+    """choose_file.load() with nothing picked. It stops the cell there, so
+    the next line never fails on None, and IPython shows just the message
+    (via _render_traceback_), not a traceback."""
+
+    def _render_traceback_(self):
+        return [str(self)]
 
 
 
