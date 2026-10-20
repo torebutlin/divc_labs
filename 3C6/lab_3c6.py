@@ -5,14 +5,56 @@ import matplotlib.pyplot as plt
 matplotlib.rcParams.update({'font.size': 12,'font.family':'serif'})
 import ipywidgets as widgets
 from ipywidgets import Layout, Output
+from IPython import get_ipython
 from IPython.display import display
+from tornado.ioloop import PeriodicCallback
+import threading
 import glob
 import os
 
 
-# The stepped-sine widget whose preview is running: a new one stops the
-# old one's, so re-running the cell never leaves two previews going.
-_active_preview = None
+def _show_figures_from_main_thread_only():
+    # With '%matplotlib widget', ipympl shows each new figure from IPython's
+    # post_execute event, which the comm package also fires after every
+    # widget message. Current Jupyter (Notebook 7.6 / JupyterLab 4.6 with
+    # ipykernel 7, as on the lab PCs) handles widget messages on a second
+    # kernel thread, a "subshell", while a cell is still running on the
+    # main one. A figure shown from there belongs to that widget message
+    # rather than to the cell, so the browser drops it: plots go missing at
+    # random, more often the longer the cell takes. Only show figures from
+    # the main thread, i.e. when a cell finishes, as before subshells.
+    ip = get_ipython()
+    if ip is None:
+        return
+    try:
+        import ipympl.backend_nbagg as nbagg
+    except ImportError:
+        return
+    if getattr(nbagg, '_main_thread_flush', None) is not None:
+        return
+    flush = nbagg.flush_figures
+
+    def main_thread_flush():
+        if threading.current_thread() is threading.main_thread():
+            flush()
+
+    try:
+        ip.events.unregister('post_execute', flush)
+    except ValueError:
+        pass
+    ip.events.register('post_execute', main_thread_flush)
+    nbagg._main_thread_flush = main_thread_flush
+
+
+_show_figures_from_main_thread_only()
+
+
+# The stepped-sine widget whose level meters are running: a new one stops
+# the old one's, so re-running the cell never leaves two going.
+_active_meters = None
+
+# bottom of the level meters, in dB relative to the input full scale
+METER_FLOOR_DB = -60
 
 
 def full_scale(settings):
@@ -22,25 +64,31 @@ def full_scale(settings):
     return float(getattr(settings, 'VmaxSC', 1.0) or 1.0)
 
 
+def interactive_plots():
+    """True when '%matplotlib widget' (ipympl) is on, so figures can update."""
+    return 'ipympl' in matplotlib.get_backend() or matplotlib.get_backend() == 'widget'
+
+
 class measure_stepped_sine():
-    """Stepped-sine admittance measurement, with a live signal preview.
+    """Stepped-sine admittance measurement, with live input level meters.
 
         logger1 = lab_3c6.measure_stepped_sine(settings)
 
-    The top plot is a live preview of each channel, like a small
-    oscilloscope, so the signals can be checked before measuring;
-    'Pause preview' freezes it. 'Measure' takes the latest
+    A thin bar for each channel shows its peak level over the last
+    second or so, in dB relative to the input full scale, and turns red
+    with a CLIP warning when the signal reaches the input limit, so the
+    levels can be checked before measuring. 'Measure' takes the latest
     settings.viewed_time seconds of the stream, finds the sine
     frequency from the FFT of channel 0 and plots the channel 1 /
     channel 0 admittance there.
 
     The pydvma logger (dvma.launch) uses the same acquisition hardware:
-    once it has taken the stream over, the preview stops and 'Measure'
+    once it has taken the stream over, the meters stop and 'Measure'
     refuses, both saying so, and re-running this cell takes it back.
     """
 
     def __init__(self,settings):
-        global _active_preview
+        global _active_meters
 
         self.settings = settings
 
@@ -64,48 +112,53 @@ class measure_stepped_sine():
         self.filename = widgets.Text(value='stepped_sine',
                                      description='file name:',
                                      layout=Layout(width='50%'))
-        self.preview_button = widgets.Button(description='Pause preview',
-                                             layout=Layout(width='25%'))
-        display(widgets.HBox([self.filename, self.preview_button]))
+        display(self.filename)
+
+        if not interactive_plots():
+            print("WARNING: interactive plots are off, so the plot below won't update.\n"
+                  "Run the '%matplotlib widget' cell above, then this cell again. If that\n"
+                  "cell gives an error, ipympl is missing on this PC: tell a demonstrator.")
 
         try:
             dvma.start_stream(settings)
             self.rec = dvma.streams.REC
+            self.rec_settings = self.rec.settings
         except:
             self.rec = None
             print('Data stream not initialised.')
             print('Possible reasons: pyaudio or PyDAQmx not installed, or acquisition hardware not connected.')
             print('Please note that it won''t be possible to log data.')
 
-        # live preview: one trace per channel, redrawn by a canvas timer,
-        # which runs on the notebook's own event loop (no thread) so it
-        # never races the button callbacks
-        n = settings.channels
-        self.pfig, self.pax = plt.subplots(n, 1, sharex=True,
-                                           figsize=(9, 0.5 + 1.2 * n),
-                                           dpi=100, squeeze=False)
-        self.pax = self.pax[:, 0]
-        self.plines = [ax.plot([], [], lw=1, color='C{}'.format(k))[0]
-                       for k, ax in enumerate(self.pax)]
-        for k, ax in enumerate(self.pax):
-            ax.set_title('ch {}'.format(k), loc='left', fontsize=10)
-            ax.set_ylabel('V')
-            ax.grid()
-        self.pax[-1].set_xlabel('Time (s)')
-        self.pfig.tight_layout()
-        self.preview_button.on_click(self.toggle_preview)
-        self.timer = self.pfig.canvas.new_timer(interval=200)
-        self.timer.add_callback(self.update_preview)
-        self.previewing = False
-        if _active_preview is not None:
-            _active_preview.stop_preview()
-        _active_preview = self
+        # level meters: plain widgets, not a plot, updated by a timer on the
+        # notebook's own event loop. Button clicks and plot redraws may run
+        # on a second kernel thread (see above), so keeping matplotlib out
+        # of the timer means the figure is only ever touched from one place.
+        self.meters = []
+        rows = []
+        for k in range(settings.channels):
+            bar = widgets.FloatProgress(value=METER_FLOOR_DB, min=METER_FLOOR_DB, max=0,
+                                        description='ch {}'.format(k),
+                                        layout=Layout(width='50%'))
+            text = widgets.HTML(layout=Layout(width='45%'))
+            self.meters.append((bar, text))
+            rows.append(widgets.HBox([bar, text]))
+        display(widgets.VBox(rows))
+        self.timer = PeriodicCallback(self.update_meters, 200)
+        if _active_meters is not None:
+            _active_meters.stop_meters()
+        _active_meters = self
         if self.rec is not None:
-            self.start_preview()
+            self.timer.start()
 
+        display(self.out)
+
+        # made with interactive mode off and displayed here, rather than
+        # left for ipympl to show when the cell ends (see above). Without
+        # ipympl, the inline backend shows it when the cell ends regardless.
         self.f = np.array([])
         self.G = np.array([])
-        self.fig,self.ax = plt.subplots(1,1,figsize=(9,5),dpi=100)
+        with plt.ioff():
+            self.fig,self.ax = plt.subplots(1,1,figsize=(9,5),dpi=100)
         self.ax.set_xlabel('Frequency (Hz)')
         self.ax.set_ylabel('Amplitude (dB)')
         self.ax.grid()
@@ -113,14 +166,14 @@ class measure_stepped_sine():
         self.ax.set_ylim([-50,50])
         self.line, = self.ax.plot([],[],'x',markeredgewidth =2,label='stepped sine')
         self.line.axes.set_autoscaley_on(True)
+        if interactive_plots():
+            display(self.fig.canvas)
 
         self.buttons[0].on_click(self.measure)
         self.buttons[1].on_click(self.undo)
         self.buttons[2].on_click(self.save)
         self.buttons[3].on_click(self.savefig)
-        
-        display(self.out)
-        
+
     TAKEN_OVER = ('The pydvma logger is now using the acquisition hardware. '
                   'To use this widget again, re-run its cell.')
 
@@ -128,63 +181,47 @@ class measure_stepped_sine():
         # Why the widget can't read its stream, or None if it can.
         # stream_snapshot always reads the newest stream (dvma.streams.REC),
         # so once the logger has opened its own, this widget would be
-        # reading the logger's data.
+        # reading the logger's data. On NI, start_stream restarts the same
+        # recorder object with the new settings, so check those as well.
         if self.rec is None:
-            return 'No data stream: see the message above the plots.'
-        if dvma.streams.REC is not self.rec:
+            return 'No data stream: see the message above the plot.'
+        if dvma.streams.REC is not self.rec or self.rec.settings is not self.rec_settings:
             return self.TAKEN_OVER
         return None
 
-    def start_preview(self):
-        self.previewing = True
-        self.preview_button.description = 'Pause preview'
-        self.timer.start()
-
-    def stop_preview(self, message=None):
+    def stop_meters(self, message=None):
         self.timer.stop()
-        self.previewing = False
-        self.preview_button.description = 'Resume preview'
+        for bar, text in self.meters:
+            bar.value = METER_FLOOR_DB
+            bar.bar_style = ''
+            text.value = '<span style="color:gray">stopped</span>'
         if message:
             self.out.clear_output(wait=False)
             with self.out:
                 print(message)
 
-    def toggle_preview(self, b):
-        if self.previewing:
-            self.stop_preview()
-            return
+    def update_meters(self):
         problem = self.stream_problem()
         if problem:
-            self.stop_preview(problem)
-        else:
-            self.start_preview()
-
-    def update_preview(self):
-        problem = self.stream_problem()
-        if problem:
-            self.stop_preview('Preview stopped. ' + problem)
+            self.stop_meters('Level meters stopped. ' + problem)
             return
         try:
-            time_data = dvma.stream_snapshot(self.rec)
+            y = np.asarray(dvma.stream_snapshot(self.rec).time_data)
         except Exception as e:
-            self.stop_preview('Preview stopped: {}'.format(e))
+            self.stop_meters('Level meters stopped: {}'.format(e))
             return
-        t = np.asarray(time_data.time_axis)
-        y = np.asarray(time_data.time_data)
-        clip = 0.95 * full_scale(self.rec.settings)
-        for k, (ax, line) in enumerate(zip(self.pax, self.plines)):
-            line.set_data(t, y[:, k])
+        vmax = full_scale(self.rec.settings)
+        for k, (bar, text) in enumerate(self.meters):
             peak = float(np.max(np.abs(y[:, k]))) if len(y) else 0.0
-            lim = max(1.2 * peak, 1e-3)
-            ax.set_ylim(-lim, lim)
-            clipped = peak >= clip
-            ax.set_title('ch {}: peak {:.3f} V{}'.format(
-                             k, peak, '   CLIP: turn the level down' if clipped else ''),
-                         loc='left', fontsize=10,
-                         color='#d62728' if clipped else 'black')
-        if len(t):
-            self.pax[0].set_xlim(t[0], t[-1])
-        self.pfig.canvas.draw_idle()
+            db = 20 * np.log10(max(peak, 1e-9) / vmax)
+            clipped = peak >= 0.95 * vmax
+            bar.value = min(max(db, METER_FLOOR_DB), 0)
+            bar.bar_style = 'danger' if clipped else 'success'
+            label = '{:.3f} V peak ({:.0f} dB)'.format(peak, db)
+            if clipped:
+                label = ('<b style="color:#d62728">{} CLIP: turn the level down</b>'
+                         .format(label))
+            text.value = label
 
     def measure(self,b):
         problem = self.stream_problem()

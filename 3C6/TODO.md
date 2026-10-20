@@ -2,7 +2,7 @@
 
 - **Notebook updated for pydvma 2.x (2026-10-16).** Workflow: 3.1's
   stepped sine stays in the notebook widget
-  (`lab_3c6.measure_stepped_sine`, now with a live signal preview in
+  (`lab_3c6.measure_stepped_sine`, now with live input level bars in
   place of the old Qt oscilloscope). From 3.2 on, one
   `dvma.launch(settings, window=..., tf_averaging=...)` web logger runs
   in a browser tab beside the notebook, and each section's settings
@@ -12,9 +12,12 @@
   `35ae762`).
 - **Test on the rig before term.** So far it has only been smoke-tested
   on pydvma's mock driver, with no browser. On the PCI-6220 bench, check:
-  - the stepped-sine preview: is the 5 Hz redraw smooth on the lab PC,
-    does CLIP show at 95 % of ±5 V, and does the preview stop cleanly
-    once the logger opens its stream in 3.2;
+  - the stepped-sine level bars (checked on one PC on 2026-10-20: they
+    update live and stop on a logger-style `start_stream`): does CLIP
+    show at 95 % of ±5 V, and do they stop cleanly once the real logger
+    opens its stream in 3.2;
+  - ipympl is installed on all six PCs (the widget and every plot need
+    `%matplotlib widget`), and Start_3C6.bat refreshes `lab_3c6.py`;
   - `apply_settings` lands in the open Edge tab in each section (toast,
     Setup values), and the 5 %-of-full-scale trigger (0.25 V) catches a
     gentle hammer tap;

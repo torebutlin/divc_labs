@@ -7656,10 +7656,10 @@ body { max-width: 940px; margin: 0 auto; }
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>In this part of the lab we want to measure the gain and phase shift from input to output at the specific frequencies of the generator. To do this we will use a simple interface embedded in the notebook.</p>
 <ol>
-<li>Start the stepped-sine logging widget by running the code in the next cell. Its top plot is a live preview of both signals, like an oscilloscope: <strong>Pause preview</strong> freezes it, and a red <strong>CLIP</strong> warning appears if a signal reaches the input limit;</li>
-<li>Tap the top beam gently with a finger and check that you can see a response;</li>
+<li>Start the stepped-sine logging widget by running the code in the next cell. Under the buttons, a thin bar for each channel shows its signal level, and turns red with a <strong>CLIP</strong> warning if a signal reaches the input limit;</li>
+<li>Tap the top beam gently with a finger and check that the level bars respond;</li>
 <li>Use the sine-wave generator to explore the system response in the frequency range 10–500 Hz;</li>
-<li>For each frequency tested, allow a short time for the vibration to settle to a steady state (watch the preview), then click the “Measure” button on the computer;</li>
+<li>For each frequency tested, allow a short time for the vibration to settle to a steady state (watch the level bars), then click the “Measure” button on the computer;</li>
 <li>A dot will be plotted on the screen showing the admittance at the measured frequency;</li>
 <li>Explore up and down in frequency until you have dotted out a reasonable picture of the admittance (you should find at least four resonance peaks). Unwanted data points can be deleted using the “Delete Last Measurement” button. Be particularly careful to catch the peak values, where the system has resonances.</li>
 </ol>
@@ -7759,7 +7759,7 @@ body { max-width: 940px; margin: 0 auto; }
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The data acquisition used for the rest of the lab will use the 'pydvma' logger interface that is more general than the embedded widget above. Open the logger by running the next cell <strong>once</strong> (shift+enter): it opens in a new browser tab, and you will use it for the rest of the lab. (The widget's preview above stops when the logger starts using the hardware.)</p>
+<p>The data acquisition used for the rest of the lab will use the 'pydvma' logger interface that is more general than the embedded widget above. Open the logger by running the next cell <strong>once</strong> (shift+enter): it opens in a new browser tab, and you will use it for the rest of the lab. (The widget's level bars above stop when the logger starts using the hardware.)</p>
 <ul>
 <li><strong>Arrange your screen:</strong> put this notebook on the left half of the screen and the logger's browser window on the right half (drag each window to the edge of the screen, or press the Windows key + ← / →). The logger adapts to a narrow window.</li>
 <li><strong>Choose where files are saved:</strong> click the folder button at the top of the logger (it reads 'Downloads' until you choose) and select the folder this notebook is in. Everything you save from the logger then goes there. (This works in Edge, which the logger opens in; other browsers just download to Downloads.)</li>
