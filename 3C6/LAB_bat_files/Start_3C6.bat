@@ -5,7 +5,8 @@ title Start 3C6 notebook
 rem ======================================================================
 rem  3C6 lab launcher
 rem   1. downloads the lab notebook + helper .py from GitHub
-rem      into the student's network home folder
+rem      into the student's network home folder (an existing notebook
+rem      is only replaced if the student agrees; the helper always is)
 rem   2. starts Jupyter Notebook in that folder
 rem
 rem  Optional: pass a folder as the first argument to use it instead of
@@ -15,7 +16,11 @@ rem ======================================================================
 
 rem ---- settings --------------------------------------------------------
 set "REPO_URL=https://raw.githubusercontent.com/torebutlin/divc_labs/master/3C6"
-set "FILES=3C6_Notebook.ipynb lab_3c6.py"
+rem The notebook holds the student's work, so an existing one is only
+rem replaced if they agree. The helper .py isn't theirs to edit, so it is
+rem always brought up to date (a copy that differed is kept as .old).
+set "FILES=3C6_Notebook.ipynb"
+set "HELPERS=lab_3c6.py"
 set "TARGET_DIR=\\ifs\users\%USERNAME%\lab_3C6"
 set "CONDA_ROOT=C:\ProgramData\anaconda3"
 set "CONDA_ENV=pydvma"
@@ -64,6 +69,7 @@ if not exist "%TARGET_DIR%\" (
 rem ---- download lab files ----
 echo Fetching lab files into "%TARGET_DIR%" ...
 for %%F in (%FILES%) do call :fetch "%%F"
+for %%F in (%HELPERS%) do call :fetch "%%F" always
 
 rem ---- start Jupyter ----
 echo.
@@ -85,6 +91,8 @@ rem ======================================================================
 :fetch
 rem Download one file to a temp copy, then decide whether to replace the
 rem existing one, so a failed download never damages a student's file.
+rem With "always" as a second argument, a file that differs is replaced
+rem without asking, and the old one kept with .old added to its name.
 set "NAME=%~1"
 set "DEST=%TARGET_DIR%\%NAME%"
 set "TMPFILE=%TEMP%\3C6_%RANDOM%_%NAME%"
@@ -99,6 +107,7 @@ if not errorlevel 1 (
     del "%TMPFILE%"
     goto :eof
 )
+if /i "%~2"=="always" goto :fetch_replace
 echo.
 echo   %NAME% already exists in your folder and differs from the latest version.
 set "ANSWER="
@@ -107,6 +116,11 @@ if /i "%ANSWER%"=="y" goto :fetch_install
 if /i "%ANSWER%"=="yes" goto :fetch_install
 echo   Keeping your existing %NAME%.
 del "%TMPFILE%"
+goto :eof
+
+:fetch_replace
+copy /y "%DEST%" "%DEST%.old" >nul
+move /y "%TMPFILE%" "%DEST%" >nul && echo   %NAME%: updated to the latest version - your old copy is now %NAME%.old.
 goto :eof
 
 :fetch_install
