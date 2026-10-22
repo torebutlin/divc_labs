@@ -376,7 +376,7 @@ def beam_tf(data):
     off the screen but not out of the data, so every later save also
     carried every set deleted before it. The beam just measured is then
     the NEWEST measurement in the file, so that one is used, and the
-    choice is printed with the others the file holds.
+    choice is printed.
     """
     tfs = list(data.tf_data_list)
     if not tfs:
@@ -396,10 +396,8 @@ def beam_tf(data):
 
     dated = [tf for tf in tfs if when(tf) is not None]
     chosen = max(dated, key=when) if dated else tfs[-1]
-    names = ', '.join(repr(tf.test_name or 'unnamed') for tf in tfs)
-    print('This file holds {} transfer functions ({}); using the newest '
-          'measurement, {!r}.'.format(len(tfs), names,
-                                      chosen.test_name or 'unnamed'))
+    print('This file holds {} transfer functions; using the newest '
+          'measurement, {!r}.'.format(len(tfs), chosen.test_name or 'unnamed'))
     return chosen
 
 
