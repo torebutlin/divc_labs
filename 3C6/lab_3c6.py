@@ -361,23 +361,76 @@ class NoFileChosen(Exception):
 
 
 
+class NoTransferFunction(Exception):
+    """A beam file with no transfer function saved in it."""
+
+    def _render_traceback_(self):
+        return [str(self)]
+
+
+def beam_tf(data):
+    """The beam's transfer function in one loaded beam file.
+
+    Each beam file should hold one measurement. A file saved by the
+    pydvma 2.7.0 logger can hold more: deleting a set in the tray took it
+    off the screen but not out of the data, so every later save also
+    carried every set deleted before it. The beam just measured is then
+    the NEWEST measurement in the file, so that one is used, and the
+    choice is printed with the others the file holds.
+    """
+    tfs = list(data.tf_data_list)
+    if not tfs:
+        raise NoTransferFunction(
+            'This file has no transfer function: load it in the logger, '
+            "press 'Calc TF' (window 'none', avg 'none') and save it again.")
+    if len(tfs) == 1:
+        return tfs[0]
+
+    measured = {str(td.unique_id): td.timestamp for td in data.time_data_list}
+
+    def when(tf):
+        try:
+            return measured[str(tf.id_link)].timestamp()
+        except (KeyError, AttributeError, TypeError):
+            return None
+
+    dated = [tf for tf in tfs if when(tf) is not None]
+    chosen = max(dated, key=when) if dated else tfs[-1]
+    names = ', '.join(repr(tf.test_name or 'unnamed') for tf in tfs)
+    print('This file holds {} transfer functions ({}); using the newest '
+          'measurement, {!r}.'.format(len(tfs), names,
+                                      chosen.test_name or 'unnamed'))
+    return chosen
+
+
 def coupled_TF(Y1,Y2):
+    """Predict the coupled beams' admittance from the two beam files.
+
+    1/Y_coupled = 1/Y1 + 1/Y2, with each beam's transfer function taken
+    from its file by `beam_tf`. Returns a DataSet holding the two beams'
+    transfer functions and the prediction (test_name 'predicted').
+    """
+    tf1 = beam_tf(Y1)
+    tf2 = beam_tf(Y2)
+    if tf1.tf_data.shape != tf2.tf_data.shape:
+        raise ValueError(
+            'The two beams were measured with different settings ({} and {} '
+            'frequency points): measure both with the hammer settings cell '
+            'in 3.5, then try again.'.format(len(tf1.freq_axis),
+                                             len(tf2.freq_axis)))
+
     d = dvma.DataSet()
     
-    Y1.tf_data_list[0].tf_coherence=None
-    Y2.tf_data_list[0].tf_coherence=None
+    tf1.tf_coherence=None
+    tf2.tf_coherence=None
     
-    Y1d = Y1.tf_data_list[0].tf_data
-    Y2d = Y2.tf_data_list[0].tf_data
-    Yc = 1/(1/Y1d + 1/Y2d)
-    f = Y1.tf_data_list[0].freq_axis
-    settings = Y1.tf_data_list[0].settings
+    Yc = 1/(1/tf1.tf_data + 1/tf2.tf_data)
     
-    tf_data_coupled = dvma.TfData(f,Yc,None,settings,id_link=[Y1.tf_data_list[0].id_link,Y2.tf_data_list[0].id_link],test_name = 'predicted')
+    tf_data_coupled = dvma.TfData(tf1.freq_axis,Yc,None,tf1.settings,id_link=[tf1.id_link,tf2.id_link],test_name = 'predicted')
     
     
-    d.add_to_dataset(Y1.tf_data_list[0])
-    d.add_to_dataset(Y2.tf_data_list[0])
+    d.add_to_dataset(tf1)
+    d.add_to_dataset(tf2)
     d.add_to_dataset(tf_data_coupled)
     
     return d

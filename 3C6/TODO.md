@@ -24,6 +24,14 @@
   - the folder button saves into the notebook's folder, and the
     `choose_file` picker lists those files;
   - `coupled_prediction.dvma` loads in the app as three TF sets.
+- **Saved files piled up deleted sets on pydvma 2.7.0 (lab, 2026-10-22).**
+  The logger's tray × took a set off the screen but not out of the data,
+  so each beam file in 3.5 held every earlier measurement, and
+  `coupled_TF` (which took each file's FIRST transfer function) predicted
+  from the wrong one. Fixed in pydvma after 2.7.0 (the tray × now
+  removes the set from the saved data); upgrade the lab PCs once it is
+  released. Meanwhile `lab_3c6.coupled_TF` copes with 2.7.0 files: it
+  uses each file's NEWEST measurement and prints which.
 - **Re-export after any notebook change:** `python make_exports.py`
   rewrites `3C6_Notebook.html`, `.pdf` and `_LAB_COPY.pdf` (needs Google
   Chrome and an internet connection for MathJax).
