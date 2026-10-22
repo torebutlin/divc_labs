@@ -8356,11 +8356,12 @@ body { max-width: 940px; margin: 0 auto; }
 <hr style="height:2px;border:none"/>
 <h3 id="3.5-Coupling-of-subsystems-(20-minutes)">3.5 Coupling of subsystems (20 minutes)<a class="anchor-link" href="#3.5-Coupling-of-subsystems-(20-minutes)">¶</a></h3><hr style="height:2px;border:none"/>
 <p>Finally, we will measure the transfer functions of the uncoupled beams to predict the coupled response.</p>
-<p>Using the hammer method obtain admittances for the two cantilevers separately (by removing the coupling rod, removing the magnetic shaker attachment, and moving the accelerometer appropriately — you may need to practice your upside-down hammering technique!).</p>
+<p>Using the hammer method obtain admittances for the two cantilevers separately (by removing the coupling rod, removing the magnetic shaker attachment, and moving the accelerometer appropriately — you may need to practice your upside-down hammering technique!). You will measure both beams in the logger and save them together, in one file.</p>
 <ol>
 <li>In the logger, remove every set from the tray (<strong>×</strong>), then run the settings cell below (the same hammer settings again).</li>
-<li>Get the best result you can for each beam, with 'Calc TF' on the TF stage (the settings cell sets window 'none' and avg 'none'). Double-click the set's name in the tray to rename it after its beam, e.g. 'upper beam'.</li>
-<li>Save the dataset for each beam after calculating the transfer function, then delete that set (<strong>×</strong>) before measuring the other beam, so that each file holds one beam.</li>
+<li>Measure the upper beam, and press 'Calc TF' on the <strong>TF</strong> stage to check its transfer function (the settings cell sets window 'none' and avg 'none'). Get the best result you can: delete any poor attempt (<strong>×</strong>) and tap again, until one good set remains. Double-click the set's name in the tray and rename it 'upper beam'.</li>
+<li>Move the accelerometer to the lower beam and do the same, renaming its set 'lower beam'.</li>
+<li>You should now have exactly two sets in the tray, the two beams, each with its transfer function. Press <strong>'Save Dataset'</strong> and give the file a name such as 'beams'.</li>
 </ol>
 <p><strong>Remember to save your data and figures to the teaching system</strong></p>
 </div>
@@ -8394,8 +8395,8 @@ body { max-width: 940px; margin: 0 auto; }
 <p>Now you can use these measurements to predict the response of the coupled system. The admittance of the coupled system is related to the admittances $Y_1(\omega)$, $Y_2(\omega)$ of the two separate systems by the formula:</p>
 <p>$$\frac{1}{Y_\text{coupled}} = \frac{1}{Y_1(\omega)} + \frac{1}{Y_2(\omega)}$$</p>
 <p>which is derived in Section 7 of the lecture notes, and is similar to the formula for parallel resistors.</p>
-<p>To calculate the coupled admittance using these measurements, run the next cell and pick your lower-beam file, then run the cell after it; pick your upper-beam file, then run the cell after that; then run the "lab_3c6.coupled_TF" cell.</p>
-<p><strong>Note that this will only work if you saved your datasets above after calculating the transfer functions. If you didn't, load the file in the logger, press 'Calc TF' (window 'none', avg 'none') and save it again.</strong></p>
+<p>To calculate the coupled admittance using these measurements, run the next cell and pick your two-beam file, then run the cell after it, then the "lab_3c6.coupled_TF" cell. It reports which two transfer functions it couples: check they are your two beams.</p>
+<p><strong>Note that this will only work if you saved the file above after calculating the transfer functions. If you didn't, load it in the logger, press 'Calc TF' (window 'none', avg 'none') and save it again.</strong></p>
 </div>
 </div>
 </div>
@@ -8406,7 +8407,7 @@ body { max-width: 940px; margin: 0 auto; }
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># pick a beam's data file in the list, then run the cell below it</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># pick your two-beam data file in the list, then run the cell below it</span>
 <span class="n">picker</span> <span class="o">=</span> <span class="n">lab_3c6</span><span class="o">.</span><span class="n">choose_file</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -8420,7 +8421,7 @@ body { max-width: 940px; margin: 0 auto; }
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_lower</span> <span class="o">=</span> <span class="n">picker</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>   <span class="c1"># with the lower-beam file picked</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_beams</span> <span class="o">=</span> <span class="n">picker</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>   <span class="c1"># with your two-beam file picked</span>
 </pre></div>
 </div>
 </div>
@@ -8433,20 +8434,7 @@ body { max-width: 940px; margin: 0 auto; }
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_upper</span> <span class="o">=</span> <span class="n">picker</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>   <span class="c1"># now pick the upper-beam file, then run this cell</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_coupled</span> <span class="o">=</span> <span class="n">lab_3c6</span><span class="o">.</span><span class="n">coupled_TF</span><span class="p">(</span><span class="n">data_lower</span><span class="p">,</span><span class="n">data_upper</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_coupled</span> <span class="o">=</span> <span class="n">lab_3c6</span><span class="o">.</span><span class="n">coupled_TF</span><span class="p">(</span><span class="n">data_beams</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

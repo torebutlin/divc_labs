@@ -362,30 +362,24 @@ class NoFileChosen(Exception):
 
 
 class NoTransferFunction(Exception):
-    """A beam file with no transfer function saved in it."""
+    """A beam file without the transfer functions coupled_TF needs."""
 
     def _render_traceback_(self):
         return [str(self)]
 
 
-def beam_tf(data):
-    """The beam's transfer function in one loaded beam file.
+def newest_tfs(data, n):
+    """The transfer functions of the n newest measurements in a file,
+    oldest first.
 
-    Each beam file should hold one measurement. A file saved by the
-    pydvma 2.7.0 logger can hold more: deleting a set in the tray took it
-    off the screen but not out of the data, so every later save also
-    carried every set deleted before it. The beam just measured is then
-    the NEWEST measurement in the file, so that one is used, and the
-    choice is printed.
+    A file saved by the pydvma 2.7.0 logger can hold more measurements
+    than it shows: deleting a set in the tray took it off the screen but
+    not out of the data, so every later save also carried every set
+    deleted before it. The ones just measured are then the NEWEST, judged
+    by the time each transfer function's measurement was taken (file
+    order when that is unknown).
     """
     tfs = list(data.tf_data_list)
-    if not tfs:
-        raise NoTransferFunction(
-            'This file has no transfer function: load it in the logger, '
-            "press 'Calc TF' (window 'none', avg 'none') and save it again.")
-    if len(tfs) == 1:
-        return tfs[0]
-
     measured = {str(td.unique_id): td.timestamp for td in data.time_data_list}
 
     def when(tf):
@@ -395,27 +389,65 @@ def beam_tf(data):
             return None
 
     dated = [tf for tf in tfs if when(tf) is not None]
-    chosen = max(dated, key=when) if dated else tfs[-1]
-    print('This file holds {} transfer functions; using the newest '
-          'measurement, {!r}.'.format(len(tfs), chosen.test_name or 'unnamed'))
+    if len(dated) >= min(n, len(tfs)):
+        return sorted(dated, key=when)[-n:]
+    return tfs[-n:]
+
+
+def beam_tf(data):
+    """The beam's transfer function in a file that holds one beam.
+
+    If the file holds more than one (see `newest_tfs`), the newest
+    measurement's is used and the choice is printed.
+    """
+    tfs = list(data.tf_data_list)
+    if not tfs:
+        raise NoTransferFunction(
+            'This file has no transfer function: load it in the logger, '
+            "press 'Calc TF' (window 'none', avg 'none') and save it again.")
+    chosen = newest_tfs(data, 1)[0]
+    if len(tfs) > 1:
+        print('This file holds {} transfer functions; using the newest '
+              'measurement, {!r}.'.format(len(tfs), chosen.test_name or 'unnamed'))
     return chosen
 
 
-def coupled_TF(Y1,Y2):
-    """Predict the coupled beams' admittance from the two beam files.
+def coupled_TF(Y1, Y2=None):
+    """Predict the coupled beams' admittance from the two beams' measurements.
 
-    1/Y_coupled = 1/Y1 + 1/Y2, with each beam's transfer function taken
-    from its file by `beam_tf`. Returns a DataSet holding the two beams'
-    transfer functions and the prediction (test_name 'predicted').
+        data_coupled = lab_3c6.coupled_TF(data_beams)      # one file, both beams
+        data_coupled = lab_3c6.coupled_TF(data_1, data_2)  # one file per beam
+
+    1/Y_coupled = 1/Y1 + 1/Y2. With one file, its two transfer functions
+    are the two beams (the two newest, if it holds more; which ones is
+    printed). With two files, each file's beam is taken by `beam_tf`. The
+    formula is symmetric, so it does not matter which beam is which.
+    Returns a DataSet holding the two beams' transfer functions and the
+    prediction (test_name 'predicted').
     """
-    tf1 = beam_tf(Y1)
-    tf2 = beam_tf(Y2)
+    if Y2 is None:
+        count = len(Y1.tf_data_list)
+        if count < 2:
+            raise NoTransferFunction(
+                'This file holds {} transfer function{}, not one for each '
+                "beam. In the logger, load it, check the TF stage's avg is "
+                "'none' (not 'across sets'), press 'Calc TF' so both beams "
+                'have one, and save it again.'.format(count, '' if count == 1 else 's'))
+        tf1, tf2 = newest_tfs(Y1, 2)
+        print('Coupling {!r} and {!r}{}.'.format(
+            tf1.test_name or 'unnamed', tf2.test_name or 'unnamed',
+            '' if count == 2 else
+            ' (the two newest of the {} transfer functions in this file)'.format(count)))
+    else:
+        tf1 = beam_tf(Y1)
+        tf2 = beam_tf(Y2)
     if tf1.tf_data.shape != tf2.tf_data.shape:
         raise ValueError(
-            'The two beams were measured with different settings ({} and {} '
-            'frequency points): measure both with the hammer settings cell '
-            'in 3.5, then try again.'.format(len(tf1.freq_axis),
-                                             len(tf2.freq_axis)))
+            "The two beams' transfer functions have different frequency "
+            'axes ({} and {} points), so they were calculated with different '
+            "settings. Load the beams in the logger, press 'Calc TF' with "
+            "window 'none' and avg 'none', save, and try again.".format(
+                len(tf1.freq_axis), len(tf2.freq_axis)))
 
     d = dvma.DataSet()
     

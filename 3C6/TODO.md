@@ -23,15 +23,28 @@
     gentle hammer tap;
   - the folder button saves into the notebook's folder, and the
     `choose_file` picker lists those files;
+  - 3.5 as rewritten on 2026-10-22: both beams measured in one session
+    and saved in ONE file; `coupled_TF(data_beams)` prints the two set
+    names it couples (the students' 'upper beam' / 'lower beam');
   - `coupled_prediction.dvma` loads in the app as three TF sets.
 - **Saved files piled up deleted sets on pydvma 2.7.0 (lab, 2026-10-22).**
   The logger's tray × took a set off the screen but not out of the data,
   so each beam file in 3.5 held every earlier measurement, and
   `coupled_TF` (which took each file's FIRST transfer function) predicted
-  from the wrong one. Fixed in pydvma after 2.7.0 (the tray × now
-  removes the set from the saved data); upgrade the lab PCs once it is
-  released. Meanwhile `lab_3c6.coupled_TF` copes with 2.7.0 files: it
-  uses each file's NEWEST measurement and prints which.
+  from the wrong one; Calc TF also recalculated the deleted sets. Fixed
+  in pydvma 2.7.1, and 2.8.0 is out: **upgrade each lab PC by re-running
+  `LAB_bat_files/Setup_3C6_PC.bat` as administrator** (its step 3 prints
+  the version). `Start_3C6.bat` does not upgrade pydvma; it only fetches
+  the latest notebook and `lab_3c6.py`.
+- **3.5 now saves both beams in one file (2026-10-22, Tore's workflow).**
+  Clear the tray and apply the settings; measure the upper beam, then the
+  lower beam (deleting poor attempts, renaming each); Calc TF; save the
+  two sets together; `coupled_TF(data_beams)` takes the file's two
+  transfer functions (1/Y is symmetric, so which is which does not
+  matter). A file with more than two (an un-upgraded 2.7.0 PC) uses the
+  two NEWEST measurements and says so; one with fewer, or two on
+  different frequency axes, gets a message saying what to redo. The old
+  two-file call `coupled_TF(data_1, data_2)` still works.
 - **Re-export after any notebook change:** `python make_exports.py`
   rewrites `3C6_Notebook.html`, `.pdf` and `_LAB_COPY.pdf` (needs Google
   Chrome and an internet connection for MathJax).
