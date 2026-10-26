@@ -7768,7 +7768,7 @@ body { max-width: 940px; margin: 0 auto; }
 <p>The data acquisition used for the rest of the lab will use the 'pydvma' logger interface that is more general than the embedded widget above. Open the logger by running the next cell <strong>once</strong> (shift+enter): it opens in a new browser tab, and you will use it for the rest of the lab. (The widget's level bars above stop when the logger starts using the hardware.)</p>
 <ul>
 <li><strong>Arrange your screen:</strong> put this notebook on the left half of the screen and the logger's browser window on the right half (drag each window to the edge of the screen, or press the Windows key + ← / →). The logger adapts to a narrow window.</li>
-<li><strong>Choose where files are saved:</strong> click the folder button at the top of the logger (it reads 'Downloads' until you choose) and select the folder this notebook is in. Everything you save from the logger then goes there. (This works in Edge, which the logger opens in; other browsers just download to Downloads.)</li>
+<li><strong>Where files are saved:</strong> the logger saves into the folder this notebook is in, and the folder button at the top of the logger names it. <strong>Save Dataset</strong> and <strong>Save Figure</strong> open a save dialog there: type a file name and press <strong>Save</strong> (<strong>Choose location…</strong> saves one file somewhere else).</li>
 <li><strong>Setup is already filled in</strong> from the settings in the next cell (NI device, 2 channels, 3000 Hz, 2 s). You will only change the duration and the trigger later, when the instructions tell you to.</li>
 </ul>
 <p>Familiarise yourself with the logger:</p>
@@ -7813,7 +7813,7 @@ body { max-width: 940px; margin: 0 auto; }
 <li>Press <strong>'Log Data'</strong> (Acquire stage) to log data using these settings. When it finishes, the logger shows the Time stage.</li>
 <li>You should have a single measurement: one set in the tray, shown as two lines in the figure.</li>
 <li>If you have made more measurements then delete the extra sets (<strong>×</strong> on their tray cards), so that you have a single measurement. Double-click the set's name in the tray to rename it, e.g. 'noise 2s'.</li>
-<li>Press <strong>'Save Figure'</strong> (header) to save the time data plot: tick both <strong>PNG</strong> and <strong>PDF</strong>, type a file name, and press <strong>Export</strong></li>
+<li>On the <strong>Export</strong> stage, tick both <strong>PNG</strong> and <strong>PDF</strong> (the logger keeps this choice until its page is reloaded). Then press <strong>'Save Figure'</strong> (header) to save the time data plot: type a file name in the save dialog and press <strong>Save</strong></li>
 <li>On the <strong>Frequency</strong> stage press <strong>'Calc FFT'</strong> to calculate the FFT using the window on its card: the default 'hann' is appropriate here</li>
 <li>Press <strong>'Save Figure'</strong> to save the plot</li>
 <li>On the <strong>TF</strong> stage press <strong>'Calc TF'</strong> to calculate the Transfer Function: the settings cell has set window 'hann' and avg 'none', and in=0 (channel 0, the force signal) is appropriate here. We will use the averaging option later.</li>
