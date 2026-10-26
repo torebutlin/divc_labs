@@ -49,6 +49,10 @@ body { max-width: 940px; margin: 0 auto; }
 .jp-RenderedHTMLCommon div[style*="darkblue"] {
   max-width: 80% !important; display: grid; grid-template-columns: 1fr 130px;
   column-gap: 16px; align-items: center; }
+/* text in the left column, whatever its length: auto-placed, a paragraph
+   after the first two lands in the QR code's column (the phone-browser
+   link did, cut off) */
+.jp-RenderedHTMLCommon div[style*="darkblue"] > * { grid-column: 1; }
 .jp-RenderedHTMLCommon div[style*="darkblue"] > p:has(img) {
   grid-column: 2; grid-row: 1 / span 2; margin: 0; }
 .jp-RenderedHTMLCommon div[style*="darkblue"] img { width: 130px; display: block; }
