@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>4C6_Notebook_new</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>4C6 Experimental Modal Analysis</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7508,20 +7508,46 @@ a.anchor-link {
     white-space: normal;
   }
 </style>
-<!-- End of mermaid configuration --></head>
+<!-- End of mermaid configuration --><style>
+/* 3C6 handout styling (make_exports.py) */
+body { max-width: 940px; margin: 0 auto; }
+.alert { padding: 10px 14px; margin: 1em 0; border: 1px solid; border-radius: 5px; }
+.alert-info { background: #eaf4fb; border-color: #9cc9e4; color: #0b3d5c; }
+.alert-danger { background: #fbeeee; border-color: #e3a3a3; color: #6b1515; }
+/* the lab-assistant box (the one bordered darkblue): QR code beside the
+   text rather than under it, so the box stays short */
+.jp-RenderedHTMLCommon div[style*="darkblue"] {
+  max-width: 80% !important; display: grid; grid-template-columns: 1fr 130px;
+  column-gap: 16px; align-items: center; }
+/* text in the left column, whatever its length: auto-placed, a paragraph
+   after the first two lands in the QR code's column (the phone-browser
+   link did, cut off) */
+.jp-RenderedHTMLCommon div[style*="darkblue"] > * { grid-column: 1; }
+.jp-RenderedHTMLCommon div[style*="darkblue"] > p:has(img) {
+  grid-column: 2; grid-row: 1 / span 2; margin: 0; }
+.jp-RenderedHTMLCommon div[style*="darkblue"] img { width: 130px; display: block; }
+@media print {
+  body { max-width: none; }
+  .jp-CodeCell, .alert, .jp-RenderedHTMLCommon div[style*="border"],
+  .jp-RenderedHTMLCommon img, table, li { break-inside: avoid; }
+  /* keep headings (and the rules drawn under section titles) with what follows */
+  h1, h2, h3, h4, hr { break-after: avoid; }
+  pre { white-space: pre-wrap; }
+}
+</style>
+</head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h1><center> Engineering Tripos Part IIB Module Experiment: 4C6 </center></h1>
 <h1><center> Experimental Modal Analysis, South Wing Mechanics Laboratory </center></h1>
 <hr style="height:2px;border:none"/>
-<p><strong>The logged data will be saved to a local folder on the desktop. At the end of the session you must transfer your data to you and your lab partner. If you do not do this your data may be deleted by the next students attending the lab.</strong></p>
+<p><strong>The logged data will be saved to the folder 'lab_4C6' in the network home folder of whoever logs in to the PC. At the end of the session you must share your data with your lab partner.</strong></p>
 <h2 id="1.-Objectives">1. Objectives<a class="anchor-link" href="#1.-Objectives">¶</a></h2><ul>
 <li>To explore the technique of experimental modal analysis on a structure of your choice;</li>
 <li>Obtain high quality transfer function estimates across a grid of test sites on a structure;</li>
@@ -7537,14 +7563,10 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="2.-Introduction">2. Introduction<a class="anchor-link" href="#2.-Introduction">¶</a></h2><p>Experimental modal analysis is a modern technique of vibration investigation which has become very popular. Provided the modal overlap of a system is low, it is reasonably straightforward to recognise resonances by peaks in the vibration response and to map out the corresponding mode shapes by determining how the amplitude and phase of that modal contribution varies over the surface of the system. This information can be used to validate theoretical models of the structure, or to allow design modifications to be undertaken on a rational basis when a vibration problem has to be solved.</p>
 <p>The usual method is to measure transfer functions from a grid of points distributed over the system. One envisages applying a force at a fixed point and measuring the vibration response (displacement, velocity or acceleration) at the grid of points. In practice, it is often easier to take advantage of the reciprocal theorem: a fixed sensor, usually an accelerometer, is used, and force is applied to the structure at each of the grid points using a force-transducer hammer. This is the approach to be used in this experiment. The system you will use has much in common with commercial modal analysers, but you will be required to do certain stages by hand rather than having the computer do everything automatically.</p>
 <p>Your report should describe the key results of the experiments, with photographs of your test structure and plots of relevant results. Please include photographs of the test object from a variety of angles, including the measurement grid markings, and also include a photo of it when suspended/supported for measurements. A number of specific questions to be addressed are contained in the detailed instructions in Section 4. Your completed report should be submitted online as a PDF file using the 4C6 Moodle page before the last lecture of term when a feedback session on the experiment will be held.</p>
-<hr/>
-<p><strong>The logged data will be saved to a local folder on the desktop. At the end of the session you must transfer your data to you and your lab partner. If you do not do this your data may be deleted by the next students attending the lab.</strong></p>
-<hr/>
 </div>
 </div>
 </div>
@@ -7553,32 +7575,28 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="3.-Apparatus">3. Apparatus<a class="anchor-link" href="#3.-Apparatus">¶</a></h2><p>The apparatus comprises a frame with bungees ready to suspend your test structure. Your chosen test structure should be:</p>
 <ul>
-<li>under 4kg (health and safety)</li>
-<li>without sharp hazardous protrusions (health and safety)</li>
-<li>not valuable (the department won't replace any damaged items)</li>
-<li>ok to use a sharpie pen to mark a grid of measurement locations</li>
-<li>small enough to suspend over the South Wing Mechanics Lab benches within the frame</li>
-<li>light enough damping to obtain mode shapes with isolated peaks</li>
-<li>simple enough shape to map out a grid of points and (in the report) sketch mode shapes</li>
-<li>complex enough to give interesting results</li>
-<li>good examples include (but not limited to): saucepans / dinner plates / breakfast bowls / ...</li>
-<li>bad examples include (but not limited to): ruler (too simple) / laptop (too expensive) / Stradivarius violin / ...</li>
+<li>under 4kg (health and safety);</li>
+<li>without sharp hazardous protrusions (health and safety);</li>
+<li>not valuable (the department won't replace any damaged items);</li>
+<li>ok to use a sharpie pen to mark a grid of measurement locations;</li>
+<li>small enough to suspend over the South Wing Mechanics Lab benches within the frame;</li>
+<li>light enough damping to obtain mode shapes with isolated peaks;</li>
+<li>simple enough shape to map out a grid of points and (in the report) sketch mode shapes;</li>
+<li>complex enough to give interesting results;</li>
+<li>good examples include (but not limited to): saucepans / dinner plates / breakfast bowls / etc;</li>
+<li>bad examples include (but not limited to): ruler (too simple) / laptop (too expensive) / Stradivarius violin / etc.</li>
 </ul>
 <p>You will be provided with:</p>
 <ul>
-<li>an instrumented hammer to apply controlled forces to it together with a selection of different tips so that you can select an appropriate one for your structure (e.g. considering input bandwidth)</li>
-<li>an accelerometer to measure the response and some wax to fix it to your structure</li>
-<li>charge amplifier with variable gain (adjust the dial on the top rather than the push-buttons on the bottom)</li>
-<li>a datalogging computer with pydvma for acquisition and analysis</li>
+<li>an instrumented hammer to apply controlled forces to it together with a selection of different tips so that you can select an appropriate one for your structure (e.g. considering input bandwidth);</li>
+<li>an accelerometer to measure the response and some wax to fix it to your structure;</li>
+<li>charge amplifier with variable gain (adjust the dial on the top rather than the push-buttons on the bottom);</li>
+<li>a datalogging computer with pydvma for acquisition and analysis.</li>
 </ul>
-<hr/>
-<p><strong>The logged data will be saved to a local folder on the desktop. At the end of the session you must transfer your data to you and your lab partner. If you do not do this your data may be deleted by the next students attending the lab.</strong></p>
-<hr/>
-<p>If the computer is not already on, switch it on, then log in using your usual Teaching System ID and password. If the power is not on, the switch for the computer is on a pillar at the north end of the bench, and the switch for the bench apparatus is somewhere on the central white trunking: follow the wires back to find the correct place. <strong>You may need to plug in the two BNC cables</strong> carrying your input and output signals to the diecast box on the bottom shelf of the computer trolley. Your cables are labelled “4C6 CH1” and “4C6 CH2”, to be plugged into the corresponding channels. Note these numbers will correspond to channels 0 and 1 in the legend of your plots.</p>
+<p>If the computer is not already on, switch it on, then log in using your usual Teaching System ID and password. If the power is not on, the switch for the computer is on a pillar at the north end of the bench, and the switch for the bench apparatus is somewhere on the central white trunking: follow the wires back to find the correct place. <strong>You may need to plug in the two BNC cables</strong> carrying your input and output signals to the diecast box on the bottom shelf of the computer trolley. Your cables are labelled “4C6 CH1” and “4C6 CH2”, to be plugged into the corresponding channels. In the software, channels are numbered from 0: CH1 (the hammer force) is channel 0 (ch_0 in the logger) and CH2 (the accelerometer) is channel 1 (ch_1).</p>
 </div>
 </div>
 </div>
@@ -7587,8 +7605,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h2 id="4.-Experimental-procedure">4. Experimental procedure<a class="anchor-link" href="#4.-Experimental-procedure">¶</a></h2><h3 id="4.1-Measuring-one-transfer-function">4.1 Measuring one transfer function<a class="anchor-link" href="#4.1-Measuring-one-transfer-function">¶</a></h3><hr style="height:2px;border:none"/>
 <p>The first stage of the experiment is to measure one transfer function, to find out roughly how the system behaves and to familiarise yourself with the equipment and software.</p>
@@ -7596,16 +7613,15 @@ a.anchor-link {
 <hr/>
 <p>To use the wax (in a tiny pot): if there is none on the accelerometer already, then scrape out a tiny quantity, warm it by rubbing in your fingers, then squash three dots onto the contact-circle area of the accelerometer. Then firmly squash the accelerometer on to the chosen location. The wax cools and hardens making a good but temporary contact. Repeat later in the experiment when you choose your 'fixed' location for the grid measurements.</p>
 <hr/>
-<p>Next check that there is no 'lab_4C6' folder on the desktop (but keep any folders with custom names like 'lab_4C6_CRSID'). If there is a 'lab_4C6' folder with data inside, then the previous students may have forgotten to transfer their data. Please rename the folder to 'lab_4C6_yyyymmdd' then continue.</p>
-<p>Double-click on the 'Start 4C6_new.bat' file on the desktop. This copies across a fresh copy of this notebook to the folder 'lab_4C6' on the desktop, then it opens Jupyter Notebooks starting in this folder. You may be prompted to overwrite the existing files - if so then abort and check the note above, renaming the folder if it contains previous student data. If you need to (e.g. if you accidentally deleted part of this notebook), then you can get a fresh copy by running 'Start_4C6.bat' again.</p>
+<p>Double-click on the 'Start_4C6.bat' file on the desktop. This copies this notebook to the folder 'lab_4C6' in your network home folder, then it opens Jupyter Notebooks starting in this folder. If you already have a copy of the notebook there that differs from the latest version, you will be asked whether to overwrite it: answer 'n' to keep your copy (your saved data files are never touched). If you need to (e.g. if you accidentally deleted part of this notebook), then you can get a fresh copy by running 'Start_4C6.bat' again and answering 'y'.</p>
 <p>Click '4C6_Notebook.ipynb' to open.</p>
 <p>The next cells import the necessary modules: pydvma is a python package written for data acquisition at CUED.</p>
 <p>Remember:</p>
 <ul>
-<li>to actually run a cell of code, click inside the cell then press 'shift+enter'</li>
-<li>the cell is running while [ * ] is displayed</li>
-<li>the cell has finished running when it changes to a number</li>
-<li>under the 'view' menu above you can toggle off the header and toolbar, which is useful to give a bit more screen space</li>
+<li>to actually run a cell of code, click inside the cell then press 'shift+enter';</li>
+<li>the cell is running while [ * ] is displayed;</li>
+<li>the cell has finished running when it changes to a number;</li>
+<li>under the 'view' menu above you can toggle off the header and toolbar, which is useful to give a bit more screen space;</li>
 <li>you can control the cell output view by clicking on the left beside the cell: single click to expand/compress, double-click to hide.</li>
 </ul>
 <hr/>
@@ -7617,7 +7633,6 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
@@ -7633,7 +7648,6 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> widget
@@ -7647,8 +7661,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Choose your acquisition settings. Try these settings initially, but you are likely going to need to adjust them depending on your structure and the input bandwidth of the hammer. A bit of trial and error is needed. Make a note of your chosen settings.</p>
 <ul>
 <li>channels=2 (number of channels to record)</li>
@@ -7664,7 +7677,6 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># acquisition setup</span>
@@ -7672,6 +7684,8 @@ a.anchor-link {
                            <span class="n">fs</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
                            <span class="n">stored_time</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                            <span class="n">device_driver</span> <span class="o">=</span> <span class="s1">'nidaq'</span><span class="p">)</span>
+<span class="c1"># open the logger in a new browser tab: run this cell only once</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tf_averaging</span><span class="o">=</span><span class="s1">'none'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7682,33 +7696,21 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Now open a PC oscilloscope using your settings. This shows three plots:</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Running the cell above opens the pydvma logger in a new browser tab, with Setup already filled in from your settings. You will use this one logger for the rest of the lab, so run the cell only once.</p>
 <ul>
-<li>the top one is like a normal oscilloscope showing the signal (toggle on/off with 'T');</li>
-<li>the middle one shows the frequency spectrum of the signal (toggle on/off with 'F');</li>
-<li>the bottom one shows the signal amplitudes (toggle on/off with 'L');</li>
-<li>you can pause the data shown by pressing 'P' (press again to continue streaming data);</li>
-<li>you can toggle whether the window is always on top by pressing 'A'</li>
+<li><strong>Arrange your screen:</strong> put this notebook on the left half of the screen and the logger's browser window on the right half (drag each window to the edge of the screen, or press the Windows key + ← / →).</li>
+<li><strong>Where files are saved:</strong> the logger saves into the folder 'lab_4C6' that this notebook is in, and the folder button at the top of the logger names it.</li>
 </ul>
-<p>Tap the structure gently with the instrumented hammer in a few locations. Check that you can see a response in the oscilloscope: the top plot shows the time data, the middle shows the FFT, and the bottom shows the levels. If you get no data at all, check that you've plugged the cables into the computer and that everything is switched on. Adjust the gains of the two channels on the charge amplifier (hammer and accelerometer) until you get a good size of signal without clipping.</p>
-<p>Once you have checked that the signal levels are ok, <strong>close the oscilloscope</strong>. You can reopen the oscilloscope again later from within the logger window, but the logger window won't open unless you close the standalone one first.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># open oscilloscope</span>
-<span class="n">osc</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">Oscilloscope</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-</pre></div>
-</div>
+<p>Now open the logger's <strong>Live</strong> stage, a PC oscilloscope using your settings, and press <strong>Start Monitor</strong>. This shows three plots:</p>
+<ul>
+<li>the top-left one is like a normal oscilloscope showing the signal (toggle on/off by clicking 'T');</li>
+<li>the one below it shows the frequency spectrum of the signal (toggle on/off with 'F');</li>
+<li>the one on the right shows the signal amplitudes (toggle on/off with 'L');</li>
+<li>you can pause the data shown by clicking 'P' (click again to continue streaming data);</li>
+<li>a small monitor of the signal also stays at the side of the logger on every stage.</li>
+</ul>
+<p>Tap the structure gently with the instrumented hammer in a few locations. Check that you can see a response in the oscilloscope: the top-left plot shows the time data, the one below it shows the FFT, and the right-hand one shows the levels. If you get no data at all, check that you've plugged the cables into the computer and that everything is switched on. Adjust the gains of the two channels on the charge amplifier (hammer and accelerometer) until you get a good size of signal without clipping (the <strong>CLIP</strong> warning lights if a signal reaches 95 % of the input range; click it to reset it).</p>
 </div>
 </div>
 </div>
@@ -7717,19 +7719,16 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Now open the logger window by running the next cell (shift+enter). The settings now include ''pretrig_samples=100''. This will store the data that starts 100 samples <strong>before</strong> the impulse is detected (after pressing ''Log Data'').</p>
-<p>Familiarise yourself with the logger window:</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Now arm the trigger by running the next cell (shift+enter). The settings now include ''pretrig_samples=100''. This will store the data that starts 100 samples <strong>before</strong> the impulse is detected (after pressing ''Log Data''). The cell prints a line confirming that the trigger is armed on ch 0 (the hammer), and the pretrigger <strong>arm</strong> switch on the logger's Acquire card is now on.</p>
+<p>Familiarise yourself with the logger:</p>
 <ul>
-<li>the centre panel contains the figure - note the zooming / panning tools under the figure.</li>
-<li>when data is shown, you can click on the legend lines to select which channels are shown.</li>
-<li>when using the box-zoom tool (from under the figure), then left-click-drag will zoom to the rectangle, and right-click-drag will zoom out.</li>
-<li>the left panel controls what is plotted (you can select which plot to show using the top dropdown).</li>
-<li>use the 'auto x' and 'auto y' buttons to automatically adjust the x and y axes to fit the selected data ('auto y' changes the y-limits to fit the selected data, 'auto x' changes the x-limits to the whole data range).</li>
-<li>the right panel provides data analysis tools (you can select which tools are displayed using the top dropdown).</li>
-<li>the centre top panel is for basic data management (logging / loading / deleting).</li>
-<li>the centre bottom panel is to save data or figures.</li>
+<li>the row of <strong>stages</strong> (Setup, Acquire, Live, Time, Frequency, TF, ...) selects what is plotted, and each stage has a card of settings and tools above the figure;</li>
+<li>when data is shown, you can click on the legend lines to show, fade or hide them;</li>
+<li>the <strong>toolbar</strong> above the figure has the zooming / panning tools: with <strong>Box zoom</strong>, left-click-drag will zoom to the rectangle, and <strong>↶</strong> steps back to the previous view;</li>
+<li>use the 'Auto X' and 'Auto Y' buttons (toolbar) to automatically adjust the x and y axes to fit the selected data ('Auto Y' changes the y-limits to fit the selected data, 'Auto X' changes the x-limits to the whole data range); the chevron at the right end of the toolbar opens exact axis limits and the legend position;</li>
+<li>the <strong>tray</strong> at the side lists your measurement sets: click a set's name to show, fade or hide it, double-click it to rename it, and <strong>×</strong> deletes it;</li>
+<li>the header has <strong>Load Data</strong>, <strong>Save Figure</strong> and <strong>Save Dataset</strong>.</li>
 </ul>
 </div>
 </div>
@@ -7739,7 +7738,6 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># acquisition setup</span>
@@ -7748,7 +7746,7 @@ a.anchor-link {
                            <span class="n">stored_time</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                            <span class="n">pretrig_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                            <span class="n">device_driver</span> <span class="o">=</span> <span class="s1">'nidaq'</span><span class="p">)</span>
-<span class="n">logger1</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7759,20 +7757,19 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Next:</p>
 <ol>
-<li>Press ''Log Data''. The logger will wait for you to use the instrumented hammer to tap the structure (20 seconds before timeout).</li>
+<li>Press ''Log Data'' (Acquire stage). The logger will wait for you to use the instrumented hammer to tap the structure (20 seconds before timeout): the Acquire card shows 'armed — waiting for trigger…' until you tap.</li>
 <li>Tap the structure gently with the instrumented hammer at a chosen position (consider the driving point first).</li>
-<li>The measured data will appear in the figure when logging completes after 5 seconds.</li>
-<li>You can examine the results closely by zooming, using either the tools at the bottom of the figure, or the axis options in the left panel.</li>
-<li>You can display either channel separately, or both together, by clicking the legend lines. You can hide or show all lines using the buttons in the left panel. You can cycle through your selection using the arrow buttons..</li>
-<li>Check your results. Are they clipped? Was there a single, clean impact or multiple impacts? Be prepared to practise your tapping technique until you get good results. If you get no data at all, check that you've plugged the cables into the computer and that everything is switched on.</li>
-<li>If you want to redo a measurement, then press ''Delete Last'' or ''Delete All'', and re-measure. You should end up with a single good measurement set.</li>
-<li>If you think that the logger has stopped responding, you can restart this notebook by selecting 'Restart &amp; clear output' from the 'Kernel' menu of the notebook.</li>
+<li>The measured data will appear in the figure (Time stage) when logging completes after 5 seconds.</li>
+<li>You can examine the results closely by zooming, using either the tools in the toolbar above the figure, or the exact axis limits in its chevron panel.</li>
+<li>You can display either channel separately, or both together, by clicking the legend lines. You can hide or show all sets using the All / None buttons in the tray. You can cycle through your selection using the ‹ › arrow buttons.</li>
+<li>Check your results. Are they clipped (the <strong>CLIP</strong> warning lights, or a flat top)? Was there a single, clean impact or multiple impacts? Be prepared to practise your tapping technique until you get good results. If you get no data at all, check that you've plugged the cables into the computer and that everything is switched on.</li>
+<li>If you want to redo a measurement, then delete it (<strong>×</strong> on its card in the tray), and re-measure. You should end up with a single good measurement set.</li>
+<li>If you think that the logger has stopped responding, first reload its browser tab and accept the offer to restore your session. If that doesn't help, you can restart this notebook by selecting 'Restart Kernel and Clear Outputs of All Cells...' from the 'Kernel' menu of the notebook, then run the cells again from the top (the logger will offer to recover your session).</li>
 </ol>
-<p>Obtain the corresponding frequency response using the ''Calculate FFT'' button (right panel), which takes the Discrete Fourier Transform of both channels of data, using the Fast Fourier Transform algorithm. The ''window'' dropdown should be set to ''None''.</p>
+<p>Obtain the corresponding frequency response using the ''Calc FFT'' button (<strong>Frequency</strong> stage), which takes the Discrete Fourier Transform of both channels of data, using the Fast Fourier Transform algorithm. The ''window'' dropdown on its card should be set to ''none'' (the settings cell has set it).</p>
 </div>
 </div>
 </div>
@@ -7781,14 +7778,13 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The results will appear in the figure. Note that the top left dropdown shows the view is now ''FFT Data''. The display will initially show the log magnitude, but you can also plot the phase, the real or imaginary parts, or the Nyquist plot (real part against imaginary part in the complex plane) via the menu option ''Plot type'' in the left panel.</p>
-<p>After examining the details, you can obtain a transfer function using the ''Calculate TF'' button, with ''window'' and ''averaging method'' both set to ''None''. This will divide the accelerometer spectrum by the force spectrum, to obtain a transfer function which should be independent of the precise forcing used to obtain it.</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The results will appear in the figure, which shows the log magnitude.</p>
+<p>After examining the details, you can obtain a transfer function using the ''Calc TF'' button (<strong>TF</strong> stage), with ''window'' and ''avg'' both set to ''none'' (the settings cell has set them) and ''in'' set to ch_0 (the hammer). This will divide the accelerometer spectrum by the force spectrum, to obtain a transfer function which should be independent of the precise forcing used to obtain it. The display will initially show the log magnitude, but you can also plot the phase, the real or imaginary parts, or the Nyquist plot (real part against imaginary part in the complex plane) via the ''plot type'' menu on the TF card.</p>
 <ul>
-<li><p>Press 'Save Figure' to save the plot: it will save a PNG and PDF of the figure as seen on the screen.</p>
+<li><p>Press 'Save Figure' (header) to save the plot: it will save a PNG and PDF of the figure as seen on the screen. Before the first one, tick both <strong>PNG</strong> and <strong>PDF</strong> on the <strong>Export</strong> stage (only PNG is ticked to start with, and the logger keeps your choice until its page is reloaded). Type a file name in the save dialog and press <strong>Save</strong>.</p>
 </li>
-<li><p>Press 'Save Dataset' to save all the data to disk (it will save the data that has been calculated so far, so press it after you have calculated the FFT and Transfer Functions)</p>
+<li><p>Press 'Save Dataset' (header) to save all the data to disk (it will save the data that has been calculated so far, so press it after you have calculated the FFT and Transfer Functions). Call this one 'single_measurement', so that you can reload it below.</p>
 </li>
 </ul>
 <p><strong>Save your figures at each stage of the lab so that you can insert them directly into your report.</strong></p>
@@ -7800,11 +7796,10 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>The transfer function you have measured will show evidence of noise, making the plot less clear than you might ideally like. One source of this noise can be investigated easily. In the right panel, press ''Clean Impulse''. The signal in Channel 0, the hammer force, will be processed by detecting the time range when there is significant force, and tapering the signal down to zero outside that range. Then press ''Calculate TF'' again. This should result in a cleaner transfer function. Discuss why this works in your report. Use this ''Clean Impulse'' button before calculating transfer functions throughout this experiment.</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The transfer function you have measured will show evidence of noise, making the plot less clear than you might ideally like. One source of this noise can be investigated easily. On the <strong>Time</strong> stage, with ''input channel'' set to ch_0, press ''Clean Impulse''. The signal in Channel 0, the hammer force, will be processed by detecting the time range when there is significant force, and tapering the signal down to zero outside that range. The FFT and transfer function you have already calculated are recalculated from the cleaned data straight away, so go back to the <strong>TF</strong> stage to see the result. This should result in a cleaner transfer function. Discuss why this works in your report. Use this ''Clean Impulse'' button before calculating transfer functions throughout this experiment. (It is a toggle: the button then reads 'Clean Impulse: on', and pressing it again restores the raw recording.)</p>
 <hr/>
-<p>You will need to do some trial and error measurements: use different settings so that you obtain a good clean transfer function estimate over a bandwidth that contains a set of clear distinct modal peaks (in the range 5-20 peaks is suitable). You will need to adjust sampling frequency, hammer tip, charge amp gains, and low pass filters if needed, until you obtain good results. Once you have the settings about right, then the next portion of the experiment will study these modes, to obtain accurate estimates of the frequencies, damping factors and mode shapes. To introduce the method you should work through one case by hand.</p>
+<p>You will need to do some trial and error measurements: use different settings so that you obtain a good clean transfer function estimate over a bandwidth that contains a set of clear distinct modal peaks (in the range 5-20 peaks is suitable). You will need to adjust sampling frequency, hammer tip, charge amp gains, and low pass filters if needed, until you obtain good results. You can change the sample rate and duration in the logger's Setup stage, or edit the settings cell above (the one with pretrig_samples=100) and run it again; use your final settings in the settings cell of 4.3 too. Once you have the settings about right, then the next portion of the experiment will study these modes, to obtain accurate estimates of the frequencies, damping factors and mode shapes. To introduce the method you should work through one case by hand.</p>
 <hr/>
 </div>
 </div>
@@ -7814,8 +7809,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><strong>Make sure you remembered to save both the data and the figure!</strong></p>
 <p>You can check you have saved your data by loading and replotting the results:</p>
 </div>
@@ -7826,10 +7820,10 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_single_measurement</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># type the name you used when you pressed 'Save Dataset'</span>
+<span class="n">data_single_measurement</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="s1">'single_measurement.dvma'</span><span class="p">)</span>
 <span class="n">data_single_measurement</span><span class="o">.</span><span class="n">plot_time_data</span><span class="p">()</span>
 <span class="n">data_single_measurement</span><span class="o">.</span><span class="n">plot_freq_data</span><span class="p">()</span>
 <span class="n">data_single_measurement</span><span class="o">.</span><span class="n">plot_tf_data</span><span class="p">()</span>
@@ -7843,8 +7837,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div class="alert alert-block alert-info">
 <p><b> Understanding the logger: </b><br/></p>
 <p>When you press 'Save Dataset', the logger saves a &lt;DataSet&gt; object which has the following structure:</p>
@@ -7859,10 +7852,12 @@ a.anchor-link {
           meta_data_list: []
           
 </code></pre>
-<p>Each type of data is arranged in 'sets', e.g. each measurement will add another &lt;TimeData&gt; set to time_data_list. This example has three sets of time, frequency and transfer function data types, and a &lt;ModalData&gt; set (which you will use later). Similarly each time you load data it will add the loaded sets to the appropriate data list.<br/><br/></p>
+<p>Each type of data is arranged in 'sets', e.g. each measurement will add another &lt;TimeData&gt; set to time_data_list. This example has three sets of time, frequency and transfer function data types, and a &lt;ModalData&gt; set (which you will use later). Similarly each time you load data it will add the loaded sets to the appropriate data list.</p>
+<ul>
 <li> When you press 'Calc FFT' then a &lt;FreqData&gt; item is calculated for each &lt;TimeData&gt; set.</li>
 <li> When you press 'Calc TF' then a &lt;TfData&gt; item is calculated for each &lt;TimeData&gt; set.</li>
-<li> When you press 'Calc TF average' then a single &lt;TfData&gt; item is calculated averaging across all &lt;TimeData&gt; items, with an assumption that the time data sets all have the same settings.</li>
+<li> When you press 'Calc TF' with avg='across sets' then a single &lt;TfData&gt; item is calculated averaging across all &lt;TimeData&gt; items, with an assumption that the time data sets all have the same settings.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -7872,11 +7867,10 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h3 id="4.2-Determining-modal-frequencies-and-damping">4.2 Determining modal frequencies and damping<a class="anchor-link" href="#4.2-Determining-modal-frequencies-and-damping">¶</a></h3><hr style="height:2px;border:none"/>
-<p>You will need to keep the logger window open. If you have already closed it then <strong>don't worry</strong> you can re-open it, without losing any data, using:</p>
+<p>You will need to keep the logger tab open. If you have already closed it then <strong>don't worry</strong> you can re-open it, without losing any data, using the next cell (accept the offer to restore your session):</p>
 </div>
 </div>
 </div>
@@ -7885,10 +7879,10 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">logger1</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">webbrowser</span>
+<span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7899,19 +7893,18 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><strong>Don't forget to save your data and figures so you can use them for your report.</strong></p>
-<p>Examine the log magnitude plot carefully in the vicinity of the strong resonance at approximately 250 Hz. Estimate its frequency and bandwidth (to the 3 dB points). One way to do this is to:</p>
+<p>Examine the log magnitude plot carefully in the vicinity of a strong resonance. Estimate its frequency and bandwidth (to the 3 dB points). One way to do this is to:</p>
 <ol>
-<li>Zoom into the peak using the box zoom at the bottom of the figure</li>
+<li>Zoom into the peak using Box zoom in the toolbar above the figure</li>
 </ol>
 <ul>
-<li>You can zoom in by left-click-dragging rectangles, or zoom out by right-click-dragging rectangles</li>
-<li>Press ''Auto Y'' in the left panel</li>
-<li>Use the text box to set ymin to 3dB less than ymax</li>
-<li>Iterate xmin / xmax until it fills the figure</li>
-<li>You might want to turn the legend off using the legend controls in the left panel so that it's not in the way.</li>
+<li>you can zoom in by left-click-dragging rectangles, or step back out with <strong>↶</strong>;</li>
+<li>press ''Auto Y'' (toolbar);</li>
+<li>use the exact limits in the toolbar's chevron panel to set ymin to 3dB less than ymax;</li>
+<li>iterate xmin / xmax until it fills the figure;</li>
+<li>you might want to turn the legend off using the legend controls in the toolbar's chevron panel so that it's not in the way.</li>
 </ul>
 <p>From the bandwidth estimate the modal damping factor. To what accuracy do you think you can obtain the damping factor by this method?</p>
 </div>
@@ -7922,10 +7915,9 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Now select a frequency range in the vicinity of this resonant peak, i.e. widen the displayed frequency to include around 20–40 dB from the peak value (making sure just one peak is in view). Using the ''Plot type'' dropdown select ''Nyquist'', and you should see a portion of a circle, as was explained in the lectures.</p>
-<p>Now use the tool selection dropdown (top-right) to choose ''Mode Fitting''. Check that ''TF Type'' is set to ''Acceleration'' and tweak the frequency range if needed using the fmin / fmax settings. Then press ''Fit''. This will attempt to fit a single term of a modal summation to the displayed peak: if successful you should now see a computed circle that matches the data reasonably well, and a message that gives a summary of the fitted modal parameters (natural frequency $f_n$, damping factor $z_n$, the Q-factor $Q_n = 1/(2 z_n)$, modal coefficient $a_n$, and phase $p_n$ - the phase is the angle from the origin to the centre of the circle). If the fit looks like a poor match, then try again using a different frequency range.</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Now select a frequency range in the vicinity of this resonant peak, i.e. widen the displayed frequency to include around 20–40 dB from the peak value (making sure just one peak is in view). Using the ''plot type'' dropdown on the TF card select ''Nyquist'', and you should see a portion of a circle, as was explained in the lectures. (The 'frequency band' strip above the plot shows the frequency range in view.)</p>
+<p>Now go to the <strong>Fit</strong> stage. Check that ''TF type'' is set to ''Acceleration'' and tweak the frequency range if needed using the min / max fields of the 'frequency band' strip above the plot (the fit uses the frequency range in view). Then press ''Fit 1''. This will attempt to fit a single term of a modal summation to the displayed peak: if successful you should now see a computed circle that matches the data reasonably well, and a panel over the plot that gives a summary of the fitted modal parameters (natural frequency $f_n$, damping factor $z_n$, the Q-factor $Q_n = 1/(2 z_n)$, modal coefficient $a_n$, and phase $p_n$ - the phase is the angle from the origin to the centre of the circle; they are labelled fn, ζ, Q, An and φn there). If the fit looks like a poor match, then try again using a different frequency range (a new fit replaces the mode already fitted in that range).</p>
 <p>Compare your estimate above with the modal fit.</p>
 </div>
 </div>
@@ -7935,12 +7927,11 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><strong>CHECK 1: Did you remember to clean the impulse data before calculating the transfer function?</strong></p>
 <p><strong>CHECK 2: Did you remember to save your data <em>after</em> calculating the transfer function?</strong></p>
 <p><strong>CHECK 3: Did you remember to save the figures that you want to keep for the report?</strong></p>
-<p><strong>CHECK 4: Did you remember to check that you are happy with the saved figures? (find the files using wndows explorer and open the pdf's)</strong></p>
+<p><strong>CHECK 4: Did you remember to check that you are happy with the saved figures? (find the files using windows explorer and open the pdf's)</strong></p>
 <p><strong>Remember to save your data as well as all figures</strong></p>
 </div>
 </div>
@@ -7950,14 +7941,13 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h3 id="4.3-Measuring-the-grid-and-finding-the-mode-shapes">4.3 Measuring the grid and finding the mode shapes<a class="anchor-link" href="#4.3-Measuring-the-grid-and-finding-the-mode-shapes">¶</a></h3><hr style="height:2px;border:none"/>
-<p>You are now ready to investigate the mode shapes. For simplicity we will start afresh (and re-do the previous measurement). Make sure you have saved your data, then close your first logger window before starting the new one.</p>
+<p>You are now ready to investigate the mode shapes. For simplicity we will start afresh (and re-do the previous measurement). Make sure you have saved your data, then remove every set from the tray (× on each card, including any 'Modal fit' card) to clear the logger before you start.</p>
 <p>Choose and draw on a grid of points for your measurements. A ruler and sharpie is provided. Aim to span most of the surface of your structure with your grid, and try to choose a suitable resolution so that you can capture a range of mode shapes. If your grid is too fine then it will take a very long time to do all the measurements, if the grid is too coarse then you won't have a clear view of the mode shapes. Somewhere in the range of 20-40 positions is likely to be sufficient.</p>
 <hr/>
-<p><strong>Label your measurement positions from 0 to N, and carry out your measurements in this sequence so that the logger legend labels will match!</strong></p>
+<p><strong>Label your measurement positions from 0 to N, carry out your measurements in this sequence, and rename each set in the tray to its position label as you go, so that the logger legend labels will match!</strong></p>
 <hr/>
 <p>Choose one of the locations for your accelerometer: it doesn't matter exactly which one, but aim for close to where you have done previous measurements so that you are less likely to need to change your settings. Put the accelerometer on one of the grid locations on the opposite face of the structure, so when you reach the driving point then you can tap on the grid point directly.</p>
 <p>Note: as you do all the measurements you may find that the settings need a bit of adjustment (e.g. the gain). If so, then make the necessary adjustments, and start again!</p>
@@ -7969,17 +7959,15 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># acquisition setup</span>
-<span class="n">logger1</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># acquisition setup: use your chosen settings from 4.1</span>
 <span class="n">settings</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">MySettings</span><span class="p">(</span><span class="n">channels</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                            <span class="n">fs</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
                            <span class="n">stored_time</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
                            <span class="n">pretrig_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
                            <span class="n">device_driver</span> <span class="o">=</span> <span class="s1">'nidaq'</span><span class="p">)</span>
-<span class="n">logger2</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">Logger</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">apply_settings</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7990,20 +7978,20 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>For each measurement position in turn, from 0 to N, do the following:</p>
 <ol>
-<li>Press ''Log Data''</li>
+<li>Press ''Log Data'' (Acquire stage)</li>
 <li>Use the hammer to deliver an impulse to the appropriate position: <strong>strike the grid intersections as accurately as possible</strong><ul>
-<li>if you see a warning about clipped data then press ''undo'' and ''Log Data'' again</li>
-<li>if you think you have not done a good measurement (e.g. double tap or too gentle hit), then press ''Delete Last'' and ''Log Data'' again</li>
+<li>if the data is clipped (a flat top on the Time stage) then delete the set (× on its tray card) and press ''Log Data'' again</li>
+<li>if you think you have not done a good measurement (e.g. double tap or too gentle hit), then delete the set (× on its tray card) and press ''Log Data'' again</li>
 <li>the triggering mechanism will time-out after 20 seconds if the threshold is not detected, so don’t wait too long before tapping. Be careful to hold the hammer still during the logging time, i.e. don’t put it down on the bench during this time!</li>
+<li>when you have a good measurement, rename its set in the tray to the position label (double-click the name, type the label, press Enter)</li>
 </ul>
 </li>
-<li>Repeat until you have a single good measurement for each point. Note that the legend labels each measurement as a 'Set', which should correspond to the grid point labels you have measured.</li>
+<li>Repeat until you have a single good measurement for each point. Note that the legend labels each line with its set name, which should correspond to the grid point labels you have measured.</li>
 </ol>
-<p><strong>Press ''Save Dataset'' to store the Time Data you have just logged.</strong></p>
+<p><strong>Press ''Save Dataset'' (header) to store the Time Data you have just logged.</strong></p>
 <p><strong>To reset the figure axes at any stage, press 'Auto X' then 'Auto Y'.</strong></p>
 </div>
 </div>
@@ -8013,12 +8001,11 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>You will have a large collection of data: before continuing, maximise the logger window if you haven't already, then zoom in on the initial impulse. Press ''Show Chan Only'' which will only select the lines from Channel 0 of each set. Make sure that they are all a reasonable amplitude (~0.3 or above), and with no double-hits. If any show a double hit, identify which 'Set' it belongs to, then choose ''Edit Dataset'' from the tool selection dropdown (top-right), enter the set to replace into the text box, then press ''Log &amp; Replace Selected Set''. This will log data as usual, but the data will directly replace the chosen set.</p>
-<p>Once you have a good set of time data, go back to ''Standard Tools'' (top-right dropdown) and press ''Clean Impulse''. This will clean all the impulse data channels. Then press ''Calculate FFT'' and ''Calculate TF''.</p>
-<p>The result will be N sets of transfer-function data, corresponding to the N grid points that you labelled. Look at the transfer function set carefully - do all the channels look good, or do some of them look wrong in one way or another? If so, identify the doubtful sets, and use the ''Edit Dataset'' tool to re-log data for the corresponding positions. Don't forget to ''Clean Impulse'', ''Calculate FFT'' and ''Calculate TF'' afterwards.</p>
-<p>To see individual channels, press 'None' under 'line selection' in the left panel, then use the legend to select a line. You can then use the previous (&lt;) and next (&gt;) arrows to cycle through the selection.</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>You will have a large collection of data: before continuing, maximise the logger window if you haven't already, then zoom in on the initial impulse (Time stage). Click the channel chip '1' at the top of the tray twice (on → faded → hidden), which leaves only the lines from Channel 0 of each set. Make sure that they are all a reasonable amplitude (~0.3 or above), and with no double-hits. If any show a double hit, identify which set it belongs to (the legend names it), delete that set (× on its tray card), then press ''Log Data'' and measure that position again, and rename the new set with the same label. The new set goes at the end of the tray, but its label keeps it matched to its position.</p>
+<p>Once you have a good set of time data, press ''All'' in the tray to show Channel 1 again, then press ''Clean Impulse'' (Time stage, with ''dataset'' set to All sets and ''input channel'' to ch_0). This will clean all the impulse data channels. Then press ''Calc FFT'' (Frequency stage) and ''Calc TF'' (TF stage).</p>
+<p>The result will be N sets of transfer-function data, corresponding to the N grid points that you labelled. Look at the transfer function set carefully - do all the channels look good, or do some of them look wrong in one way or another? If so, identify the doubtful sets, and re-log data for the corresponding positions in the same way (delete, ''Log Data'', rename). Don't forget to ''Clean Impulse'' (it reads 'Clean Impulse: n of m on' until you press it again for the new sets), ''Calc FFT'' and ''Calc TF'' afterwards.</p>
+<p>To see individual sets, press 'None' in the tray, then click a set's name to show it. You can then use the previous (‹) and next (›) arrows in the tray to cycle through the sets.</p>
 <p><strong>Press ''Save Dataset'' to store all the data you have logged and calculated.</strong></p>
 <p>If for any reason you have to restart, you can read these transfer functions back in quickly using the ''Load Data'' option.</p>
 </div>
@@ -8029,9 +8016,9 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Now proceed to the modal analysis proper. Display all channels in ''Amplitude (dB)'' form, and select a frequency range in the vicinity of a resonant frequency, just as you did in the previous stage when you performed a modal fit. Select ''Nyquist'' from the plot type dropdown to reveal a set of portions of circles. Now select ''Mode Fitting'' and press ''Fit'', and the logger will work through all N channels, trying to fit a single frequency and damping factor for the dataset, and amplitude and phases for each position. (The phase is the angle from the origin to the centre of the circle.)</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Now proceed to the modal analysis proper. Display all sets (press ''All'' in the tray) in ''Mag (dB)'' form on the TF stage, and select a frequency range in the vicinity of a resonant frequency, just as you did in the previous stage when you performed a modal fit. Select ''Nyquist'' from the plot type dropdown to reveal a set of portions of circles. Now go to the <strong>Fit</strong> stage, check that ''sets'' is ''All sets (shared poles)'', and press ''Fit 1'', and the logger will fit all N transfer functions together, trying to fit a single frequency and damping factor for the dataset, and amplitude and phases for each position. (The phase is the angle from the origin to the centre of the circle.)</p>
+<p><strong>The first fit uses the lines that are showing, so press ''All'' in the tray before the first ''Fit 1'': the Fit card should read 'all N lines'. Later fits add to the same model over those lines, even when some are hidden (the card then reads 'all N lines (model)').</strong></p>
 </div>
 </div>
 </div>
@@ -8040,9 +8027,8 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>After processing each channel, the logger will list the results in the message area, as well as show the locally reconstructed transfer functions. The reconstructions are placed in a single new set with N channels. In the left panel under ''Line Selection'' press the ''None'' button then use the legend to select specific lines to compare each reconstruction with the corresponding measurement.</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>After the fit, the logger will list the results in the panel over the plot (fn, ζ and Q, then An and φn for each position), as well as show the reconstructed transfer functions as dashed lines (the ''fit lines'' switch on the Fit card shows either just the modes you have fitted, 'local', or the whole model, 'global'). The reconstructions are placed in a 'Modal fit' card in the tray for each set. In the tray press the ''None'' button, then click the name of a set and of its 'Modal fit' card to compare that reconstruction with the corresponding measurement; the › arrow then steps both together through the sets.</p>
 </div>
 </div>
 </div>
@@ -8051,8 +8037,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>You know that a given mode manifests itself in all of your measured transfer functions and moreover that it should in theory always have the same frequency and damping factor, but the amplitude will vary from place to place (make sure you know why). If certain sets show poor fits, then something has gone wrong with the fitting procedure. Look at the data carefully in any such cases. Most often, this problem arises when the relevant peak in the transfer function is very tiny, implying that the corresponding point on the structure is near to a node line of that mode. This is useful to know for sketching mode shapes later on. In other cases, the problem may arise because the optimisation routine used to fit the modal parameters has not converged. Try taking a slightly different frequency range and repeating the calculation. If the problem won't go away then simply ignore any rogue data for the purposes of forming your damping factor estimate.</p>
 </div>
 </div>
@@ -8062,9 +8047,8 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Repeat this exercise for each of the resonances that are well defined / well separated. This is easiest using the ''Amplitude (dB)'' view, where adjusting the frequency range is more straightforward: <strong>you don't need to have ''Nyquist'' view selected for the fit to work</strong>. To replace a previous fit then simply zoom into the mode to replace, a message will appear if you have already fitted this mode, and press ''Fit''. To delete mode fits then select a frequency range containing the modes to delete, a message will appear to summarise the modes fitted within that range, and press ''Reject''.</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Repeat this exercise for each of the resonances that are well defined / well separated. This is easiest using the ''Mag (dB)'' view (the ''view'' dropdown on the Fit card), where adjusting the frequency range is more straightforward: <strong>you don't need to have ''Nyquist'' view selected for the fit to work</strong>. The ''peak ›'' button on the 'frequency band' strip moves the frequency range to the next peak, and triangles on the strip mark the modes you have fitted. To replace a previous fit then simply zoom into the mode to replace and press ''Fit 1'': the new fit replaces the mode already fitted in that range. To delete mode fits then select a frequency range containing the modes to delete and press ''Reject'', or press × beside a mode in the panel over the plot (''↶ Undo'' on the Fit card undoes either).</p>
 <p>Spend a little bit of time getting a good fit for each mode. If you deal with oddities now the quality of your mode shapes will be much improved which will make things easier for you later on.</p>
 <p><strong>Remember to save your data (after fitting all the modes) and figures to the teaching system</strong></p>
 </div>
@@ -8075,10 +8059,9 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Once you have processed each mode the mode shapes can be visualised simply by drawing a sketch of the structure with its grid of points, and writing the modal amplitudes on it. Do this for each mode, and try to deduce the mode shape: sketch in the position of any nodal lines, and describe the motion briefly in words.</p>
-<p>The modal amplitudes are in a 2D numpy array, with each row showing the 12 amplitudes for a given mode. The actual values are awkward to read, so for convenience we can scale them to be in the range [-100,+100], and print the result:</p>
+<p>The modal amplitudes are in a 2D numpy array, with each row showing the N amplitudes for a given mode (one per grid point). The actual values are awkward to read, so for convenience we can scale them to be in the range [-100,+100], and print the result, each labelled with its grid point. Press ''Save Dataset'' after fitting all the modes (e.g. call it 'grid_modes'), then run the next cell:</p>
 </div>
 </div>
 </div>
@@ -8087,17 +8070,22 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">modal_data</span> <span class="o">=</span> <span class="n">logger2</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">modal_data_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># type the name you used when you pressed 'Save Dataset'</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">dvma</span><span class="o">.</span><span class="n">load_data</span><span class="p">(</span><span class="s1">'grid_modes.dvma'</span><span class="p">)</span>
+<span class="n">modal_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">modal_data_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># the grid point label (set name) of each column of amplitudes</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">id_link</span><span class="p">):</span> <span class="n">tf</span><span class="o">.</span><span class="n">test_name</span> <span class="k">for</span> <span class="n">tf</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">tf_data_list</span><span class="p">}</span>
+<span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">link</span><span class="p">),</span> <span class="s1">'?'</span><span class="p">)</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">modal_data</span><span class="o">.</span><span class="n">id_link</span><span class="p">)]</span>
 <span class="k">for</span> <span class="n">n_mode</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">modal_data</span><span class="o">.</span><span class="n">fn</span><span class="p">)):</span>
     <span class="n">fn</span><span class="o">=</span><span class="n">modal_data</span><span class="o">.</span><span class="n">fn</span><span class="p">[</span><span class="n">n_mode</span><span class="p">]</span>
     <span class="n">zn</span><span class="o">=</span><span class="n">modal_data</span><span class="o">.</span><span class="n">zn</span><span class="p">[</span><span class="n">n_mode</span><span class="p">]</span>
     <span class="n">an</span><span class="o">=</span><span class="n">modal_data</span><span class="o">.</span><span class="n">an</span><span class="p">[</span><span class="n">n_mode</span><span class="p">,:]</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">'Mode </span><span class="si">{}</span><span class="s1">: fn=</span><span class="si">{:.3f}</span><span class="s1">, zn=</span><span class="si">{:.5g}</span><span class="s1">, Qn=</span><span class="si">{:.1f}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_mode</span><span class="p">,</span><span class="n">fn</span><span class="p">,</span><span class="n">zn</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">zn</span><span class="p">))</span>
     <span class="n">scaled_amplitudes</span> <span class="o">=</span> <span class="n">an</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">an</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">'scaled amplitudes=</span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array2string</span><span class="p">(</span><span class="n">scaled_amplitudes</span><span class="p">,</span><span class="n">precision</span><span class="o">=</span><span class="mi">0</span><span class="p">)))</span>
+    <span class="n">labelled</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'</span><span class="si">{}</span><span class="s1">: </span><span class="si">{:.0f}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">scaled_amplitudes</span><span class="p">)]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'scaled amplitudes: '</span> <span class="o">+</span> <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">labelled</span><span class="p">))</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">'_____'</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -8109,8 +8097,7 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p><strong>Make a note of these values, or save this notebook, or copy-paste the text in an email to yourself!</strong></p>
 </div>
 </div>
@@ -8120,12 +8107,11 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h3 id="4.4-Reconstructing-Transfer-Functions">4.4 Reconstructing Transfer Functions<a class="anchor-link" href="#4.4-Reconstructing-Transfer-Functions">¶</a></h3><hr style="height:2px;border:none"/>
 <p>One standard way to check the accuracy of the modal parameters determined by the procedure you have just followed is to reconstruct some of the transfer functions using the theoretical expression together with the parameter values you have found. If the transfer functions match, the analysis is confirmed, while any mismatch will give clues as to what is missing in the analysis.</p>
-<p>Press the ''Reconstruction'' button in the ''Mode Fitting'' tool. This will use the data from your previous mode fits in the modal summation formula to reconstruct all 12 transfer functions. Recall that the reconstructions are placed in a single new set with 12 channels. In the left panel under ''Line Selection'', press  the ''None'' button and use the legend to select specific lines to compare a reconstruction with its corresponding measurement. Once you have selected a pair for comparison, you can then use the arrow selection buttons to increment the comparison.</p>
+<p>On the <strong>Fit</strong> stage, set ''fit lines'' to ''global'' (the default). This will use the data from your previous mode fits in the modal summation formula to reconstruct all N transfer functions. Recall that the reconstructions are placed in a 'Modal fit global' card in the tray for each set. In the tray, press the ''None'' button, then click the name of a set and of its 'Modal fit global' card to compare a reconstruction with its corresponding measurement. Once you have selected a pair for comparison, you can then use the › arrow in the tray to increment the comparison.</p>
 </div>
 </div>
 </div>
@@ -8134,13 +8120,12 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>Once the reconstruction is complete, you should compare it directly with the measurement. How well do they fit? Comment in your write-up. Does the driving point measurement agree with expectations (antiresonance patterns)?</p>
 <p><strong>Remember to save your data (after doing the reconstruction) and figures to the teaching system</strong></p>
 <p><strong>CHECK 1: Have you remembered to save the figures you need for your report?</strong></p>
 <p><strong>CHECK 2: Have you saved your dataset after carrying out all the processing?</strong></p>
-<p><strong>CHECK 3: Have you remembered to save the figures you need for your report?</strong></p>
+<p><strong>CHECK 3: Have you checked that you are happy with the saved figures? (find the files using windows explorer and open the pdf's)</strong></p>
 </div>
 </div>
 </div>
@@ -8149,12 +8134,11 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <hr style="height:2px;border:none"/>
 <h3 id="4.5-Alternative-damping-estimates">4.5 Alternative damping estimates<a class="anchor-link" href="#4.5-Alternative-damping-estimates">¶</a></h3><hr style="height:2px;border:none"/>
 <p>Choose a single transfer function measurement set from your grid. For the modes identified above, use the 3dB bandwidth method to obtain an alternative estimate of the modal Q-factors for one of the transfer function sets. How well do they agree?</p>
-<p>For the chosen set, use the sonogram tool to obtain a sonogram-decay estimate for the modal damping. How well do these values agree? How linear do the damping decay curves appear for each mode? What are the dominant sources of damping for your structure?</p>
+<p>For the chosen set, use the <strong>Sonogram</strong> stage to obtain a sonogram-decay estimate for the modal damping: choose the set in its ''dataset'' list and ch_1 (the accelerometer), press ''Calc Sonogram'', then press ''Fit damping''. The damping panel fits a decay line to each peak and gives its Qn. You can drag the threshold line to choose which peaks are fitted, and set the ''start (s)'' time of the fit. How well do these values agree? How linear do the damping decay curves appear for each mode? What are the dominant sources of damping for your structure?</p>
 </div>
 </div>
 </div>
@@ -8163,9 +8147,8 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Note that you can re-open any of the logger instances you have previously started, and it will re-open where you left off including with any data so far stored. For example, to restart logger2 use:</p>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>Note that you can re-open the logger tab if you have closed it, and it will re-open where you left off (accept the offer to restore your session), including with any data so far stored:</p>
 </div>
 </div>
 </div>
@@ -8174,10 +8157,10 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">logger2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">webbrowser</span>
+<span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8188,13 +8171,10 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="AT-THE-END-OF-THE-EXPERIMENT">AT THE END OF THE EXPERIMENT<a class="anchor-link" href="#AT-THE-END-OF-THE-EXPERIMENT">¶</a></h2><ul>
-<li><strong>check you have saved your data and figures to the local folder on the desktop</strong></li>
-<li>RENAME YOUR 'lab_4C6' folder to 'lab_4C6_CRSID' with your CRSID</li>
-<li>share your data with yourself and lab-group partners (e.g. using <a href="https://send.firefox.com/">Firefox Send</a> or <a href="https://wetransfer.com/">wetransfer</a>)</li>
-<li>YOUR DATA WILL BE DELETED AT THE END OF TERM, BUT THERE IS NO GUARANTEE THAT IT WON'T BE DELETED ACCIDENTALLY BEFORE THEN</li>
+<li><strong>check you have saved your data and figures to the 'lab_4C6' folder in your network home folder</strong></li>
+<li>share your data with yourself and lab-group partners (e.g. using <a href="https://wetransfer.com/">wetransfer</a>)</li>
 <li>sign-out of the pc</li>
 </ul>
 </div>
@@ -8205,17 +8185,13 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div class="alert alert-block alert-danger">
 <p><b> NOTE: </b><br/></p>
 <ul>
-<li><p><strong>Please note that the state of the loggers is not saved along with the notebook itself, so when you close the notebook then you can no longer use logger.show().</strong></p>
-</li>
-<li><p><strong>Therefore, please remember to save data and figures as needed for the report before leaving the lab</strong></p>
-</li>
-<li><p><strong>The pydvma logger is opensource, so you can install it on your own device (windows/mac/linux), however it is still in development so may not work.</strong></p>
-</li>
+<li> <b>The logger runs inside this notebook: when you close the notebook (or restart its kernel), the logger stops.</b></li>
+<li> <b>Therefore, please remember to save data and figures as needed for the report before leaving the lab</b></li>
+<li> <b>The pydvma logger is opensource, so you can install it on your own device (windows/mac/linux) using the instructions below. To look at your .dvma files at home with nothing installed, open them in the browser version at <a href="https://torebutlin.github.io/pydvma/app/" target="_blank">torebutlin.github.io/pydvma/app/</a>. Contact tb267 if you have any problems.</b></li>
 </ul>
 </div>
 </div>
@@ -8226,16 +8202,14 @@ a.anchor-link {
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Installation-instructions">Installation instructions<a class="anchor-link" href="#Installation-instructions">¶</a></h3><ol>
 <li>Install anaconda by downloading from <a href="https://www.anaconda.com/distribution/">https://www.anaconda.com/distribution/</a></li>
 </ol>
 <ul>
 <li><p>Open Anaconda prompt and type:</p>
 <blockquote>
-<p>conda install numpy scipy jupyter matplotlib pyqtgraph ipympl ipywidgets jupyterlab<br/>
-pip install sounddevice pydvma</p>
+<p>pip install "pydvma[full]" notebook ipywidgets ipympl</p>
 </blockquote>
 </li>
 <li><p>If you get an error about not having the correct permissions, then try opening Anaconda prompt by right-clicking and choosing 'run as administrator'</p>
@@ -8243,20 +8217,6 @@ pip install sounddevice pydvma</p>
 <li><p>then open Jupyter notebooks from the windows start menu, and this notebook should work.</p>
 </li>
 </ul>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
 </div>
 </div>
 </div>
