@@ -5,7 +5,7 @@ title Start 4C6 notebook
 rem ======================================================================
 rem  4C6 lab launcher
 rem   1. downloads the lab notebook (and any helper .py) from GitHub
-rem      into the student's network home folder (an existing notebook
+rem      into the folder 'lab_4C6' on the desktop (an existing notebook
 rem      is only replaced if the student agrees; the helper always is)
 rem   2. starts Jupyter Notebook in that folder
 rem
@@ -22,7 +22,12 @@ rem always brought up to date (a copy that differed is kept as .old).
 set "FILES=4C6_Notebook.ipynb"
 rem 4C6 has no helper yet: list any here, separated by spaces.
 set "HELPERS="
-set "TARGET_DIR=\\ifs\users\%USERNAME%\lab_4C6"
+rem The desktop may be redirected (e.g. to OneDrive), so ask Windows where it is
+set "DESKTOP_DIR="
+for /f "usebackq delims=" %%D in (`powershell -NoProfile -Command "[Environment]::GetFolderPath('Desktop')" 2^>nul`) do set "DESKTOP_DIR=%%D"
+if not defined DESKTOP_DIR set "DESKTOP_DIR=%USERPROFILE%\Desktop"
+if not exist "%DESKTOP_DIR%\" set "DESKTOP_DIR=%USERPROFILE%\Desktop"
+set "TARGET_DIR=%DESKTOP_DIR%\lab_4C6"
 set "CONDA_ROOT=C:\ProgramData\anaconda3"
 set "CONDA_ENV=pydvma"
 
@@ -63,7 +68,6 @@ rem ---- target folder ----
 if not exist "%TARGET_DIR%\" mkdir "%TARGET_DIR%" 2>nul
 if not exist "%TARGET_DIR%\" (
     echo ERROR: could not create or access "%TARGET_DIR%".
-    echo Is your network home drive available?
     goto :fail
 )
 

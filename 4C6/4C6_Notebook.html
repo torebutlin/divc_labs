@@ -7547,7 +7547,7 @@ body { max-width: 940px; margin: 0 auto; }
 <h1><center> Engineering Tripos Part IIB Module Experiment: 4C6 </center></h1>
 <h1><center> Experimental Modal Analysis, South Wing Mechanics Laboratory </center></h1>
 <hr style="height:2px;border:none"/>
-<p><strong>The logged data will be saved to the folder 'lab_4C6' in the network home folder of whoever logs in to the PC. At the end of the session you must share your data with your lab partner.</strong></p>
+<p><strong>The logged data will be saved to a local folder on the desktop. At the end of the session you must transfer your data to you and your lab partner. If you do not do this your data may be deleted by the next students attending the lab.</strong></p>
 <h2 id="1.-Objectives">1. Objectives<a class="anchor-link" href="#1.-Objectives">¶</a></h2><ul>
 <li>To explore the technique of experimental modal analysis on a structure of your choice;</li>
 <li>Obtain high quality transfer function estimates across a grid of test sites on a structure;</li>
@@ -7613,7 +7613,8 @@ body { max-width: 940px; margin: 0 auto; }
 <hr/>
 <p>To use the wax (in a tiny pot): if there is none on the accelerometer already, then scrape out a tiny quantity, warm it by rubbing in your fingers, then squash three dots onto the contact-circle area of the accelerometer. Then firmly squash the accelerometer on to the chosen location. The wax cools and hardens making a good but temporary contact. Repeat later in the experiment when you choose your 'fixed' location for the grid measurements.</p>
 <hr/>
-<p>Double-click on the 'Start_4C6.bat' file on the desktop. This copies this notebook to the folder 'lab_4C6' in your network home folder, then it opens Jupyter Notebooks starting in this folder. If you already have a copy of the notebook there that differs from the latest version, you will be asked whether to overwrite it: answer 'n' to keep your copy (your saved data files are never touched). If you need to (e.g. if you accidentally deleted part of this notebook), then you can get a fresh copy by running 'Start_4C6.bat' again and answering 'y'.</p>
+<p>Next check that there is no 'lab_4C6' folder on the desktop (but keep any folders with custom names like 'lab_4C6_CRSID'). If there is a 'lab_4C6' folder with data inside, then the previous students may have forgotten to transfer their data. Please rename the folder to 'lab_4C6_yyyymmdd' then continue.</p>
+<p>Double-click on the 'Start_4C6.bat' file on the desktop. This copies this notebook to the folder 'lab_4C6' on the desktop, then it opens Jupyter Notebooks starting in this folder. If there is already a copy of the notebook there that differs from the latest version, you will be asked whether to overwrite it - if so then answer 'n', close the window and check the note above, renaming the folder if it contains previous student data. If you need to (e.g. if you accidentally deleted part of this notebook), then you can get a fresh copy by running 'Start_4C6.bat' again and answering 'y' (your saved data files are never touched).</p>
 <p>Click '4C6_Notebook.ipynb' to open.</p>
 <p>The next cells import the necessary modules: pydvma is a python package written for data acquisition at CUED.</p>
 <p>Remember:</p>
@@ -8173,9 +8174,10 @@ body { max-width: 940px; margin: 0 auto; }
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="AT-THE-END-OF-THE-EXPERIMENT">AT THE END OF THE EXPERIMENT<a class="anchor-link" href="#AT-THE-END-OF-THE-EXPERIMENT">¶</a></h2><ul>
-<li><strong>check you have saved your data and figures to the 'lab_4C6' folder in your network home folder</strong></li>
-<li>if there is no shortcut to your network folder, you can find your files by opening File Explorer and typing <code>\\ifs\users\CRSID\lab_4C6</code> (with your own CRSID) in its address bar</li>
+<li><strong>check you have saved your data and figures to the 'lab_4C6' folder on the desktop</strong></li>
+<li>RENAME YOUR 'lab_4C6' folder to 'lab_4C6_CRSID' with your CRSID (save this notebook and close the black Jupyter window first, otherwise Windows may say the folder is in use)</li>
 <li>share your data with yourself and lab-group partners (e.g. using <a href="https://wetransfer.com/">wetransfer</a>)</li>
+<li>YOUR DATA WILL BE DELETED AT THE END OF TERM, BUT THERE IS NO GUARANTEE THAT IT WON'T BE DELETED ACCIDENTALLY BEFORE THEN</li>
 <li>sign-out of the pc</li>
 </ul>
 </div>
