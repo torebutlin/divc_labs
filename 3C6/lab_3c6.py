@@ -232,12 +232,17 @@ class measure_stepped_sine():
             return
         try:
             time_data = dvma.stream_snapshot(self.rec)
+            # Where the DAQ can't sample at exactly fs, pydvma adopts the
+            # rate it really uses (the 'coerced' note under the cell), and
+            # the stream's time axis can then be a sample longer than its
+            # data, which calculate_fft can't use: rebuild it from the data.
+            time_data.time_axis = np.arange(len(time_data.time_data)) / time_data.settings.fs
+            freq_data = dvma.calculate_fft(time_data,window='hann')
         except Exception as e:
             self.out.clear_output(wait=False)
             with self.out:
                 print('Measurement failed: {}'.format(e))
             return
-        freq_data = dvma.calculate_fft(time_data,window='hann')
         # ignore DC part of data - first 5 samples
         freq_data.freq_data[0:5,0] = 0*freq_data.freq_data[0:5,0]
         index = np.argmax(np.abs(freq_data.freq_data[:,0]))
